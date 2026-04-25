@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Analytics &amp; Decision Support — Solution Demo · Lean Core &amp; Edge</title>
+<link rel="stylesheet" href="showcase-styles.css" />
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="lean-core-edge-showcase.html" class="brand">
+      <div class="brand-mark">L|E</div>
+      <span>Lean Core &amp; Edge</span>
+    </a>
+    <div class="nav-links">
+      <a href="lean-core-edge-showcase.html" class="nav-back">← Back to showcase</a>
+      <a href="demo-commerce.html">Commerce Platform</a>
+      <a href="demo-inventory.html">Surgical Inventory</a>
+      <a href="lean-core-edge-showcase.html#ams" class="nav-cta">AI in AMS</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="demo-hero">
+  <div class="demo-hero-inner">
+    <div>
+      <span class="stack-tag"><span class="dot"></span>API-first analytics · GenAI · Embedded across Commerce &amp; Inventory</span>
+      <h1>Analytics &amp; <span class="grad">Decision Support</span></h1>
+      <p class="tagline">AI-enabled clinical and commercial insights — from surgery volume trends to conversational practice analytics. Curated KPIs, not raw BI: domain-specific context that generic tools simply don't have.</p>
+      <div class="hero-actions">
+        <a href="#capabilities" class="btn btn-primary">Explore capabilities ↓</a>
+        <a href="#cap-6" class="btn btn-ghost">Try the AI assistant</a>
+      </div>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat"><div class="num">12,986</div><div class="label">Total surgeries · ▲ +16% YoY</div></div>
+      <div class="hero-stat"><div class="num">37.2%</div><div class="label">Premium tech adoption · ▲ +6.2pp YoY</div></div>
+      <div class="hero-stat"><div class="num">$4.2M</div><div class="label">Estimated revenue · ▲ +18% YoY</div></div>
+      <div class="hero-stat"><div class="num">72nd</div><div class="label">National benchmark percentile</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DASHBOARD -->
+<section style="padding-top: 0; padding-bottom: 60px;">
+  <div class="container">
+    <div class="live-dashboard">
+      <div class="live-dashboard-head">
+        <div class="lh-title">
+          <div class="lh-mark">A</div>
+          <div>
+            <div class="lh-name">Analytics &amp; Decision Support Dashboard</div>
+            <div class="lh-sub">Live insights view · Last refresh: just now</div>
+          </div>
+        </div>
+        <span class="lh-tag">Partner Preview · FY2025</span>
+      </div>
+      <div class="live-dashboard-body">
+
+        <div class="mock-page-head">
+          <div>
+            <div class="mock-page-title">Analytics &amp; Decision Support — Practice View</div>
+            <div class="mock-page-sub">AI-enabled clinical and commercial insights — surgery volume trends, premium-tech adoption, revenue and benchmarks</div>
+          </div>
+          <div class="mock-filters">
+            <div class="mock-filter"><span class="lbl">Time Period</span><span class="val">Last 12 Months</span></div>
+            <div class="mock-filter"><span class="lbl">Region</span><span class="val">All Regions</span></div>
+            <div class="mock-filter"><span class="lbl">Practice Group</span><span class="val">Northgate</span></div>
+          </div>
+        </div>
+
+        <div class="mock-kpi-row">
+          <div class="mock-kpi"><span class="icon">🏥</span><div class="val">12,986</div><div class="lbl">Total Surgeries</div><div class="delta">▲ +16% YoY</div></div>
+          <div class="mock-kpi"><span class="icon">⭐</span><div class="val">37.2%</div><div class="lbl">Premium Tech Adoption</div><div class="delta">▲ +6.2pp YoY</div></div>
+          <div class="mock-kpi"><span class="icon">💰</span><div class="val">$4.2M</div><div class="lbl">Est. Revenue</div><div class="delta">▲ +18% YoY</div></div>
+          <div class="mock-kpi"><span class="icon">📊</span><div class="val">72nd</div><div class="lbl">Benchmark Pct.</div><div class="delta">▲ vs. peer group</div></div>
+        </div>
+
+        <div class="mock-grid-2">
+          <div class="mock-chart-card">
+            <div class="mock-chart-title">Surgery Volume vs. Benchmark</div>
+            <div class="mock-chart-sub">Monthly procedure count — your practice vs. peer group median</div>
+            <div class="chart-bars" style="height: 110px;">
+              <div class="bar" style="height: 70%;"></div>
+              <div class="bar peer" style="height: 60%;"></div>
+              <div class="bar" style="height: 75%;"></div>
+              <div class="bar peer" style="height: 65%;"></div>
+              <div class="bar" style="height: 78%;"></div>
+              <div class="bar peer" style="height: 68%;"></div>
+              <div class="bar" style="height: 82%;"></div>
+              <div class="bar peer" style="height: 70%;"></div>
+              <div class="bar" style="height: 88%;"></div>
+              <div class="bar peer" style="height: 72%;"></div>
+              <div class="bar" style="height: 92%;"></div>
+              <div class="bar peer" style="height: 76%;"></div>
+            </div>
+            <div style="display: flex; gap: 14px; margin-top: 10px; font-size: 0.74rem; color: var(--text-muted);">
+              <span><span style="display:inline-block; width:10px; height:10px; background: var(--accent); border-radius: 2px; vertical-align: middle;"></span> Your practice</span>
+              <span><span style="display:inline-block; width:10px; height:10px; background: #94a3b8; border-radius: 2px; vertical-align: middle;"></span> Peer median</span>
+            </div>
+          </div>
+          <div class="mock-chart-card">
+            <div class="mock-chart-title">IOL Technology Mix</div>
+            <div class="mock-chart-sub">Share of surgeries by lens technology · 12,986 cases</div>
+            <div class="mock-donut-row">
+              <div class="mock-donut" style="width: 130px; height: 130px; background: conic-gradient(var(--primary) 0% 52%, var(--accent) 52% 83%, var(--accent-2) 83% 100%);"></div>
+              <div class="mock-donut-legend">
+                <div><span class="swatch" style="background: var(--primary);"></span><strong style="color: var(--text);">Standard IOL — 52%</strong></div>
+                <div><span class="swatch" style="background: var(--accent);"></span>Premium IOL — 31%</div>
+                <div><span class="swatch" style="background: var(--accent-2);"></span>Advanced Tech IOL — 17%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mock-chart-card" style="margin-top: 12px;">
+          <div class="mock-chart-title">Benchmark Percentile</div>
+          <div class="mock-chart-sub">Your practice vs. national, regional and peer-group baselines · updated quarterly</div>
+          <div class="bench-bar">
+            <div class="fill" style="width: 72%;"></div>
+            <div class="marker" style="left: 50%;"><span class="ml">Nat'l 50th</span></div>
+            <div class="marker" style="left: 65%;"><span class="ml">Regional 65th</span></div>
+            <div class="marker" style="left: 75%;"><span class="ml">Top quartile 75th</span></div>
+            <div class="marker" style="left: 90%;"><span class="ml">Top decile 90th</span></div>
+            <div class="marker" style="left: 72%; background: var(--ai); opacity: 1; height: 30px; top: -8px; width: 3px;"><span class="ml" style="color: var(--ai); font-weight: 700; top: -22px;">YOU · 72nd</span></div>
+          </div>
+          <div class="bench-axis">
+            <span>0</span><span>25th</span><span>50th</span><span>75th</span><span>100</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDEX STRIP -->
+<div class="index-strip">
+  <div class="index-strip-inner">
+    <span class="index-strip-label">Capabilities · jump to</span>
+    <a href="#cap-1">🔬 Surgery</a>
+    <a href="#cap-2">⭐ Premium Tech</a>
+    <a href="#cap-3">💼 Commercial</a>
+    <a href="#cap-4">💰 Revenue</a>
+    <a href="#cap-5">📊 Benchmarking</a>
+    <a href="#cap-6">🤖 Conversational AI</a>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="cap-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Analytics Capabilities</span>
+      <h2>From dashboards to AI-enabled decisions.</h2>
+      <p>Six capabilities — five curated dashboards plus an embedded conversational AI — designed for administrators and practice leaders to move from <em>data</em> to <em>decisions</em>, faster than generic BI tools allow.</p>
+    </div>
+
+    <!-- ===== Cap 1: Surgery Insights ===== -->
+    <div class="cap-row" id="cap-1">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-blue">🔬 Surgery Insights</span>
+        <h3>Volume, growth &amp; mix — benchmarked.</h3>
+        <p class="cap-desc-lead">Track procedure volume over time and compare growth rate, volume and mix against industry benchmarks. Evaluate lens type and manufacturer preferences across associated practices.</p>
+        <ul class="cap-bullets">
+          <li><strong>Procedure volume tracking</strong> over rolling time windows (30d, 90d, 12mo)</li>
+          <li><strong>Growth-rate, volume-mix, share-of-surgeries</strong> comparisons against industry benchmarks</li>
+          <li><strong>Lens type &amp; manufacturer preferences</strong> across all associated practices in a group</li>
+          <li>Drill-downs by surgeon, OR, region, procedure type</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Practice leaders see whether they're growing faster or slower than peers — and where the variance is concentrated.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">analytics.medtech-digital.example/surgery</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">A</div>
+              <div class="mock-nav"><span class="active">Surgery</span><span>Premium Tech</span><span>Commercial</span><span>Revenue</span><span>Benchmarking</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Surgery Insights — Northgate Practice Group</div>
+            <div class="mock-sub">12 clinics · 4 markets · Last 12 Months · vs. peer median</div>
+
+            <div class="mock-kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+              <div class="mock-kpi"><div class="val">12,986</div><div class="lbl">Surgeries</div><div class="delta">▲ +16% YoY</div></div>
+              <div class="mock-kpi"><div class="val">+11%</div><div class="lbl">Growth rate</div><div class="delta">▲ vs. 8% peer median</div></div>
+              <div class="mock-kpi"><div class="val">3.2k</div><div class="lbl">Avg / month</div><div class="delta">▲ +14% YoY</div></div>
+            </div>
+
+            <div class="mock-chart-card">
+              <div class="mock-chart-title">Surgery growth — 12 months rolling</div>
+              <div class="chart-bars" style="height: 70px;">
+                <div class="bar" style="height: 55%;"></div>
+                <div class="bar" style="height: 58%;"></div>
+                <div class="bar" style="height: 62%;"></div>
+                <div class="bar" style="height: 65%;"></div>
+                <div class="bar" style="height: 68%;"></div>
+                <div class="bar" style="height: 72%;"></div>
+                <div class="bar" style="height: 76%;"></div>
+                <div class="bar" style="height: 80%;"></div>
+                <div class="bar" style="height: 84%;"></div>
+                <div class="bar" style="height: 88%;"></div>
+                <div class="bar" style="height: 92%;"></div>
+                <div class="bar" style="height: 96%;"></div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Lens manufacturer share — across associated practices</div>
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">Manufacturer A — Premium &amp; Standard IOLs</div><div class="sku">68% of surgeries · ▲ +4 pts YoY</div></div><span class="mock-tag tag-ok">Lead</span></div>
+              <div class="mock-row"><div><div class="name">Manufacturer B — Toric specialty</div><div class="sku">22% of surgeries · ▼ -2 pts YoY</div></div><span class="mock-tag tag-warn">Watching</span></div>
+              <div class="mock-row"><div><div class="name">Manufacturer C — Niche refractive</div><div class="sku">10% of surgeries · stable</div></div><span class="mock-tag tag-info">Stable</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 2: Premium Technology Insights ===== -->
+    <div class="cap-row flip" id="cap-2">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">analytics.medtech-digital.example/premium-tech</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">A</div>
+              <div class="mock-nav"><span>Surgery</span><span class="active">Premium Tech</span><span>Commercial</span><span>Revenue</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Premium Technology Insights</div>
+            <div class="mock-sub">Adoption by surgeon, practice and region · benchmarked against peers</div>
+
+            <div class="mock-kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+              <div class="mock-kpi"><div class="val">37.2%</div><div class="lbl">Premium share</div><div class="delta">▲ +6.2pp YoY</div></div>
+              <div class="mock-kpi"><div class="val">14</div><div class="lbl">Surgeons using</div><div class="delta">▲ +3 vs. last year</div></div>
+              <div class="mock-kpi"><div class="val">+8 pts</div><div class="lbl">vs. peer median</div><div class="delta">▲ Above peers</div></div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Adoption by surgeon · top &amp; bottom</div>
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">Dr. M. Reyes</div><div class="sku">68% premium share · ▲ +12pp YoY</div></div><span class="mock-tag tag-ok">Top performer</span></div>
+              <div class="mock-row"><div><div class="name">Dr. S. Patel</div><div class="sku">52% premium share · ▲ +8pp YoY</div></div><span class="mock-tag tag-ok">Above target</span></div>
+              <div class="mock-row"><div><div class="name">Dr. K. Sato</div><div class="sku">38% premium share · ▲ +4pp YoY</div></div><span class="mock-tag tag-info">On track</span></div>
+              <div class="mock-row"><div><div class="name">Dr. J. Chen</div><div class="sku">22% premium share · ▼ -2pp YoY</div></div><span class="mock-tag tag-warn">Coaching opp.</span></div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">By region</div>
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">Northeast</div><div class="sku">42% premium share</div></div><span class="mock-tag tag-ok">▲ Above peer</span></div>
+              <div class="mock-row"><div><div class="name">South</div><div class="sku">36% premium share</div></div><span class="mock-tag tag-info">≈ Peer</span></div>
+              <div class="mock-row"><div><div class="name">West</div><div class="sku">31% premium share</div></div><span class="mock-tag tag-warn">▼ Below peer</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-amber">⭐ Premium Tech Adoption</span>
+        <h3>Adoption depth by surgeon, practice &amp; region.</h3>
+        <p class="cap-desc-lead">Measure share of surgeries using premium lenses and procedure technologies. Drill into adoption rates by surgeon, practice and region — all benchmarked against peers.</p>
+        <ul class="cap-bullets">
+          <li><strong>Premium share</strong> tracked across practices and surgeons</li>
+          <li><strong>Per-surgeon coaching opportunities</strong> surfaced from adoption data</li>
+          <li><strong>Regional variation</strong> visible at a glance — informs market strategy</li>
+          <li><strong>Procedure-technology adoption</strong> tracked alongside lens adoption</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Practice leaders identify coaching opportunities and adoption gaps that pure-revenue dashboards miss entirely.</span>
+      </div>
+    </div>
+
+    <!-- ===== Cap 3: Commercial Insights ===== -->
+    <div class="cap-row" id="cap-3">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-success">💼 Commercial Program Tracking</span>
+        <h3>Ordering behavior tied to commercial programs.</h3>
+        <p class="cap-desc-lead">Connect ordering behavior to commercial program progress. Understand top-selling brands and models and track progress against commercial agreements in a single view.</p>
+        <ul class="cap-bullets">
+          <li><strong>Top-selling brands &amp; models</strong> across practices</li>
+          <li><strong>Commercial agreement progress</strong> tracking — % to target, days remaining</li>
+          <li><strong>Tier-bonus visibility</strong> so practices can plan toward thresholds</li>
+          <li><strong>Linked to commerce data</strong> — same numbers across commerce, inventory and analytics</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Closes the loop between ordering and commercial program performance — practices proactively plan to hit tier thresholds rather than discover misses after the fact.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">analytics.medtech-digital.example/commercial</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">A</div>
+              <div class="mock-nav"><span>Surgery</span><span>Premium Tech</span><span class="active">Commercial</span><span>Revenue</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Commercial Program Progress</div>
+            <div class="mock-sub">3 active agreements · 1 tier-bonus on track · 1 watching</div>
+
+            <div style="background: linear-gradient(135deg, #f0fdf4, #ecfdf5); border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 14px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div>
+                  <div style="font-weight: 700; color: var(--success);">Premium IOL Volume Tier · Q2</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Threshold: 1,500 units · Bonus tier kicks in</div>
+                </div>
+                <span class="mock-tag tag-ok">On track</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.6); height: 10px; border-radius: 6px; position: relative;">
+                <div style="background: var(--success); height: 100%; width: 78%; border-radius: 6px;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--text-muted); margin-top: 6px;">
+                <span>1,170 / 1,500 units (78%)</span>
+                <span>52 days remaining</span>
+              </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fffbeb, #fffdf5); border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 14px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <div>
+                  <div style="font-weight: 700; color: var(--warn);">Toric Specialty Tier · Q2</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted);">Threshold: 600 units · ▼ Falling behind pace</div>
+                </div>
+                <span class="mock-tag tag-warn">Watching</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.6); height: 10px; border-radius: 6px;">
+                <div style="background: var(--warn); height: 100%; width: 42%; border-radius: 6px;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--text-muted); margin-top: 6px;">
+                <span>252 / 600 units (42%)</span>
+                <span>Need ~16/wk · running ~12/wk</span>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Top-selling models this quarter</div>
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">AcrySoft IQ Toric SN6AT5 — 2.5D</div><div class="sku">412 units · ▲ +18% QoQ</div></div><span class="mock-tag tag-ok">#1</span></div>
+              <div class="mock-row"><div><div class="name">AcrySoft IQ Toric SN6AT6 — 3.0D</div><div class="sku">328 units · ▲ +12% QoQ</div></div><span class="mock-tag tag-ok">#2</span></div>
+              <div class="mock-row"><div><div class="name">AcrySoft IQ Aspheric — Standard</div><div class="sku">287 units · stable</div></div><span class="mock-tag tag-info">#3</span></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 4: Revenue Insights ===== -->
+    <div class="cap-row flip" id="cap-4">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">analytics.medtech-digital.example/revenue</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">A</div>
+              <div class="mock-nav"><span>Surgery</span><span>Premium Tech</span><span>Commercial</span><span class="active">Revenue</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Estimated Revenue by Procedure Type</div>
+            <div class="mock-sub">Surgery volume × fee definitions managed in the platform · Last 12 Months</div>
+
+            <div class="mock-kpi-row" style="grid-template-columns: repeat(3, 1fr);">
+              <div class="mock-kpi"><div class="val">$4.2M</div><div class="lbl">YTD revenue</div><div class="delta">▲ +18% YoY</div></div>
+              <div class="mock-kpi"><div class="val">$2.8k</div><div class="lbl">Avg / case</div><div class="delta down">vs. $3.1k peer</div></div>
+              <div class="mock-kpi"><div class="val">62%</div><div class="lbl">From cataract</div><div class="delta">▲ stable</div></div>
+            </div>
+
+            <div class="mock-chart-card">
+              <div class="mock-chart-title">Revenue split — by procedure</div>
+              <div style="display: flex; gap: 8px; align-items: stretch; margin-top: 10px;">
+                <div style="flex: 5.2; background: var(--primary); height: 36px; border-radius: 6px; color: #fff; padding: 8px 12px; font-size: 0.78rem; font-weight: 600;">Cataract — Standard · 52%</div>
+                <div style="flex: 2.2; background: var(--accent); height: 36px; border-radius: 6px; color: #fff; padding: 8px 12px; font-size: 0.78rem; font-weight: 600;">Cataract — Premium · 22%</div>
+                <div style="flex: 1.4; background: var(--accent-2); height: 36px; border-radius: 6px; color: #fff; padding: 8px 12px; font-size: 0.78rem; font-weight: 600;">Refractive · 14%</div>
+                <div style="flex: 1.2; background: var(--ai); height: 36px; border-radius: 6px; color: #fff; padding: 8px 12px; font-size: 0.78rem; font-weight: 600;">Other · 12%</div>
+              </div>
+            </div>
+
+            <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; margin-top: 12px;">
+              <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 6px;">⚙️ Fee definitions</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">Configurable inside the platform — administrators manage rates by procedure type, region and tier without IT involvement.</div>
+              <div class="mock-card" style="margin: 0; background: #fff;">
+                <div class="mock-row"><div><div class="name">Cataract — Standard</div><div class="sku">Default $1,800 · region overrides apply</div></div><span class="mock-tag tag-info">Active</span></div>
+                <div class="mock-row"><div><div class="name">Cataract — Premium Toric</div><div class="sku">Default $3,400 · 4 regional variants</div></div><span class="mock-tag tag-info">Active</span></div>
+                <div class="mock-row"><div><div class="name">Refractive — LASIK</div><div class="sku">Default $2,200 · 2 regional variants</div></div><span class="mock-tag tag-info">Active</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-pink">💰 Revenue Insights</span>
+        <h3>Surgery volume → revenue trends.</h3>
+        <p class="cap-desc-lead">Translate surgery volume into estimated revenue trends using fee definitions managed inside the platform — supporting business planning conversations with practice leadership.</p>
+        <ul class="cap-bullets">
+          <li><strong>Fee definitions managed in-platform</strong> — admins configure rates by procedure, region, tier</li>
+          <li><strong>No IT involvement</strong> for fee changes — leaders update directly</li>
+          <li><strong>Procedure-type breakdown</strong> shows where revenue concentration is</li>
+          <li><strong>Peer comparison</strong> on revenue-per-case highlights pricing &amp; mix opportunities</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Bridges operational and financial conversations — practice leadership can translate surgery growth into a credible revenue picture in seconds.</span>
+      </div>
+    </div>
+
+    <!-- ===== Cap 5: Benchmarking ===== -->
+    <div class="cap-row" id="cap-5">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-indigo">📊 Benchmarking</span>
+        <h3>National, regional, peer-group baselines.</h3>
+        <p class="cap-desc-lead">Compare performance against national, regional and peer-group baselines with curated benchmark data and segmentation logic. Roadmap includes percentile breakdowns and product-type variations.</p>
+        <ul class="cap-bullets">
+          <li><strong>Curated benchmark data</strong> — not raw market scrapes; governed for accuracy</li>
+          <li><strong>National &amp; regional baselines</strong> updated quarterly</li>
+          <li><strong>Peer groups</strong> based on case volume and practice type</li>
+          <li>Roadmap: <strong>percentile breakdowns &amp; product-type variations</strong> for finer-grained context</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Practice leaders can answer "are we good?" with credible peer context — not gut feel.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">analytics.medtech-digital.example/benchmarking</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">A</div>
+              <div class="mock-nav"><span>Surgery</span><span>Premium Tech</span><span>Revenue</span><span class="active">Benchmarking</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Benchmarking — Northgate Practice Group</div>
+            <div class="mock-sub">vs. national ophthalmology peer groups with similar case volume and practice type · updated quarterly</div>
+
+            <div class="mock-chart-card">
+              <div class="mock-chart-title">Premium technology adoption · percentile</div>
+              <div class="bench-bar" style="margin-top: 26px;">
+                <div class="fill" style="width: 78%;"></div>
+                <div class="marker" style="left: 50%;"><span class="ml">National 50th</span></div>
+                <div class="marker" style="left: 65%;"><span class="ml">Regional 65th</span></div>
+                <div class="marker" style="left: 75%;"><span class="ml">Top quartile</span></div>
+                <div class="marker" style="left: 90%;"><span class="ml">Top decile</span></div>
+                <div class="marker" style="left: 78%; background: var(--ai); opacity: 1; height: 30px; top: -8px; width: 3px;"><span class="ml" style="color: var(--ai); font-weight: 700; top: -22px;">YOU · 78th</span></div>
+              </div>
+              <div class="bench-axis"><span>0</span><span>25th</span><span>50th</span><span>75th</span><span>100</span></div>
+            </div>
+
+            <div class="mock-chart-card">
+              <div class="mock-chart-title">Surgery volume growth · percentile</div>
+              <div class="bench-bar" style="margin-top: 26px;">
+                <div class="fill" style="width: 65%;"></div>
+                <div class="marker" style="left: 50%;"><span class="ml">National</span></div>
+                <div class="marker" style="left: 75%;"><span class="ml">Top quartile</span></div>
+                <div class="marker" style="left: 65%; background: var(--ai); opacity: 1; height: 30px; top: -8px; width: 3px;"><span class="ml" style="color: var(--ai); font-weight: 700; top: -22px;">YOU · 65th</span></div>
+              </div>
+              <div class="bench-axis"><span>0</span><span>25th</span><span>50th</span><span>75th</span><span>100</span>
+              </div>
+            </div>
+
+            <div class="mock-chart-card">
+              <div class="mock-chart-title">Revenue per case · percentile</div>
+              <div class="bench-bar" style="margin-top: 26px;">
+                <div class="fill" style="width: 48%;"></div>
+                <div class="marker" style="left: 50%;"><span class="ml">National</span></div>
+                <div class="marker" style="left: 75%;"><span class="ml">Top quartile</span></div>
+                <div class="marker" style="left: 48%; background: var(--ai); opacity: 1; height: 30px; top: -8px; width: 3px;"><span class="ml" style="color: var(--ai); font-weight: 700; top: -22px;">YOU · 48th</span></div>
+              </div>
+              <div class="bench-axis"><span>0</span><span>25th</span><span>50th</span><span>75th</span><span>100</span></div>
+            </div>
+
+            <div style="font-size: 0.74rem; color: var(--text-faint); margin-top: 10px; padding: 10px; background: var(--surface-2); border-radius: 6px;">
+              ℹ Benchmark data is curated and governed; segmentation matches your case volume and practice type.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 6: Conversational AI ===== -->
+    <div class="cap-row flip" id="cap-6">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">analytics.medtech-digital.example/ — assistant open</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">A</div>
+              <div class="mock-nav"><span>Surgery</span><span>Premium Tech</span><span>Revenue</span><span class="active">Ask Anything</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content" style="background: linear-gradient(180deg, #fff, #faf6ff);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+              <div class="ai-banner-icon">AI</div>
+              <div>
+                <div style="font-weight: 700; color: var(--primary);">Ask Me Anything · Practice Analytics</div>
+                <div style="font-size: 0.74rem; color: var(--text-muted);">Embedded in the dashboard · trained on your practice data</div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Try a suggested question:</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+              <span style="background: var(--surface-2); border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer;">How is our premium tech adoption trending?</span>
+              <span style="background: var(--surface-2); border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer;">Where do we rank against peers?</span>
+              <span style="background: var(--surface-2); border: 1px solid var(--border); padding: 6px 12px; border-radius: 999px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer;">Which surgeon cohort is performing above benchmark?</span>
+            </div>
+
+            <div class="conv-box">
+              <div class="conv-q">"What is driving revenue growth this year?"</div>
+              <div class="conv-a"><strong>AI · Conversational Analytics:</strong> Revenue is up <strong>~18% YoY</strong>, driven primarily by volume growth in cataract — standard <strong>(+9%)</strong> and premium <strong>(+22%)</strong>. Premium cataract now accounts for 28% of estimated revenue despite being only 31% of lens mix, reflecting its higher fee profile. Refractive revenue has remained stable.</div>
+            </div>
+
+            <div class="conv-box" style="margin-top: 12px;">
+              <div class="conv-q">"Which surgeons are underperforming on premium adoption?"</div>
+              <div class="conv-a"><strong>AI · Conversational Analytics:</strong> 3 surgeons are below the practice's median premium share (37%): Dr. Chen (22%), Dr. Liu (28%), Dr. Hayes (31%). Dr. Chen has declined <strong>2 pp YoY</strong> — likely a coaching opportunity. Top performers Dr. Reyes (68%) and Dr. Patel (52%) could mentor.</div>
+            </div>
+
+            <div class="conv-box" style="margin-top: 12px;">
+              <div class="conv-q">"Where do we rank against peers?"</div>
+              <div class="conv-a"><strong>AI · Conversational Analytics:</strong> You're in the <strong>72nd percentile</strong> overall vs. similar-volume peer practices. Strongest: <strong>premium tech adoption</strong> (78th percentile). Weakest: <strong>revenue per case</strong> (48th percentile) — driven by case mix. Lifting refractive share by ~3 pp would close most of that gap.</div>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-top: 14px;">
+              <input style="flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem;" placeholder="Ask about surgeons, regions, mix, revenue, peers..." />
+              <button style="background: var(--ai); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer;">Ask</button>
+            </div>
+            <div style="font-size: 0.7rem; color: var(--text-faint); margin-top: 8px; text-align: center;">Demonstration of the conversational analytics interface · responses are illustrative</div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-ai">🤖 AI-Enabled</span>
+        <h3>Conversational AI — Ask Me Anything.</h3>
+        <p class="cap-desc-lead">An embedded AI assistant provides an "Ask Me Anything" interface. Start from predefined insight-oriented questions or type free-form natural language queries about practice performance.</p>
+        <ul class="cap-bullets">
+          <li><strong>Predefined insight-oriented questions</strong> reduce the cold-start problem</li>
+          <li><strong>Free-form natural language</strong> queries about surgeons, regions, mix, revenue, peers</li>
+          <li><strong>Early phases</strong>: queries matched to predefined insights and logged to inform new insight definitions</li>
+          <li><strong>Later phases</strong>: GenAI-driven real-time analysis with follow-up Q&amp;A capability</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Lowers the barrier from "I have a question" to "I have an answer" — administrators stop waiting on analysts and start exploring directly.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI ROADMAP -->
+<section id="roadmap" class="roadmap-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">AI Extensions on the Roadmap</span>
+      <h2>From insight to action.</h2>
+      <p>Today's analytics surface what happened. The H2 2026 backlog adds AI capabilities that surface what's <em>worth doing about it</em> — opportunity, leakage, peer fit, churn risk.</p>
+    </div>
+
+    <div class="roadmap-grid">
+      <div class="roadmap-card">
+        <div class="icon">🎯</div>
+        <h4>Lost Opportunity Identification</h4>
+        <p>Analyzes "white-space" between surgeries to identify optimization opportunities — moving beyond passive metrics into actionable, dollar-quantified gaps vs. peer norms.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">👥</div>
+        <h4>Dynamic Peer Grouping</h4>
+        <p>Replaces static national averages with AI-clustered peers (e.g., high-volume private refractive practices) — making benchmarks fairer and more actionable.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">💧</div>
+        <h4>Revenue Leakage Detection</h4>
+        <p>Flags spending pattern anomalies vs. peers — e.g., consumable rationalization opportunities or unbilled implants traced back through commerce data.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">⚠️</div>
+        <h4>Churn Prediction</h4>
+        <p>Monitors account behavior and senses drops in activity to trigger Sales-Rep alerts before churn occurs — converting reactive retention into proactive engagement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CROSS-NAV -->
+<section class="cross-nav">
+  <div class="cross-nav-inner">
+    <h3>Continue the demo · or jump to another platform</h3>
+    <div class="cross-nav-grid">
+      <a href="demo-commerce.html" class="cross-nav-card">
+        <div class="icon">🛒</div>
+        <div class="name">Commerce Platform</div>
+        <div class="desc">B2B Digital Commerce on SAP Commerce Cloud</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-inventory.html" class="cross-nav-card">
+        <div class="icon">📦</div>
+        <div class="name">Surgical Inventory Platform</div>
+        <div class="desc">Real-time IOL inventory operations &amp; surgery readiness</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-analytics.html" class="cross-nav-card current">
+        <div class="icon">📊</div>
+        <div class="name">Analytics &amp; Decision Support</div>
+        <div class="desc">AI-enabled clinical and commercial insights</div>
+        <div class="cta">You're here</div>
+      </a>
+    </div>
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="lean-core-edge-showcase.html" class="btn btn-light">← Back to main showcase</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Lean Core &amp; Edge — Analytics &amp; Decision Support demo · SAP Sapphire showcase · Anonymized client narrative
+</footer>
+
+</body>
+</html>

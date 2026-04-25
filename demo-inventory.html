@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Surgical Inventory Platform — Solution Demo · Lean Core &amp; Edge</title>
+<link rel="stylesheet" href="showcase-styles.css" />
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="lean-core-edge-showcase.html" class="brand">
+      <div class="brand-mark">L|E</div>
+      <span>Lean Core &amp; Edge</span>
+    </a>
+    <div class="nav-links">
+      <a href="lean-core-edge-showcase.html" class="nav-back">← Back to showcase</a>
+      <a href="demo-commerce.html">Commerce Platform</a>
+      <a href="demo-analytics.html">Analytics &amp; Decision Support</a>
+      <a href="lean-core-edge-showcase.html#ams" class="nav-cta">AI in AMS</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="demo-hero">
+  <div class="demo-hero-inner">
+    <div>
+      <span class="stack-tag"><span class="dot"></span>AWS Services · Custom UX · MuleSoft → SAP S/4HANA</span>
+      <h1>Surgical Inventory <span class="grad">Platform</span></h1>
+      <p class="tagline">Real-time IOL inventory operations, surgery readiness and traceability across surgical facilities — bridging fast UX action and asynchronous core integrity.</p>
+      <div class="hero-actions">
+        <a href="#capabilities" class="btn btn-primary">Explore workflows ↓</a>
+        <a href="#roadmap" class="btn btn-ghost">See AI roadmap</a>
+      </div>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat"><div class="num">97.6%</div><div class="label">Surgery readiness rate · ▲ +3.4pp YoY</div></div>
+      <div class="hero-stat"><div class="num">48,210</div><div class="label">Scan events · ▲ +31% YoY</div></div>
+      <div class="hero-stat"><div class="num">142</div><div class="label">Unbilled IOLs awaiting follow-up</div></div>
+      <div class="hero-stat"><div class="num">89</div><div class="label">Lenses expiring within 30 days</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DASHBOARD -->
+<section style="padding-top: 0; padding-bottom: 60px;">
+  <div class="container">
+    <div class="live-dashboard">
+      <div class="live-dashboard-head">
+        <div class="lh-title">
+          <div class="lh-mark">I</div>
+          <div>
+            <div class="lh-name">Surgical Inventory Dashboard</div>
+            <div class="lh-sub">Live operational view · Last refresh: just now</div>
+          </div>
+        </div>
+        <span class="lh-tag">Partner Preview · FY2025</span>
+      </div>
+      <div class="live-dashboard-body">
+
+        <div class="mock-page-head">
+          <div>
+            <div class="mock-page-title">Surgical Inventory Platform — Operational View</div>
+            <div class="mock-page-sub">Real-time IOL inventory operations, surgery readiness, and traceability across surgical facilities</div>
+          </div>
+          <div class="mock-filters">
+            <div class="mock-filter"><span class="lbl">Time Period</span><span class="val">Last 12 Months</span></div>
+            <div class="mock-filter"><span class="lbl">Facility Type</span><span class="val">All Facilities</span></div>
+            <div class="mock-filter"><span class="lbl">Region</span><span class="val">All Regions</span></div>
+          </div>
+        </div>
+
+        <div class="mock-kpi-row">
+          <div class="mock-kpi"><span class="icon">✅</span><div class="val">97.6%</div><div class="lbl">Surgery Readiness</div><div class="delta">▲ +3.4pp YoY</div></div>
+          <div class="mock-kpi"><span class="icon">💳</span><div class="val">142</div><div class="lbl">Unbilled IOLs</div><div class="delta warn">▼ Action req.</div></div>
+          <div class="mock-kpi"><span class="icon">⏰</span><div class="val">89</div><div class="lbl">Expiring ≤ 30d</div><div class="delta warn">▼ Prioritize</div></div>
+          <div class="mock-kpi"><span class="icon">📡</span><div class="val">48,210</div><div class="lbl">Scan Events</div><div class="delta">▲ +31% YoY</div></div>
+        </div>
+
+        <div style="font-size: 0.78rem; color: var(--text-faint); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">📊 Operational Signals · next-best-action widgets</div>
+
+        <div class="widget-grid" style="grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 14px;">
+          <div class="widget"><div class="w-label">📅 Upcoming surgeries</div><div class="w-val">134</div><div class="w-trend" style="color: var(--text-faint);">14d · 12 pending</div></div>
+          <div class="widget"><div class="w-label">📦 Pulling IOLs</div><div class="w-val">118</div><div class="w-trend">All cases</div></div>
+          <div class="widget"><div class="w-label">💳 Unbilled</div><div class="w-val">142</div><div class="w-trend" style="color: var(--warn);">Review</div></div>
+          <div class="widget"><div class="w-label">⏰ Expiring ≤30d</div><div class="w-val">89</div><div class="w-trend" style="color: var(--warn);">Rotate first</div></div>
+          <div class="widget"><div class="w-label">✅ Readiness</div><div class="w-val">97.6%</div><div class="w-trend">Target: 98%</div></div>
+        </div>
+
+        <div class="mock-grid-2">
+          <div class="mock-chart-card">
+            <div class="mock-chart-title">Inventory Actions by Type</div>
+            <div class="mock-chart-sub">AFS · RTS · RAI · RAD — monthly volume · Last 12 Months</div>
+            <div class="chart-bars" style="height: 110px;">
+              <div class="bar" style="height: 60%; background: var(--primary);"></div>
+              <div class="bar" style="height: 35%; background: var(--accent);"></div>
+              <div class="bar" style="height: 78%; background: var(--ai);"></div>
+              <div class="bar" style="height: 22%; background: var(--danger);"></div>
+              <div class="bar" style="height: 65%; background: var(--primary);"></div>
+              <div class="bar" style="height: 40%; background: var(--accent);"></div>
+              <div class="bar" style="height: 82%; background: var(--ai);"></div>
+              <div class="bar" style="height: 25%; background: var(--danger);"></div>
+              <div class="bar" style="height: 70%; background: var(--primary);"></div>
+              <div class="bar" style="height: 38%; background: var(--accent);"></div>
+              <div class="bar" style="height: 88%; background: var(--ai);"></div>
+              <div class="bar" style="height: 24%; background: var(--danger);"></div>
+            </div>
+            <div style="display: flex; gap: 14px; margin-top: 10px; font-size: 0.74rem; color: var(--text-muted);">
+              <span><span style="display:inline-block; width:10px; height:10px; background: var(--primary); border-radius: 2px; vertical-align: middle;"></span> AFS · Reserve</span>
+              <span><span style="display:inline-block; width:10px; height:10px; background: var(--accent); border-radius: 2px; vertical-align: middle;"></span> RTS · Return</span>
+              <span><span style="display:inline-block; width:10px; height:10px; background: var(--ai); border-radius: 2px; vertical-align: middle;"></span> RAI · Implant</span>
+              <span><span style="display:inline-block; width:10px; height:10px; background: var(--danger); border-radius: 2px; vertical-align: middle;"></span> RAD · Destroy</span>
+            </div>
+          </div>
+          <div class="mock-chart-card">
+            <div class="mock-chart-title">Surgery Readiness Rate Trend</div>
+            <div class="mock-chart-sub">% of scheduled surgeries with confirmed lens availability before day-of</div>
+            <div style="height: 110px; display: flex; align-items: flex-end; gap: 6px; padding-top: 10px; position: relative;">
+              <div style="position: absolute; left: 0; right: 0; top: 28%; height: 1px; border-top: 1px dashed var(--border-strong);"></div>
+              <div style="position: absolute; right: 4px; top: 22%; font-size: 0.62rem; color: var(--text-faint); font-weight: 600;">Target 98%</div>
+              <div style="flex: 1; height: 88%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 86%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 82%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 90%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 92%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 94%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 95%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 96%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 96%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 97%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 97%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+              <div style="flex: 1; height: 97.6%; background: linear-gradient(180deg, var(--success), #047857); border-radius: 4px 4px 0 0;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDEX STRIP -->
+<div class="index-strip">
+  <div class="index-strip-inner">
+    <span class="index-strip-label">Workflows · jump to</span>
+    <a href="#cap-1">📌 AFS · Reserve</a>
+    <a href="#cap-2">↩️ RTS · Return</a>
+    <a href="#cap-3">🩺 RAI · Implant</a>
+    <a href="#cap-4">🚫 RAD · Destroy</a>
+    <a href="#cap-5">📡 RFID &amp; Scan</a>
+    <a href="#cap-6">📈 Aging &amp; Consignment</a>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="cap-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Core Workflows &amp; Capabilities</span>
+      <h2>Six surgery-context-aware workflows. Plus AI on the roadmap.</h2>
+      <p>Each workflow is built around the realities of surgical scheduling, regulatory traceability and staff under time pressure — making the next-best action obvious without requiring users to interpret raw inventory lists.</p>
+    </div>
+
+    <!-- ===== Cap 1: AFS ===== -->
+    <div class="cap-row" id="cap-1">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge">📌 AFS · Surgery Readiness</span>
+        <h3>Reserve IOLs for Surgery</h3>
+        <p class="cap-desc-lead">Reserve a specific lens for a future surgery date so it cannot be double-booked — filling a critical gap in standard ERP status models.</p>
+        <ul class="cap-bullets">
+          <li><strong>Near-real-time interim status</strong> ensures users see the reservation immediately, even before SAP S/4HANA reconciliation completes</li>
+          <li>Supports <strong>look-ahead scheduling integration</strong> where available — surgeries up to +14 days surface automatically</li>
+          <li><strong>Diopter / model availability check</strong> before reservation prevents booking lenses that don't exist on shelf</li>
+          <li><strong>Reservation evidence</strong> captured in the activity log for audit</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Eliminates day-of-surgery surprises, reduces emergency procurement, and keeps the OR running on schedule.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">inventory.medtech-digital.example/reserve</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">I</div>
+              <div class="mock-nav"><span>Dashboard</span><span class="active">Reserve · AFS</span><span>Implant · RAI</span><span>Activity Log</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Reserve for Surgery (AFS)</div>
+            <div class="mock-sub">Northgate Surgical Center · OR-3 · Dr. Patel</div>
+
+            <div class="mock-card" style="background: #fff; border: 2px solid var(--accent);">
+              <div style="font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 8px;">📅 Surgery date: <strong>26 Apr 2026 · 09:30</strong></div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <div class="mock-sub" style="margin: 0 0 4px;">Lens model &amp; diopter</div>
+                  <div style="background: var(--surface-2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-weight: 500;">AcrySoft IQ Toric — 2.5D ▾</div>
+                </div>
+                <div>
+                  <div class="mock-sub" style="margin: 0 0 4px;">Quantity</div>
+                  <div style="background: var(--surface-2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-weight: 500;">1</div>
+                </div>
+              </div>
+              <button style="margin-top: 12px; background: var(--accent); color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%;">Reserve · interim status applies immediately</button>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Active reservations · OR-3 · next 7 days</div>
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">Dr. Patel · 24 Apr · 09:30</div><div class="sku">3 IOLs reserved · 2 verified · 1 pending</div></div><span class="mock-tag tag-warn">Action</span></div>
+              <div class="mock-row"><div><div class="name">Dr. Sato · 24 Apr · 11:00</div><div class="sku">2 IOLs reserved · pre-op verified</div></div><span class="mock-tag tag-ok">Ready</span></div>
+              <div class="mock-row"><div><div class="name">Dr. Reyes · 25 Apr · 14:15</div><div class="sku">1 IOL reserved · just now</div></div><span class="mock-tag tag-ok">Ready</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 2: RTS ===== -->
+    <div class="cap-row flip" id="cap-2">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">inventory.medtech-digital.example/reservations</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">I</div>
+              <div class="mock-nav"><span>Dashboard</span><span class="active">Reservations</span><span>Activity Log</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Reservations · Return to Shelf</div>
+            <div class="mock-sub">Surgery completed without using the reserved lens? Mark RTS to release the inventory.</div>
+
+            <div class="mock-card">
+              <div class="mock-row">
+                <div><div class="name">SN: TIO-22A-04193881 · AcrySoft IQ Toric 2.5D</div><div class="sku">Reserved 22 Apr · Surgery 24 Apr 09:30 · Not implanted</div></div>
+                <button style="background: var(--accent); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">↩️ Return to Shelf</button>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">SN: TIO-22A-04194017 · AcrySoft IQ Toric 3.0D</div><div class="sku">Reserved 22 Apr · Surgery 24 Apr 09:30 · Not implanted</div></div>
+                <button style="background: var(--accent); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">↩️ Return to Shelf</button>
+              </div>
+            </div>
+
+            <div class="ai-banner" style="background: linear-gradient(135deg, #f0fdf4, #ecfdf5); border-color: #bbf7d0;">
+              <div class="ai-banner-icon" style="background: linear-gradient(135deg, var(--success), #047857);">↻</div>
+              <div class="ai-banner-text">
+                <strong style="color: var(--success);">Interim status reflects immediately</strong>
+                <div class="sub">Lenses are available again in real-time UX, even while SAP S/4HANA sync runs asynchronously in the background.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-success">↩️ RTS · Inventory Accuracy</span>
+        <h3>Return to Shelf</h3>
+        <p class="cap-desc-lead">Reverses a reservation when a lens was reserved but not used — marks it back as available for future procedures.</p>
+        <ul class="cap-bullets">
+          <li><strong>Prevents "phantom reservations"</strong> from locking inventory permanently</li>
+          <li>Operates within the <strong>same near-real-time interim state model</strong> as AFS</li>
+          <li><strong>Confidence in inventory accuracy</strong> without waiting for ERP sync</li>
+          <li>Each RTS action is <strong>logged in the activity log</strong> with user, time and reason</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Keeps inventory available for future surgeries instead of being trapped in stale reservation states.</span>
+      </div>
+    </div>
+
+    <!-- ===== Cap 3: RAI ===== -->
+    <div class="cap-row" id="cap-3">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-pink">🩺 RAI · Post-Surgery</span>
+        <h3>Report as Implanted</h3>
+        <p class="cap-desc-lead">Records implant activity post-surgery: surgeon, surgery date, and implanted lenses. Creates implant cards enabling downstream billing reconciliation.</p>
+        <ul class="cap-bullets">
+          <li>Captures <strong>structured implant data</strong> — surgeon, date, OR, patient context, lens serial</li>
+          <li>Creates <strong>implant cards</strong> that downstream systems use to reconcile billing &amp; inventory</li>
+          <li><strong>Reduces unbilled-IOL backlog</strong> by closing the loop between surgery and billing</li>
+          <li>Supports <strong>compliance documentation</strong> for implantable device traceability</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Closes the surgery-to-billing loop quickly, reduces revenue leakage from unbilled implants, and builds a clean audit trail for regulators.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">inventory.medtech-digital.example/report-implanted</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">I</div>
+              <div class="mock-nav"><span>Dashboard</span><span>Reservations</span><span class="active">Implant · RAI</span><span>Activity Log</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Report as Implanted (RAI)</div>
+            <div class="mock-sub">Step 2 of 3 · post-surgery documentation</div>
+
+            <div class="mock-card" style="background: #fff; border: 2px solid var(--ai);">
+              <div style="font-size: 0.78rem; color: var(--ai); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Implant Card</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 0.85rem;">
+                <div><div class="mock-sub" style="margin:0 0 2px;">Surgeon</div><div style="font-weight: 600; color: var(--text);">Dr. M. Patel</div></div>
+                <div><div class="mock-sub" style="margin:0 0 2px;">Surgery Date</div><div style="font-weight: 600; color: var(--text);">24 Apr 2026 · 09:30</div></div>
+                <div><div class="mock-sub" style="margin:0 0 2px;">OR / Facility</div><div style="font-weight: 600; color: var(--text);">OR-3 · NSC-North-Tower</div></div>
+                <div><div class="mock-sub" style="margin:0 0 2px;">Procedure</div><div style="font-weight: 600; color: var(--text);">Cataract — Premium Toric</div></div>
+              </div>
+              <div style="border-top: 1px solid var(--border); margin-top: 12px; padding-top: 10px;">
+                <div class="mock-sub" style="margin:0 0 4px;">Implanted lens</div>
+                <div style="background: var(--surface-2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-weight: 500;">SN: TIO-22A-04194208 · AcrySoft IQ Toric 2.5D</div>
+              </div>
+              <button style="margin-top: 12px; background: var(--ai); color: #fff; border: none; padding: 10px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%;">Submit implant card</button>
+            </div>
+
+            <div class="ai-banner">
+              <div class="ai-banner-icon">→</div>
+              <div class="ai-banner-text">
+                <strong>Downstream effects</strong>
+                <div class="sub">On submit · lens marked <em>implanted</em> · billing reconciliation queued · inventory reduced · activity logged. Reduces unbilled-IOL backlog (currently 142).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 4: RAD ===== -->
+    <div class="cap-row flip" id="cap-4">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">inventory.medtech-digital.example/destroy</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">I</div>
+              <div class="mock-nav"><span>Dashboard</span><span>Reservations</span><span class="active">Destroy · RAD</span><span>Activity Log</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Report as Destroyed (RAD)</div>
+            <div class="mock-sub">Multiple entry points — meeting users at the natural point of decision</div>
+
+            <div class="mock-grid-3" style="gap: 10px;">
+              <div style="background: #fff; border: 2px solid var(--danger); border-radius: var(--radius-md); padding: 14px; text-align: center;">
+                <div style="font-size: 1.4rem; margin-bottom: 4px;">🚫</div>
+                <div style="font-weight: 700; color: var(--primary); font-size: 0.82rem;">Dedicated flow</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">From the menu</div>
+              </div>
+              <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; text-align: center;">
+                <div style="font-size: 1.4rem; margin-bottom: 4px;">📡</div>
+                <div style="font-weight: 700; color: var(--primary); font-size: 0.82rem;">Scan inventory</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">Right from a scan</div>
+              </div>
+              <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; text-align: center;">
+                <div style="font-size: 1.4rem; margin-bottom: 4px;">⏰</div>
+                <div style="font-weight: 700; color: var(--primary); font-size: 0.82rem;">Expiry widget</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">Click on dashboard</div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Recent destroy actions · last 7 days</div>
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">SN: TIO-22A-04193099 · expired</div><div class="sku">Destroyed by S. Chen · 22 Apr · from Expiry widget</div></div><span class="mock-tag tag-danger">Removed</span></div>
+              <div class="mock-row"><div><div class="name">SN: TIO-22A-04193105 · damaged in transit</div><div class="sku">Destroyed by M. Rivera · 21 Apr · from scan</div></div><span class="mock-tag tag-danger">Removed</span></div>
+              <div class="mock-row"><div><div class="name">SN: TIO-22A-04192881 · recall</div><div class="sku">Destroyed by L. Kim · 19 Apr · from dedicated flow</div></div><span class="mock-tag tag-danger">Removed</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge" style="background: var(--danger);">🚫 RAD · Compliance</span>
+        <h3>Report as Destroyed</h3>
+        <p class="cap-desc-lead">Registers a lens as no longer fit for use. Once destroyed, it cannot be used anywhere and is removed from inventory after processing.</p>
+        <ul class="cap-bullets">
+          <li>Multiple entry points: <strong>dedicated flow, scan inventory, or expiry trend widget</strong></li>
+          <li>Meeting users at the <strong>natural point of decision</strong> — no flow switching</li>
+          <li><strong>Reduces compliance risk</strong> and prevents accidental usage of non-viable devices</li>
+          <li>Each destroy action <strong>captures user, reason and source</strong> for full audit trail</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Reduces compliance risk and prevents accidental usage of non-viable devices, while keeping audit trails clean.</span>
+      </div>
+    </div>
+
+    <!-- ===== Cap 5: RFID & Scan ===== -->
+    <div class="cap-row" id="cap-5">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-indigo">📡 Hardware Integration</span>
+        <h3>RFID &amp; Scan Inventory</h3>
+        <p class="cap-desc-lead">Request RFID scanning hardware through the platform and perform bulk inventory scans to add large volumes of lenses efficiently.</p>
+        <ul class="cap-bullets">
+          <li><strong>Self-service hardware request</strong> — order RFID scanners directly through the platform</li>
+          <li><strong>Bulk scan capability</strong> for high-volume inventory ingestion</li>
+          <li><strong>Multiple adoption paths</strong> — RFID or barcode — so markets at different maturity levels can still realize value</li>
+          <li><strong>Scan history</strong> with full event log: who, when, where, status</li>
+          <li><strong>Incremental and bulk updates</strong> integrated with classification &amp; transfer logic</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Cuts inventory ingestion time, supports global rollouts at varying maturity levels, and builds a complete event log for traceability.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">inventory.medtech-digital.example/scan-history</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">I</div>
+              <div class="mock-nav"><span>Dashboard</span><span class="active">Scan History</span><span>Hardware</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Inventory Scan History</div>
+            <div class="mock-sub">48,210 events YTD · ▲ +31% YoY · multiple adoption paths supported</div>
+
+            <div class="mock-grid-2" style="gap: 10px; margin-bottom: 14px;">
+              <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
+                <div style="font-size: 0.74rem; color: var(--text-faint); text-transform: uppercase; font-weight: 600; letter-spacing: 0.08em;">📡 RFID</div>
+                <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-top: 4px;">31,840</div>
+                <div style="font-size: 0.74rem; color: var(--success);">66% of scans</div>
+              </div>
+              <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px;">
+                <div style="font-size: 0.74rem; color: var(--text-faint); text-transform: uppercase; font-weight: 600; letter-spacing: 0.08em;">🔢 Barcode</div>
+                <div style="font-size: 1.4rem; font-weight: 700; color: var(--primary); margin-top: 4px;">16,370</div>
+                <div style="font-size: 0.74rem; color: var(--text-faint);">34% of scans</div>
+              </div>
+            </div>
+
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">📡 Bulk RFID scan · 84 lenses</div><div class="sku">22 Apr 09:14 · NSC-North-Tower · S. Chen</div></div><span class="mock-tag tag-ok">Indexed</span></div>
+              <div class="mock-row"><div><div class="name">🔢 Barcode scan · 1 lens · RAI flow</div><div class="sku">22 Apr 10:42 · OR-3 · M. Rivera</div></div><span class="mock-tag tag-ok">Implanted</span></div>
+              <div class="mock-row"><div><div class="name">📡 RFID inbound · 240 lenses</div><div class="sku">21 Apr 16:30 · receiving dock · L. Kim</div></div><span class="mock-tag tag-ok">Received</span></div>
+              <div class="mock-row"><div><div class="name">🔢 Barcode scan · 1 lens · RAD</div><div class="sku">21 Apr 14:08 · expiry widget · S. Chen</div></div><span class="mock-tag tag-danger">Destroyed</span></div>
+            </div>
+
+            <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; margin-top: 12px;">
+              <div style="font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 4px;">📦 Request RFID hardware</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 8px;">Self-service ordering — paired with onboarding workflows.</div>
+              <button style="background: var(--accent); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">Request scanner →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 6: Aging & Virtual Consignment ===== -->
+    <div class="cap-row flip" id="cap-6">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">inventory.medtech-digital.example/aging-trend</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">I</div>
+              <div class="mock-nav"><span>Dashboard</span><span class="active">Aging Trend</span><span>Reports</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">IOL Aging Trend &amp; Virtual Consignment</div>
+            <div class="mock-sub">Lens age detail · billing-trigger awareness · proactive utilization</div>
+
+            <div class="mock-grid-3" style="gap: 10px; margin-bottom: 12px;">
+              <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px;">
+                <div style="font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; font-weight: 600; letter-spacing: 0.08em;">≤ 30 days</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--success); margin-top: 4px;">214</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Healthy</div>
+              </div>
+              <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px;">
+                <div style="font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; font-weight: 600; letter-spacing: 0.08em;">31–90 days</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--warn); margin-top: 4px;">62</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Approaching trigger</div>
+              </div>
+              <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px;">
+                <div style="font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; font-weight: 600; letter-spacing: 0.08em;">> 90 days</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--danger); margin-top: 4px;">14</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Will bill if unused</div>
+              </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fffbeb, #fffdf5); border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 12px; margin-bottom: 12px;">
+              <div style="font-weight: 700; color: var(--warn); font-size: 0.88rem;">⚠ 14 lenses approaching billing trigger</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Estimated unbilled exposure: <strong>$48,200</strong> · review before next billing cycle</div>
+              <button style="margin-top: 8px; background: var(--warn); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">Review aging items →</button>
+            </div>
+
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">SN: TIO-22A-04190112 · 96 days</div><div class="sku">AcrySoft IQ Toric 2.5D · Unbilled</div></div><span class="mock-tag tag-danger">Trigger imminent</span></div>
+              <div class="mock-row"><div><div class="name">SN: TIO-22A-04190145 · 92 days</div><div class="sku">AcrySoft IQ Toric 3.0D · Unbilled</div></div><span class="mock-tag tag-danger">Trigger imminent</span></div>
+              <div class="mock-row"><div><div class="name">SN: TIO-22A-04190201 · 87 days</div><div class="sku">Tecnis Toric 2.0D · Unbilled</div></div><span class="mock-tag tag-warn">Watching</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-amber">📈 Commercial</span>
+        <h3>IOL Aging Trend &amp; Virtual Consignment</h3>
+        <p class="cap-desc-lead">Provides lens age detail required to manage virtual-consignment arrangements where items are billed if unused after a defined period.</p>
+        <ul class="cap-bullets">
+          <li>Manages <strong>virtual consignment</strong> arrangements with proactive triggers</li>
+          <li><strong>Aging buckets</strong> (≤30d, 31–90d, >90d) make billing-trigger exposure visible</li>
+          <li>Pairs with <strong>Expiry Trend widget</strong> to drive utilization &amp; minimize waste</li>
+          <li><strong>Proactive monitoring</strong> before billing triggers occur — prevents surprise charges</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Prevents surprise billing exposure under virtual-consignment models, drives utilization, and protects facility margins.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI ROADMAP -->
+<section id="roadmap" class="roadmap-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">AI Extensions on the Roadmap</span>
+      <h2>From operational signals to anticipatory action.</h2>
+      <p>Today's widgets surface the right data at the right moment. The H2 2026 backlog adds AI features that <em>act</em> on that data — proactively rebalancing, flagging recalls, and answering staff questions in plain language.</p>
+    </div>
+
+    <div class="roadmap-grid">
+      <div class="roadmap-card">
+        <div class="icon">📊</div>
+        <h4>Dynamic Par Levels</h4>
+        <p>Replaces static reorder points with AI-tuned thresholds that adjust based on the upcoming surgical schedule — avoiding stockouts <em>and</em> excess inventory simultaneously.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">🚨</div>
+        <h4>Recall Lockdown</h4>
+        <p>For lot-specific recalls, AI cross-references inventory and instantly locks affected items so they cannot be scanned out. Flagged items are also surfaced in Commerce for replacement workflows.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">🔄</div>
+        <h4>Inventory Recommendation Engine</h4>
+        <p>Analyzes facility holding patterns and proactively recommends transfers between locations to balance utilization — turning surplus at one site into readiness at another.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">💬</div>
+        <h4>Intelligent Inventory Search</h4>
+        <p>Natural-language queries like <em>"Do I have enough lenses for next month's surgeries?"</em> answered in-context — staff stop wrestling with filters and just ask.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CROSS-NAV -->
+<section class="cross-nav">
+  <div class="cross-nav-inner">
+    <h3>Continue the demo · or jump to another platform</h3>
+    <div class="cross-nav-grid">
+      <a href="demo-commerce.html" class="cross-nav-card">
+        <div class="icon">🛒</div>
+        <div class="name">Commerce Platform</div>
+        <div class="desc">B2B Digital Commerce on SAP Commerce Cloud</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-inventory.html" class="cross-nav-card current">
+        <div class="icon">📦</div>
+        <div class="name">Surgical Inventory Platform</div>
+        <div class="desc">Real-time IOL inventory operations &amp; surgery readiness</div>
+        <div class="cta">You're here</div>
+      </a>
+      <a href="demo-analytics.html" class="cross-nav-card">
+        <div class="icon">📊</div>
+        <div class="name">Analytics &amp; Decision Support</div>
+        <div class="desc">AI-enabled clinical and commercial insights</div>
+        <div class="cta">Open demo →</div>
+      </a>
+    </div>
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="lean-core-edge-showcase.html" class="btn btn-light">← Back to main showcase</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Lean Core &amp; Edge — Surgical Inventory demo · SAP Sapphire showcase · Anonymized client narrative
+</footer>
+
+</body>
+</html>

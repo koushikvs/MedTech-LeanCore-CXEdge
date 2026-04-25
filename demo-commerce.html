@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Commerce Platform — Solution Demo · Lean Core &amp; Edge</title>
+<link rel="stylesheet" href="showcase-styles.css" />
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="lean-core-edge-showcase.html" class="brand">
+      <div class="brand-mark">L|E</div>
+      <span>Lean Core &amp; Edge</span>
+    </a>
+    <div class="nav-links">
+      <a href="lean-core-edge-showcase.html" class="nav-back">← Back to showcase</a>
+      <a href="demo-inventory.html">Surgical Inventory</a>
+      <a href="demo-analytics.html">Analytics &amp; Decision Support</a>
+      <a href="lean-core-edge-showcase.html#ams" class="nav-cta">AI in AMS</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="demo-hero">
+  <div class="demo-hero-inner">
+    <div>
+      <span class="stack-tag"><span class="dot"></span>SAP Commerce Cloud · Okta CIAM · MuleSoft → SAP S/4HANA</span>
+      <h1>Commerce <span class="grad">Platform</span></h1>
+      <p class="tagline">B2B Digital Commerce on SAP Commerce Cloud — built for the realities of clinical procurement: high-repeat ordering, strict eligibility, multi-entity customer hierarchies and serialised, regulated products.</p>
+      <div class="hero-actions">
+        <a href="#capabilities" class="btn btn-primary">Explore capabilities ↓</a>
+        <a href="#roadmap" class="btn btn-ghost">See AI roadmap</a>
+      </div>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat"><div class="num">26,250</div><div class="label">Orders placed annually · ▲ +14% YoY</div></div>
+      <div class="hero-stat"><div class="num">1,347</div><div class="label">Active users · ▲ +18% YoY</div></div>
+      <div class="hero-stat"><div class="num">3,891</div><div class="label">Recurring orders active · ▲ +23% YoY</div></div>
+      <div class="hero-stat"><div class="num">↓ 38%</div><div class="label">Time-to-order vs. prior platform</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DASHBOARD preview -->
+<section style="padding-top: 0; padding-bottom: 60px;">
+  <div class="container">
+    <div class="live-dashboard">
+      <div class="live-dashboard-head">
+        <div class="lh-title">
+          <div class="lh-mark">D</div>
+          <div>
+            <div class="lh-name">Commerce Platform Dashboard</div>
+            <div class="lh-sub">Live operational view · Last refresh: just now</div>
+          </div>
+        </div>
+        <span class="lh-tag">Partner Preview · FY2025</span>
+      </div>
+      <div class="live-dashboard-body">
+
+        <div class="mock-page-head">
+          <div>
+            <div class="mock-page-title">Commerce Platform — Operational View</div>
+            <div class="mock-page-sub">B2B Digital Commerce on SAP Commerce Cloud · 34 markets · 1,347 active users this period</div>
+          </div>
+          <div class="mock-filters">
+            <div class="mock-filter"><span class="lbl">Time Period</span><span class="val">Last 12 Months</span></div>
+            <div class="mock-filter"><span class="lbl">Order Type</span><span class="val">All Order Types</span></div>
+            <div class="mock-filter"><span class="lbl">Market</span><span class="val">All Markets</span></div>
+          </div>
+        </div>
+
+        <div class="mock-kpi-row">
+          <div class="mock-kpi"><span class="icon">🛒</span><div class="val">26,250</div><div class="lbl">Orders Placed</div><div class="delta">▲ +14% YoY</div></div>
+          <div class="mock-kpi"><span class="icon">👥</span><div class="val">1,347</div><div class="lbl">Active Users</div><div class="delta">▲ +18% YoY</div></div>
+          <div class="mock-kpi"><span class="icon">🔄</span><div class="val">3,891</div><div class="lbl">Recurring Orders</div><div class="delta">▲ +23% YoY</div></div>
+          <div class="mock-kpi"><span class="icon">⚡</span><div class="val">↓ 38%</div><div class="lbl">Time-to-Order</div><div class="delta">▲ vs. prior platform</div></div>
+        </div>
+
+        <div class="mock-grid-2">
+          <div class="mock-chart-card">
+            <div class="mock-chart-title">Order Volume Over Time</div>
+            <div class="mock-chart-sub">Total orders vs. recurring cadence · Last 12 Months</div>
+            <div class="chart-bars" style="height: 110px;">
+              <div class="bar" style="height: 48%;"><div class="bar-label">Apr</div></div>
+              <div class="bar" style="height: 52%;"><div class="bar-label">May</div></div>
+              <div class="bar" style="height: 56%;"><div class="bar-label">Jun</div></div>
+              <div class="bar" style="height: 62%;"><div class="bar-label">Jul</div></div>
+              <div class="bar" style="height: 64%;"><div class="bar-label">Aug</div></div>
+              <div class="bar" style="height: 68%;"><div class="bar-label">Sep</div></div>
+              <div class="bar" style="height: 74%;"><div class="bar-label">Oct</div></div>
+              <div class="bar" style="height: 76%;"><div class="bar-label">Nov</div></div>
+              <div class="bar" style="height: 78%;"><div class="bar-label">Dec</div></div>
+              <div class="bar" style="height: 84%;"><div class="bar-label">Jan</div></div>
+              <div class="bar" style="height: 88%;"><div class="bar-label">Feb</div></div>
+              <div class="bar" style="height: 96%;"><div class="bar-label">Mar</div></div>
+            </div>
+          </div>
+          <div class="mock-chart-card">
+            <div class="mock-chart-title">Order Type Breakdown</div>
+            <div class="mock-chart-sub">% of total orders by channel · 26,250 orders</div>
+            <div class="mock-donut-row">
+              <div class="mock-donut" style="width: 130px; height: 130px; background: conic-gradient(var(--primary) 0% 52%, var(--accent) 52% 83%, var(--accent-2) 83% 96%, var(--highlight) 96% 100%);"></div>
+              <div class="mock-donut-legend">
+                <div><span class="swatch" style="background: var(--primary);"></span><strong style="color: var(--text);">Quick Order — 52%</strong></div>
+                <div><span class="swatch" style="background: var(--accent);"></span>Consignment — 31%</div>
+                <div><span class="swatch" style="background: var(--accent-2);"></span>Standard PO — 13%</div>
+                <div><span class="swatch" style="background: var(--highlight);"></span>Returns — 4%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDEX STRIP -->
+<div class="index-strip">
+  <div class="index-strip-inner">
+    <span class="index-strip-label">Capabilities · jump to</span>
+    <a href="#cap-1">⚡ Quick Order</a>
+    <a href="#cap-2">🔗 Bill-and-Replace</a>
+    <a href="#cap-3">🔄 Recurring</a>
+    <a href="#cap-4">🤝 Saved Carts</a>
+    <a href="#cap-5">↩️ Returns</a>
+    <a href="#cap-6">📜 Certificates</a>
+    <a href="#cap-7">🔀 Substitution</a>
+    <a href="#cap-8">🤖 AI Assistant</a>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="cap-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Platform Capabilities</span>
+      <h2>Eight differentiated capabilities, plus AI on the roadmap.</h2>
+      <p>Each capability extends baseline SAP Commerce Cloud functionality with surgical-grade workflows that generic B2B storefronts can't deliver without significant customization.</p>
+    </div>
+
+    <!-- ===== Cap 1: Quick Order ===== -->
+    <div class="cap-row" id="cap-1">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge">⚡ Core Capability</span>
+        <h3>Quick Order &amp; Ordering Acceleration</h3>
+        <p class="cap-desc-lead">Surgical-specific quick order flows for lenses, packs and consignment products — designed for the high-frequency repeat purchasing patterns of clinical procurement.</p>
+        <ul class="cap-bullets">
+          <li><strong>Direct Purchase Quick Order</strong> with model + diopter selection in two clicks</li>
+          <li><strong>Add-to-Consignment Quick Order</strong> for high-frequency repeat purchases</li>
+          <li><strong>Preferred Products</strong> surface frequently purchased items based on rolling purchase history</li>
+          <li>Differentiated for <strong>Existing Customer Consignment</strong> — billing existing consignment lenses, bill-and-replace, and serial validation pre-checkout</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Reduces search friction, shortens time-to-order, and aligns commerce behavior with traceability requirements for implantable devices.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/quick-order</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav">
+                <span>Catalog</span><span class="active">Quick Order</span><span>Consignment</span><span>My Orders</span>
+              </div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Quick Order — Direct Purchase</div>
+            <div class="mock-sub">Northgate Surgical Center · Ship-to: NSC-North-Tower</div>
+
+            <div class="mock-card" style="background: #fff; border: 2px solid var(--accent);">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: end;">
+                <div>
+                  <div class="mock-sub" style="margin: 0 0 4px;">Model</div>
+                  <div style="background: var(--surface-2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-weight: 500;">AcrySoft IQ Toric SN6AT ▾</div>
+                </div>
+                <div>
+                  <div class="mock-sub" style="margin: 0 0 4px;">Diopter</div>
+                  <div style="background: var(--surface-2); border: 1px solid var(--border); padding: 8px 10px; border-radius: 6px; font-weight: 500;">+22.0D ▾</div>
+                </div>
+                <div>
+                  <button style="background: var(--accent); color: #fff; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%;">Add to cart</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">⭐ Preferred products · based on your rolling 90-day purchase history</div>
+
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">AcrySoft IQ Toric SN6AT5 — 2.5D</div><div class="sku">Last ordered 4 days ago · 47 units YTD</div></div><span class="mock-tag tag-ok">+ Add</span></div>
+              <div class="mock-row"><div><div class="name">AcrySoft IQ Toric SN6AT6 — 3.0D</div><div class="sku">Last ordered 2 weeks ago · 32 units YTD</div></div><span class="mock-tag tag-ok">+ Add</span></div>
+              <div class="mock-row"><div><div class="name">IOL Care Kit — Standard</div><div class="sku">Recurring · weekly · 52 YTD</div></div><span class="mock-tag tag-info">Auto</span></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 2: Bill-and-Replace ===== -->
+    <div class="cap-row flip" id="cap-2">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/consignment/bill-replace</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav"><span>Catalog</span><span>Quick Order</span><span class="active">Consignment</span><span>My Orders</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Bill &amp; Replace · Existing Consignment</div>
+            <div class="mock-sub">Validating serial numbers before checkout · 3 of 4 verified</div>
+
+            <div class="mock-card">
+              <div class="mock-row">
+                <div><div class="name">Serial · TIO-22A-04193881</div><div class="sku">AcrySoft IQ Toric SN6AT5 — 2.5D · Implanted 18 Mar</div></div>
+                <span class="mock-tag tag-ok">✓ Verified</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">Serial · TIO-22A-04194017</div><div class="sku">AcrySoft IQ Toric SN6AT6 — 3.0D · Implanted 22 Mar</div></div>
+                <span class="mock-tag tag-ok">✓ Verified</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">Serial · TIO-22A-04194208</div><div class="sku">AcrySoft IQ Toric SN6AT4 — 2.0D · Implanted 28 Mar</div></div>
+                <span class="mock-tag tag-ok">✓ Verified</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">Serial · TIO-22A-04194512</div><div class="sku">⚠ Lot recall flagged · please re-enter</div></div>
+                <span class="mock-tag tag-danger">Validation error</span>
+              </div>
+            </div>
+
+            <div class="ai-banner" style="background: linear-gradient(135deg, #f0fdf4, #ecfdf5); border-color: #bbf7d0;">
+              <div class="ai-banner-icon" style="background: linear-gradient(135deg, var(--success), #047857);">✓</div>
+              <div class="ai-banner-text">
+                <strong style="color: var(--success);">3 implants ready to bill · 1 replacement queued</strong>
+                <div class="sub">Once validation completes, billing reconciles to SAP S/4HANA and replacement lenses ship from consignment.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-blue">🔗 Differentiated</span>
+        <h3>Consignment &amp; Bill-and-Replace</h3>
+        <p class="cap-desc-lead">Serial-number-centric consignment workflows: bill existing consignment lenses, execute bill-and-replace actions, and validate serials before checkout.</p>
+        <ul class="cap-bullets">
+          <li><strong>Pre-checkout serial validation</strong> calls prevent billing and inventory errors at source</li>
+          <li><strong>Bill-and-replace</strong> aligned with traceability requirements for implantable devices</li>
+          <li><strong>Lot recall awareness</strong> flags ineligible serials before they hit checkout</li>
+          <li>Goes <strong>significantly beyond</strong> baseline platform consignment support</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Aligns commerce with regulatory traceability — no more after-the-fact fulfillment corrections or unbilled implants.</span>
+      </div>
+    </div>
+
+    <!-- ===== Cap 3: Recurring Orders ===== -->
+    <div class="cap-row" id="cap-3">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-success">🔄 Automation</span>
+        <h3>Recurring Orders &amp; Replenishment</h3>
+        <p class="cap-desc-lead">Schedule automated replenishment at daily, weekly or monthly cadence with configurable start/end dates — including indefinite schedules.</p>
+        <ul class="cap-bullets">
+          <li><strong>Self-service schedule management</strong> from the user dashboard</li>
+          <li><strong>Modify, add/remove items, discontinue or reactivate</strong> existing schedules</li>
+          <li><strong>Confirmation flows</strong> for discontinuation prevent accidental cancellations</li>
+          <li>3,891 recurring orders active across 34 markets · ▲ <strong>+23% YoY</strong></li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Reduces manual workload and stabilizes inventory replenishment across surgical facilities.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/recurring-orders</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav"><span>Catalog</span><span>Quick Order</span><span class="active">Recurring</span><span>My Orders</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">My Recurring Orders</div>
+            <div class="mock-sub">7 active schedules · Next delivery in 2 days</div>
+
+            <div class="mock-card">
+              <div class="mock-row">
+                <div><div class="name">IOL Care Kit · Standard</div><div class="sku">Weekly · Mondays · 12 units · Active since Jan 2024</div></div>
+                <span class="mock-tag tag-ok">Active</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">Suture Pack · 6-0 silk</div><div class="sku">Monthly · 1st of month · 50 units</div></div>
+                <span class="mock-tag tag-ok">Active</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">Phaco Tubing Pack</div><div class="sku">Weekly · paused until 15 May (vacation)</div></div>
+                <span class="mock-tag tag-warn">Paused</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">Custom Procedure Tray · Cataract Std</div><div class="sku">Bi-weekly · Indefinite · 8 units</div></div>
+                <span class="mock-tag tag-ok">Active</span>
+              </div>
+            </div>
+
+            <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; margin-top: 12px;">
+              <div style="font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 4px;">📅 Schedule editor</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);">Frequency: Weekly · Day: Monday · Items: 4 · Start: 14 Apr 2026 · End: Indefinite</div>
+              <div style="display: flex; gap: 8px; margin-top: 10px;">
+                <button style="background: var(--accent); color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">Modify</button>
+                <button style="background: #fff; color: var(--text-muted); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; cursor: pointer;">Pause</button>
+                <button style="background: #fff; color: var(--danger); border: 1px solid var(--border); padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; cursor: pointer;">Discontinue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 4: Collaborative Saved Carts ===== -->
+    <div class="cap-row flip" id="cap-4">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/saved-carts</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav"><span>Catalog</span><span class="active">Saved Carts</span><span>Recurring</span><span>My Orders</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Saved Carts — Northgate Surgical Center</div>
+            <div class="mock-sub">Public carts shared with all NSC ship-to users · 3 collaborators</div>
+
+            <div class="mock-card">
+              <div class="mock-row">
+                <div><div class="name">📋 Cataract Standard Tray (Template)</div><div class="sku">Public · 14 items · used 23 times this quarter</div></div>
+                <span class="mock-tag tag-info">Public</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">📋 Premium IOL Procedure Pack</div><div class="sku">Public · 8 items · created by Dr. Reyes</div></div>
+                <span class="mock-tag tag-info">Public</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">🔒 Dr. Sato — personal preferences</div><div class="sku">Private · 6 items · only visible to me</div></div>
+                <span class="mock-tag" style="background: #eef2f7; color: var(--text-muted);">Private</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">📋 Pediatric Cases (template)</div><div class="sku">Public · 11 items · last updated 3 days ago</div></div>
+                <span class="mock-tag tag-info">Public</span>
+              </div>
+            </div>
+
+            <div style="background: var(--ai-soft); border: 1px solid #d9cfff; border-radius: var(--radius-md); padding: 12px; margin-top: 12px;">
+              <div style="font-size: 0.82rem; color: var(--ai); font-weight: 600;">💡 Shared scope: NSC-North-Tower</div>
+              <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;">All 12 users assigned to this ship-to can see and use public carts.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-amber">🤝 Teamwork</span>
+        <h3>Collaborative Saved Carts</h3>
+        <p class="cap-desc-lead">Public saved carts visible to all users sharing the same ship-to scope, enabling collaborative procurement and standardized ordering templates.</p>
+        <ul class="cap-bullets">
+          <li>Extends baseline saved cart concepts with <strong>public/private behavior</strong></li>
+          <li><strong>Procurement coordinators &amp; clinical staff share templates</strong> without duplicating order entry</li>
+          <li>Templates can be <strong>versioned, copied or promoted</strong> to recurring orders</li>
+          <li>Sharing scope is <strong>tied to ship-to</strong> — never wider than the operational unit</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Eliminates duplicated effort, encodes institutional best practice, and shortens onboarding for new clinical staff.</span>
+      </div>
+    </div>
+
+    <!-- ===== Cap 5: Returns & Post-Order Control ===== -->
+    <div class="cap-row" id="cap-5">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-pink">↩️ Accuracy</span>
+        <h3>Returns &amp; Post-Order Control</h3>
+        <p class="cap-desc-lead">Multiple return initiation paths and post-order edit windows — addressing common clinical procurement errors without requiring support intervention.</p>
+        <ul class="cap-bullets">
+          <li>Return by <strong>PO number, intuitive code, serial number or barcode scan</strong></li>
+          <li><strong>Order withdrawal</strong> within a defined window after placement</li>
+          <li><strong>Edit recently-placed orders</strong> for wrong diopter, wrong ship-to, etc.</li>
+          <li>Reduces fulfillment-correction tickets and downstream billing errors</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Reduces support intervention, fulfillment errors and downstream billing rework — improving NPS and reducing operational cost.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/returns/initiate</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav"><span>Catalog</span><span>My Orders</span><span class="active">Returns</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Initiate a Return</div>
+            <div class="mock-sub">Choose your preferred path · all four supported</div>
+
+            <div class="mock-grid-2" style="gap: 12px;">
+              <div style="background: #fff; border: 2px solid var(--accent); border-radius: var(--radius-md); padding: 14px; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 6px;">📄</div>
+                <div style="font-weight: 700; color: var(--primary); font-size: 0.9rem;">By PO Number</div>
+                <div style="font-size: 0.74rem; color: var(--text-muted);">Find by purchase order</div>
+              </div>
+              <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 6px;">🔢</div>
+                <div style="font-weight: 700; color: var(--primary); font-size: 0.9rem;">By Intuitive Code</div>
+                <div style="font-size: 0.74rem; color: var(--text-muted);">Use the short return code</div>
+              </div>
+              <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 6px;">🆔</div>
+                <div style="font-weight: 700; color: var(--primary); font-size: 0.9rem;">By Serial Number</div>
+                <div style="font-size: 0.74rem; color: var(--text-muted);">Manually enter</div>
+              </div>
+              <div style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 6px;">📷</div>
+                <div style="font-weight: 700; color: var(--primary); font-size: 0.9rem;">By Barcode Scan</div>
+                <div style="font-size: 0.74rem; color: var(--text-muted);">Scan with mobile device</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 16px; background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 12px;">
+              <div style="font-size: 0.82rem; color: var(--warn); font-weight: 600;">⏱ Edit window open · Order #ORD-2026-04-318</div>
+              <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">Placed 14 min ago · You can still edit ship-to, diopter or quantities — no return needed.</div>
+              <button style="margin-top: 8px; background: var(--warn); color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">Edit order →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 6: Digital Certificates ===== -->
+    <div class="cap-row flip" id="cap-6">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/certificates</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav"><span>Catalog</span><span class="active">Certificates &amp; Devices</span><span>My Orders</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">My Devices &amp; Digital Certificates</div>
+            <div class="mock-sub">4 devices registered · 12 active certificates · 3 credits remaining</div>
+
+            <div class="mock-card">
+              <div class="mock-row">
+                <div><div class="name">📟 Phaco Console · Centurion Vision</div><div class="sku">SN: PHC-9982-01 · Registered Mar 2024</div></div>
+                <span class="mock-tag tag-ok">Active</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">📟 Active Sentry Handpiece</div><div class="sku">SN: ASH-3340-04 · Registered Aug 2024</div></div>
+                <span class="mock-tag tag-ok">Active</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">📟 IOL Master 700</div><div class="sku">SN: IOM-700-1184 · Registered Nov 2024</div></div>
+                <span class="mock-tag tag-warn">Calibration due</span>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">📜 Available certificates &amp; courses</div>
+
+            <div class="mock-card">
+              <div class="mock-row"><div><div class="name">Phaco Mastery Course — Year 2</div><div class="sku">12 modules · 2 of 12 completed</div></div><span class="mock-tag tag-info">⬇ Download</span></div>
+              <div class="mock-row"><div><div class="name">Toric IOL Calculator — Calibration Cert</div><div class="sku">Valid until 30 Sep 2026</div></div><span class="mock-tag tag-info">⬇ Download</span></div>
+              <div class="mock-row"><div><div class="name">+1 New Certificate available</div><div class="sku">Active Sentry handpiece · activate now</div></div><span class="mock-tag tag-ok">Activate</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-blue">📜 Digital Commerce</span>
+        <h3>Digital Certificates &amp; Device Assets</h3>
+        <p class="cap-desc-lead">Purchase and download digital certificates for devices and treatment courses directly through the platform — digitizing activation workflows that are typically manual.</p>
+        <ul class="cap-bullets">
+          <li>Customers <strong>select certificates by equipment model</strong> and complete purchase through the storefront</li>
+          <li><strong>Self-service device management</strong> — add, update or remove devices</li>
+          <li>View <strong>purchased credits</strong> and active courses from a single page</li>
+          <li>Reduces <strong>time-to-activation</strong> for clinical devices and training certifications</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Digitizes manual activation, reduces time-to-activation for clinical devices, and gives customers self-service control of their licensed assets.</span>
+      </div>
+    </div>
+
+    <!-- ===== Cap 7: Substitution Engine ===== -->
+    <div class="cap-row" id="cap-7">
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-indigo">🔀 Supply Continuity</span>
+        <h3>Product Substitution &amp; Availability Engine</h3>
+        <p class="cap-desc-lead">Replaces unavailable or discontinued products with clinically appropriate alternatives under defined reason codes. Smart suggestions maintain ordering continuity even when supply is constrained.</p>
+        <ul class="cap-bullets">
+          <li>Some substitutions are <strong>seamless</strong>; others surface a <strong>transparency warning</strong> to the user</li>
+          <li><strong>Defined reason codes</strong> ensure substitutions are explainable and auditable</li>
+          <li><strong>Availability engine</strong> provides estimated delivery dates and inventory messages on low-stock items</li>
+          <li>Reduces <strong>abandoned carts</strong> and "where is my product?" support inquiries</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Maintains revenue continuity during supply disruptions while preserving clinical appropriateness and user transparency.</span>
+      </div>
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/product/IOL-T25-T</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav"><span class="active">Catalog</span><span>Quick Order</span><span>My Orders</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-h1">Tecnis Toric II ZCT225 — 2.5D</div>
+            <div class="mock-sub">SKU IOL-T25-T · Eligible · Consignment</div>
+
+            <div style="background: linear-gradient(135deg, #fef2f2, #fef9f9); border: 1px solid #fecaca; border-radius: var(--radius-md); padding: 14px; margin-bottom: 14px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="font-size: 1.4rem;">⚠️</div>
+                <div>
+                  <div style="font-weight: 700; color: var(--danger);">Out of stock — back in 12–14 days</div>
+                  <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Reason code: <strong>SUPPLY_DELAY_MFG</strong> · Supplier ETA confirmed</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-faint); margin: 8px 0; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">🔀 Clinically appropriate alternatives</div>
+
+            <div class="mock-card">
+              <div class="mock-row">
+                <div><div class="name">AcrySoft IQ Toric SN6AT5 — 2.5D</div><div class="sku">Same diopter · same cylinder · in stock today</div></div>
+                <span class="mock-tag tag-ok">✓ Substitute</span>
+              </div>
+              <div class="mock-row">
+                <div><div class="name">enVista Toric MX60ET — 2.5D</div><div class="sku">Eligible alternative · 3-day delivery</div></div>
+                <span class="mock-tag tag-info">Available</span>
+              </div>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 12px; padding: 10px; background: var(--surface-2); border-radius: 6px;">
+              💡 <strong>Transparency:</strong> Each substitution is logged with a reason code so your downstream billing and traceability records remain audit-ready.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Cap 8: Embedded AI Assistant ===== -->
+    <div class="cap-row flip" id="cap-8">
+      <div class="cap-mockup-col">
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <div class="mockup-url">commerce.medtech-digital.example/ — assistant open</div>
+          </div>
+          <div class="mock-appbar">
+            <div class="mock-appbar-left">
+              <div class="mock-logo">M</div>
+              <div class="mock-nav"><span class="active">Catalog</span><span>Quick Order</span><span>My Orders</span></div>
+            </div>
+            <div class="mock-appbar-right"><div class="mock-avatar"></div></div>
+          </div>
+          <div class="mock-content" style="background: linear-gradient(180deg, #fff, #faf6ff);">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+              <div class="ai-banner-icon">AI</div>
+              <div>
+                <div style="font-weight: 700; color: var(--primary);">Commerce Assistant</div>
+                <div style="font-size: 0.74rem; color: var(--text-muted);">Embedded · trained on your catalog &amp; order history</div>
+              </div>
+            </div>
+
+            <div class="conv-box">
+              <div class="conv-q">"Show me consignment lenses I haven't billed in 30+ days"</div>
+              <div class="conv-a"><strong>AI · Commerce Assistant:</strong> Found <strong>14 lenses</strong> on consignment over 30 days old: 8 implanted but unbilled, 4 still on shelf, 2 pending serial validation. <a style="color: var(--ai); font-weight: 600;">Open the bill-and-replace flow →</a></div>
+            </div>
+
+            <div class="conv-box" style="margin-top: 12px;">
+              <div class="conv-q">"What's the diopter range for the Active Sentry handpiece kit?"</div>
+              <div class="conv-a"><strong>AI · Commerce Assistant:</strong> The Active Sentry handpiece kit ships with sleeves &amp; tubing compatible with all Centurion Vision phaco models. Diopter selection is on the IOL itself, not the handpiece. Want me to <a style="color: var(--ai); font-weight: 600;">add the standard sleeve pack to your cart?</a></div>
+            </div>
+
+            <div class="conv-box" style="margin-top: 12px;">
+              <div class="conv-q">"Where is order ORD-2026-04-318?"</div>
+              <div class="conv-a"><strong>AI · Commerce Assistant:</strong> Order placed 2 days ago · in transit · <strong>ETA tomorrow by 11am</strong> at NSC-North-Tower. Tracking #1Z-9F8-... <a style="color: var(--ai); font-weight: 600;">View full order →</a></div>
+            </div>
+
+            <div style="display: flex; gap: 8px; margin-top: 14px;">
+              <input style="flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem;" placeholder="Ask about catalog, orders, certificates, or returns..." />
+              <button style="background: var(--ai); color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer;">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cap-text-col">
+        <span class="cap-cat-badge cat-ai">🤖 AI-Enabled</span>
+        <h3>Embedded AI Assistant</h3>
+        <p class="cap-desc-lead">An AI assistant embedded directly in the commerce experience — answering product queries, providing navigation guidance and assisting with order-related issues.</p>
+        <ul class="cap-bullets">
+          <li><strong>Answers product queries</strong> about catalog, eligibility, compatibility</li>
+          <li><strong>Provides navigation guidance</strong> across the storefront, returns, certificates</li>
+          <li><strong>Resolves order-related issues</strong> in-context — fewer escalations to support</li>
+          <li>Improves <strong>response time</strong> for clinical staff who need immediate answers during procurement</li>
+        </ul>
+        <span class="cap-value-tag"><strong>Value:</strong> Reduces dependency on traditional support channels and scales support capacity without linear headcount growth.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI ROADMAP -->
+<section id="roadmap" class="roadmap-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">AI Extensions on the Roadmap</span>
+      <h2>Where Commerce is heading next.</h2>
+      <p>Today's Embedded AI Assistant is just the start. The H2 2026 backlog adds four more AI features that move from <em>helpful</em> to <em>proactive</em>.</p>
+    </div>
+
+    <div class="roadmap-grid">
+      <div class="roadmap-card">
+        <div class="icon">🎯</div>
+        <h4>Advanced Search with Clinical Intent</h4>
+        <p>Interprets queries like <em>"Toric IOL for 2.5D astigmatism with blue light filter"</em> rather than literal keyword matching — surfacing the right SKUs even when the user's vocabulary doesn't match yours.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">⚙️</div>
+        <h4>Compatibility Mapping</h4>
+        <p>When a customer searches for an Active Sentry handpiece-class item, AI auto-surfaces the compatible side-car tips, sleeves and tubing packs — preventing missing-piece orders that delay surgeries.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">📈</div>
+        <h4>Predictive Case Load &amp; Suggested Carts</h4>
+        <p>Analyzes rolling buying patterns and upcoming surgical schedules to flag discrepancies on the current order — and pre-fills carts for missing items before the customer realizes there's a gap.</p>
+      </div>
+      <div class="roadmap-card">
+        <div class="icon">🧰</div>
+        <h4>Virtual Pack Builder</h4>
+        <p>A guided AI interface that helps customers customize Custom Procedure Trays — preventing clinical errors at point of sale by validating compatibility and completeness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CROSS-NAV -->
+<section class="cross-nav">
+  <div class="cross-nav-inner">
+    <h3>Continue the demo · or jump to another platform</h3>
+    <div class="cross-nav-grid">
+      <a href="demo-commerce.html" class="cross-nav-card current">
+        <div class="icon">🛒</div>
+        <div class="name">Commerce Platform</div>
+        <div class="desc">B2B Digital Commerce on SAP Commerce Cloud</div>
+        <div class="cta">You're here</div>
+      </a>
+      <a href="demo-inventory.html" class="cross-nav-card">
+        <div class="icon">📦</div>
+        <div class="name">Surgical Inventory Platform</div>
+        <div class="desc">Real-time IOL inventory operations &amp; surgery readiness</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-analytics.html" class="cross-nav-card">
+        <div class="icon">📊</div>
+        <div class="name">Analytics &amp; Decision Support</div>
+        <div class="desc">AI-enabled clinical and commercial insights</div>
+        <div class="cta">Open demo →</div>
+      </a>
+    </div>
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="lean-core-edge-showcase.html" class="btn btn-light">← Back to main showcase</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Lean Core &amp; Edge — Commerce Platform demo · SAP Sapphire showcase · Anonymized client narrative
+</footer>
+
+</body>
+</html>
