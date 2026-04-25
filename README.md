@@ -11,7 +11,8 @@ demo-inventory.html           # Solution Demo 02 — Surgical Inventory Platform
 demo-analytics.html           # Solution Demo 03 — Analytics & Decision Support
 demo-ams.html                 # Live AI-pipeline demo — submit a ServiceNow ticket, watch the AI pipeline run
 demo-architecture.html        # Architecture deep dive — deployment + layered software architectures
-showcase-styles.css           # Shared stylesheet used by all six pages
+demo-journey.html             # Three-year journey roadmap — Phase 1/2/3 with AI-accelerated Year 3
+showcase-styles.css           # Shared stylesheet used by all seven pages
 lean-core-edge-showcase.html  # Legacy redirect → index.html (safe to delete)
 README.md                     # This file
 ```

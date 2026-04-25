@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Three-Year Journey — Lean Core &amp; Edge</title>
+<link rel="stylesheet" href="showcase-styles.css" />
+<style>
+/* ============ Journey page specific styles ============ */
+.journey-section {
+  padding: 60px 32px 80px;
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+}
+
+.journey-stage {
+  max-width: 1500px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 130px 1fr 130px;
+  gap: 24px;
+  align-items: stretch;
+  position: relative;
+}
+
+/* Endpoints */
+.endpoint {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: sticky; top: 80px; align-self: flex-start;
+  height: fit-content;
+}
+.endpoint .ep-circle {
+  width: 130px; height: 130px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  font-weight: 800; font-size: 0.82rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 16px;
+  box-shadow: 0 12px 32px rgba(11,37,69,0.25);
+}
+.endpoint-current .ep-circle {
+  background: linear-gradient(135deg, #061427, #0b2545);
+  color: #fff;
+  border: 4px solid rgba(255,255,255,0.1);
+}
+.endpoint-vision .ep-circle {
+  background: radial-gradient(circle at 30% 30%, #fde68a, #f59e0b);
+  color: #1a1208;
+  border: 4px solid rgba(255,255,255,0.4);
+  position: relative;
+}
+.endpoint-vision .ep-circle::after {
+  content: '★';
+  position: absolute; top: -6px; right: -6px;
+  width: 28px; height: 28px;
+  background: #fff;
+  color: #f59e0b;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.endpoint-label {
+  margin-top: 12px;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-faint);
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Journey content area */
+.journey-content {
+  display: flex; flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+/* Decorative horizon arcs (top + bottom) */
+.journey-content::before, .journey-content::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, rgba(11,37,69,0.18) 15%, rgba(11,37,69,0.18) 85%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.journey-content::before { top: -8px; }
+.journey-content::after { bottom: -8px; }
+
+/* Phase header row */
+.phase-header-row {
+  display: grid;
+  grid-template-columns: 200px repeat(3, 1fr);
+  gap: 0;
+  margin-bottom: 16px;
+  padding-left: 20px;
+}
+.phase-header-row .lane-label-spacer { /* empty */ }
+.phase-header {
+  text-align: center;
+  padding: 14px 16px;
+  margin: 0 6px;
+  border-radius: 18px;
+  position: relative;
+  background: var(--surface);
+  border: 2px solid;
+}
+.phase-header.phase-1 { border-color: #1e40af; }
+.phase-header.phase-2 { border-color: #0ea5e9; }
+.phase-header.phase-3 { border-color: #7c5cff; }
+.phase-header .ph-tag {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 2px 10px; border-radius: 999px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.phase-header.phase-1 .ph-tag { background: #1e40af; }
+.phase-header.phase-2 .ph-tag { background: #0ea5e9; }
+.phase-header.phase-3 .ph-tag { background: linear-gradient(135deg, #7c5cff, #00a6c0); }
+.phase-header .ph-name {
+  font-weight: 700; color: var(--primary);
+  font-size: 0.95rem; line-height: 1.2;
+}
+.phase-header .ph-sub {
+  font-size: 0.74rem; color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Swim lane */
+.swim-lane {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: stretch;
+  border-bottom: 1px dashed var(--border-strong);
+  padding: 18px 0;
+  position: relative;
+}
+.swim-lane:last-of-type { border-bottom: none; }
+.swim-lane:first-of-type { border-top: 1px dashed var(--border-strong); }
+
+.lane-label-cell {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding-right: 16px;
+  border-right: 2px solid var(--border);
+  position: relative;
+}
+.lane-label-cell .lane-name {
+  font-weight: 800; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-size: 0.84rem; line-height: 1.3;
+}
+.lane-label-cell .lane-icon {
+  font-size: 1.4rem; margin-bottom: 4px;
+}
+.lane-label-cell .lane-sub {
+  font-size: 0.7rem; color: var(--text-faint);
+  margin-top: 4px;
+}
+
+.lane-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 0 16px;
+}
+
+.phase-cell {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.5);
+}
+.phase-cell.p1 { background: linear-gradient(180deg, rgba(30,64,175,0.04), transparent); }
+.phase-cell.p2 { background: linear-gradient(180deg, rgba(14,165,233,0.04), transparent); }
+.phase-cell.p3 { background: linear-gradient(180deg, rgba(124,92,255,0.04), transparent); }
+
+.journey-item {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.35;
+}
+.journey-item .num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 800; color: #fff;
+  flex-shrink: 0;
+  background: var(--primary);
+  margin-top: 1px;
+}
+.phase-cell.p1 .num { background: #1e40af; }
+.phase-cell.p2 .num { background: #0ea5e9; }
+.phase-cell.p3 .num { background: #94a3b8; }
+.journey-item.ai .num {
+  background: linear-gradient(135deg, #7c5cff, #00a6c0);
+  box-shadow: 0 0 0 3px rgba(124,92,255,0.18);
+  position: relative;
+}
+.journey-item.ai .text {
+  position: relative;
+}
+.journey-item.ai .text::before {
+  content: '✨ ';
+  font-size: 0.78rem;
+  margin-right: 1px;
+}
+.journey-item.ai {
+  color: var(--text);
+  font-weight: 500;
+}
+.journey-item .text { flex: 1; }
+
+/* "We are here" indicator */
+.we-are-here {
+  position: absolute;
+  top: -18px;
+  font-size: 0.74rem; font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  display: flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+  z-index: 5;
+}
+.we-are-here::before {
+  content: '★';
+  display: inline-flex;
+  width: 22px; height: 22px;
+  align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.78rem;
+  box-shadow: 0 4px 10px rgba(0,166,192,0.4);
+}
+
+/* Bottom band */
+.bottom-band {
+  margin-top: 32px;
+  background: linear-gradient(90deg, var(--primary), var(--ai), var(--primary));
+  color: #fff;
+  text-align: center;
+  padding: 16px 24px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 12px 30px rgba(11,37,69,0.2);
+}
+.bottom-band .icon {
+  display: inline-block; margin-right: 8px;
+}
+
+/* Legend */
+.journey-legend {
+  margin-top: 28px;
+  display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
+  padding: 18px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.84rem; color: var(--text-muted);
+  font-weight: 500;
+}
+.legend-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-dot.l1 { background: #1e40af; }
+.legend-dot.l2 { background: #0ea5e9; }
+.legend-dot.l3 { background: #94a3b8; }
+.legend-dot.l4 { background: linear-gradient(135deg, #7c5cff, #00a6c0); box-shadow: 0 0 0 2px rgba(124,92,255,0.18); }
+
+/* Highlight callout for AI in Year 3 */
+.ai-spotlight {
+  margin-top: 32px;
+  background: linear-gradient(135deg, rgba(124,92,255,0.08), rgba(0,166,192,0.05));
+  border: 1px solid rgba(124,92,255,0.25);
+  border-left: 4px solid var(--ai);
+  border-radius: 14px;
+  padding: 22px 28px;
+}
+.ai-spotlight h4 {
+  color: var(--ai); margin: 0 0 8px;
+  font-size: 1.05rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.ai-spotlight h4 .pill {
+  background: var(--ai); color: #fff;
+  font-size: 0.66rem; font-weight: 800;
+  padding: 3px 10px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.ai-spotlight p {
+  color: var(--text); font-size: 0.92rem; margin: 0;
+  line-height: 1.55;
+}
+.ai-spotlight strong { color: var(--ai); }
+
+@media (max-width: 1100px) {
+  .journey-stage { grid-template-columns: 1fr; gap: 20px; }
+  .endpoint { position: static; flex-direction: row; gap: 16px; justify-content: center; }
+  .endpoint .ep-circle { width: 100px; height: 100px; font-size: 0.74rem; }
+  .phase-header-row { grid-template-columns: 1fr; gap: 8px; padding-left: 0; }
+  .swim-lane { grid-template-columns: 1fr; }
+  .lane-label-cell { padding: 8px 0; border-right: none; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .lane-items { grid-template-columns: 1fr; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">L|E</div>
+      <span>Lean Core &amp; Edge</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-back">← Back to showcase</a>
+      <a href="demo-commerce.html">Commerce</a>
+      <a href="demo-inventory.html">Inventory</a>
+      <a href="demo-analytics.html">Analytics</a>
+      <a href="demo-ams.html">AI in AMS</a>
+      <a href="demo-architecture.html">Architecture</a>
+      <a href="demo-journey.html" class="nav-cta">Journey</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="demo-hero">
+  <div class="demo-hero-inner">
+    <div>
+      <span class="stack-tag"><span class="dot"></span>Foundations · Build · AI-accelerated innovation</span>
+      <h1>The <span class="grad">Three-Year Journey</span></h1>
+      <p class="tagline">From a 2% eCommerce starting point to a $1B+ AI-powered Digital Health business — the path we walked, lane by lane, phase by phase. We are now firmly into Year 3, with AI accelerating every workstream.</p>
+      <div class="hero-actions">
+        <a href="#journey" class="btn btn-primary">View the journey ↓</a>
+        <a href="#ai-spotlight" class="btn btn-ghost">AI in Year 3</a>
+      </div>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat"><div class="num">3 yr</div><div class="label">Oct 2022 → March 2026 transformation arc</div></div>
+      <div class="hero-stat"><div class="num">6</div><div class="label">Workstreams orchestrated in parallel</div></div>
+      <div class="hero-stat"><div class="num">3</div><div class="label">Time phases · foundations → build → AI scale</div></div>
+      <div class="hero-stat"><div class="num">★</div><div class="label">We are here · Year 3 · AI acceleration</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY DIAGRAM -->
+<section class="journey-section" id="journey">
+  <div class="container">
+    <div class="section-head" style="text-align: center; margin: 0 auto 36px; max-width: 880px;">
+      <span class="eyebrow" style="display: inline-block;">The roadmap, lane by lane</span>
+      <h2>Six workstreams. Three phases. One coherent program.</h2>
+      <p>Each lane sequenced its own work in parallel — but governed by a shared change strategy and KPI tracking band running across the bottom of the program.</p>
+    </div>
+
+    <div class="journey-stage">
+
+      <!-- LEFT ENDPOINT: CURRENT STATE -->
+      <div class="endpoint endpoint-current">
+        <div class="ep-circle">Current<br/>State</div>
+        <div class="endpoint-label">October 2022</div>
+      </div>
+
+      <!-- JOURNEY CONTENT -->
+      <div class="journey-content">
+
+        <!-- Phase headers -->
+        <div class="phase-header-row">
+          <div class="lane-label-spacer"></div>
+          <div class="phase-header phase-1">
+            <span class="ph-tag">Phase 1</span>
+            <div class="ph-name">First 4 Months</div>
+            <div class="ph-sub">Digital foundations</div>
+          </div>
+          <div class="phase-header phase-2">
+            <span class="ph-tag">Phase 2</span>
+            <div class="ph-name">Next 8 Months</div>
+            <div class="ph-sub">Configure, build, test &amp; deploy</div>
+          </div>
+          <div class="phase-header phase-3" style="position: relative;">
+            <span class="we-are-here" style="right: 16px;">We are here</span>
+            <span class="ph-tag">Phase 3</span>
+            <div class="ph-name">Year 2 &amp; 3</div>
+            <div class="ph-sub">Continuous innovation · AI acceleration</div>
+          </div>
+        </div>
+
+        <!-- ===== Swim lane: Customer Experience ===== -->
+        <div class="swim-lane">
+          <div class="lane-label-cell">
+            <div class="lane-icon">👥</div>
+            <div class="lane-name">Customer Experience</div>
+            <div class="lane-sub">Persona, design, journey</div>
+          </div>
+          <div class="lane-items">
+            <div class="phase-cell p1">
+              <div class="journey-item"><span class="num">1</span><span class="text">Future-state customer journey definition</span></div>
+              <div class="journey-item"><span class="num">2</span><span class="text">Service design &amp; customer-group validation</span></div>
+              <div class="journey-item"><span class="num">3</span><span class="text">UI / UX experience research</span></div>
+            </div>
+            <div class="phase-cell p2">
+              <div class="journey-item"><span class="num">4</span><span class="text">Atomic design systems</span></div>
+              <div class="journey-item"><span class="num">5</span><span class="text">Headless CMS integration</span></div>
+            </div>
+            <div class="phase-cell p3">
+              <div class="journey-item"><span class="num">6</span><span class="text">A/B testing for experience</span></div>
+              <div class="journey-item ai"><span class="num">7</span><span class="text">GenAI-driven chatbots across customer support</span></div>
+              <div class="journey-item ai"><span class="num">8</span><span class="text">AI-powered personalization at surgeon-clinic level</span></div>
+              <div class="journey-item ai"><span class="num">9</span><span class="text">Conversational AI embedded across surgical workflows</span></div>
+              <div class="journey-item ai"><span class="num">10</span><span class="text">AI-driven journey orchestration · anticipating intent</span></div>
+              <div class="journey-item ai"><span class="num">11</span><span class="text">Generative content production for storefront</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Swim lane: Platform & Architecture ===== -->
+        <div class="swim-lane">
+          <div class="lane-label-cell">
+            <div class="lane-icon">🏗️</div>
+            <div class="lane-name">Platform &amp; Architecture</div>
+            <div class="lane-sub">Lean core, AI-enabled edge</div>
+          </div>
+          <div class="lane-items">
+            <div class="phase-cell p1">
+              <div class="journey-item"><span class="num">1</span><span class="text">Core platform definition (S/4HANA + edge)</span></div>
+              <div class="journey-item"><span class="num">2</span><span class="text">Global integration needs assessment</span></div>
+              <div class="journey-item"><span class="num">3</span><span class="text">CI/CD pipeline &amp; environment strategy</span></div>
+            </div>
+            <div class="phase-cell p2">
+              <div class="journey-item"><span class="num">4</span><span class="text">Headless eCommerce activation on web &amp; mobile</span></div>
+              <div class="journey-item"><span class="num">5</span><span class="text">Integration development (MuleSoft + Okta)</span></div>
+              <div class="journey-item"><span class="num">6</span><span class="text">Core commerce configuration &amp; build</span></div>
+              <div class="journey-item"><span class="num">7</span><span class="text">Core solution testing &amp; deployment</span></div>
+            </div>
+            <div class="phase-cell p3">
+              <div class="journey-item"><span class="num">8</span><span class="text">New market deployments &amp; zero-touch integrations</span></div>
+              <div class="journey-item ai"><span class="num">9</span><span class="text">Build automation &amp; GenAI-based development</span></div>
+              <div class="journey-item ai"><span class="num">10</span><span class="text">Automation test frameworks (AI-generated)</span></div>
+              <div class="journey-item ai"><span class="num">11</span><span class="text">AIOps for self-healing infrastructure</span></div>
+              <div class="journey-item ai"><span class="num">12</span><span class="text">GenAI-assisted code review &amp; PR auto-merge</span></div>
+              <div class="journey-item ai"><span class="num">13</span><span class="text">AI-driven performance auto-tuning</span></div>
+              <div class="journey-item ai"><span class="num">14</span><span class="text">Agentic deployment pipeline · human in the loop</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Swim lane: Data & Insights ===== -->
+        <div class="swim-lane">
+          <div class="lane-label-cell">
+            <div class="lane-icon">📊</div>
+            <div class="lane-name">Data &amp; Insights</div>
+            <div class="lane-sub">Governance to GenAI</div>
+          </div>
+          <div class="lane-items">
+            <div class="phase-cell p1">
+              <div class="journey-item"><span class="num">1</span><span class="text">Data governance alignment</span></div>
+              <div class="journey-item"><span class="num">2</span><span class="text">Data strategy for commerce</span></div>
+            </div>
+            <div class="phase-cell p2">
+              <div class="journey-item"><span class="num">3</span><span class="text">Core data replication &amp; migration to platform</span></div>
+              <div class="journey-item"><span class="num">4</span><span class="text">Listening strategy definition</span></div>
+              <div class="journey-item"><span class="num">5</span><span class="text">Journey analytics implementation</span></div>
+            </div>
+            <div class="phase-cell p3">
+              <div class="journey-item"><span class="num">6</span><span class="text">Persona-based insights dashboards</span></div>
+              <div class="journey-item ai"><span class="num">7</span><span class="text">Sentiment &amp; tonal analytics insights</span></div>
+              <div class="journey-item ai"><span class="num">8</span><span class="text">Self-healing data constructs</span></div>
+              <div class="journey-item ai"><span class="num">9</span><span class="text">Predictive surgery demand forecasting</span></div>
+              <div class="journey-item ai"><span class="num">10</span><span class="text">GenAI semantic search across clinical data</span></div>
+              <div class="journey-item ai"><span class="num">11</span><span class="text">Real-time AI anomaly detection · inventory + commerce</span></div>
+              <div class="journey-item ai"><span class="num">12</span><span class="text">AI-generated executive performance summaries</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Swim lane: Functionality Evolution ===== -->
+        <div class="swim-lane">
+          <div class="lane-label-cell">
+            <div class="lane-icon">🔧</div>
+            <div class="lane-name">Functionality Evolution</div>
+            <div class="lane-sub">From features to outcomes</div>
+          </div>
+          <div class="lane-items">
+            <div class="phase-cell p1">
+              <div class="journey-item"><span class="num">1</span><span class="text">Epic &amp; feature definition · competitive research + leading practices</span></div>
+              <div class="journey-item"><span class="num">2</span><span class="text">Global feature set definition &amp; refinement</span></div>
+            </div>
+            <div class="phase-cell p2">
+              <div class="journey-item"><span class="num">3</span><span class="text">BU-specific localization for legal, statutory, tax &amp; regulatory</span></div>
+              <div class="journey-item"><span class="num">4</span><span class="text">Conversion-rate optimization &amp; experiments design</span></div>
+            </div>
+            <div class="phase-cell p3">
+              <div class="journey-item"><span class="num">5</span><span class="text">Continuous product research</span></div>
+              <div class="journey-item"><span class="num">6</span><span class="text">Feature backlog build-out · 6–12 month outlook</span></div>
+              <div class="journey-item"><span class="num">7</span><span class="text">Value-based prioritization framework</span></div>
+              <div class="journey-item"><span class="num">8</span><span class="text">Continuous product innovation</span></div>
+              <div class="journey-item ai"><span class="num">9</span><span class="text">AI-powered feature ideation from user-behavior signals</span></div>
+              <div class="journey-item ai"><span class="num">10</span><span class="text">AI-driven CRO experimentation &amp; auto-optimization</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Swim lane: Operating Model ===== -->
+        <div class="swim-lane">
+          <div class="lane-label-cell">
+            <div class="lane-icon">📐</div>
+            <div class="lane-name">Operating Model &amp; Benefits</div>
+            <div class="lane-sub">Governance, agile, KPIs</div>
+          </div>
+          <div class="lane-items">
+            <div class="phase-cell p1">
+              <div class="journey-item"><span class="num">1</span><span class="text">Governance model &amp; RACI design</span></div>
+              <div class="journey-item"><span class="num">2</span><span class="text">Agile ways-of-working socialization &amp; testing</span></div>
+            </div>
+            <div class="phase-cell p2">
+              <div class="journey-item"><span class="num">3</span><span class="text">Program-increment planning &amp; PMO operations</span></div>
+              <div class="journey-item"><span class="num">4</span><span class="text">Business &amp; program KPI definition &amp; tracking</span></div>
+            </div>
+            <div class="phase-cell p3">
+              <div class="journey-item"><span class="num">5</span><span class="text">Efficiency improvements &amp; benefits realization</span></div>
+              <div class="journey-item ai"><span class="num">6</span><span class="text">AI-driven KPI insights &amp; predictive benefits tracking</span></div>
+              <div class="journey-item ai"><span class="num">7</span><span class="text">Agentic workflow automation for back-office</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== Swim lane: Change Management ===== -->
+        <div class="swim-lane">
+          <div class="lane-label-cell">
+            <div class="lane-icon">🔄</div>
+            <div class="lane-name">Change Management</div>
+            <div class="lane-sub">Adoption at scale</div>
+          </div>
+          <div class="lane-items">
+            <div class="phase-cell p1">
+              <div class="journey-item"><span class="num">1</span><span class="text">Channel-less future-state change strategy</span></div>
+              <div class="journey-item"><span class="num">2</span><span class="text">Training design</span></div>
+            </div>
+            <div class="phase-cell p2">
+              <div class="journey-item"><span class="num">3</span><span class="text">Training execution &amp; feedback / playback</span></div>
+              <div class="journey-item"><span class="num">4</span><span class="text">Change network activation</span></div>
+            </div>
+            <div class="phase-cell p3">
+              <div class="journey-item"><span class="num">5</span><span class="text">Proactive change enablers</span></div>
+              <div class="journey-item ai"><span class="num">6</span><span class="text">AI-personalized training pathways</span></div>
+              <div class="journey-item ai"><span class="num">7</span><span class="text">AI-synthesized change feedback loops</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom band -->
+        <div class="bottom-band">
+          <span class="icon">🎯</span> Transform, change &amp; communications management — running across all phases, all lanes
+        </div>
+
+      </div>
+
+      <!-- RIGHT ENDPOINT: VISION -->
+      <div class="endpoint endpoint-vision">
+        <div class="ep-circle">Vision</div>
+        <div class="endpoint-label">2027+ horizon</div>
+      </div>
+
+    </div>
+
+    <!-- Legend -->
+    <div class="journey-legend">
+      <div class="legend-item"><span class="legend-dot l1"></span>First 4 months · Digital foundations</div>
+      <div class="legend-item"><span class="legend-dot l2"></span>Next 8 months · Configure, build, test &amp; deploy</div>
+      <div class="legend-item"><span class="legend-dot l3"></span>Year 2 &amp; 3 · Continuous innovation &amp; growth</div>
+      <div class="legend-item"><span class="legend-dot l4"></span>✨ AI-accelerated workstream item (Year 3)</div>
+    </div>
+
+    <!-- AI spotlight -->
+    <div class="ai-spotlight" id="ai-spotlight">
+      <h4><span class="pill">Year 3 spotlight</span> AI is no longer a workstream — it's the operating fabric</h4>
+      <p>
+        Where the original roadmap had AI bolted onto a few cells, Year 3 of this transformation pushes AI <strong>into every lane</strong>. The customer experience runs on conversational AI and AI-driven journey orchestration. Platform engineering is accelerated by AIOps, GenAI-assisted code review, and an agentic deployment pipeline. Data &amp; insights moves from dashboards to predictive forecasting, semantic search and AI-generated executive summaries. Functionality evolves through AI-powered ideation and CRO. The operating model adopts agentic workflow automation. Even change management uses AI-personalized training. The result: <strong>~25 AI-driven items in Year 3 alone</strong> — versus a handful in the original baseline.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Cross-nav -->
+<section class="cross-nav">
+  <div class="cross-nav-inner">
+    <h3>Continue the demo · or jump to another platform</h3>
+    <div class="cross-nav-grid">
+      <a href="demo-commerce.html" class="cross-nav-card">
+        <div class="icon">🛒</div>
+        <div class="name">Commerce Platform</div>
+        <div class="desc">B2B Digital Commerce on SAP Commerce Cloud</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-inventory.html" class="cross-nav-card">
+        <div class="icon">📦</div>
+        <div class="name">Surgical Inventory Platform</div>
+        <div class="desc">Real-time IOL inventory operations</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-analytics.html" class="cross-nav-card">
+        <div class="icon">📊</div>
+        <div class="name">Analytics &amp; Decision Support</div>
+        <div class="desc">AI-enabled clinical and commercial insights</div>
+        <div class="cta">Open demo →</div>
+      </a>
+    </div>
+    <div style="margin-top: 24px;">
+      <div class="cross-nav-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+        <a href="demo-ams.html" class="cross-nav-card">
+          <div class="icon">🤖</div>
+          <div class="name">AI in AMS</div>
+          <div class="desc">Live pipeline demo — ServiceNow → Bedrock → worknote</div>
+          <div class="cta">Open demo →</div>
+        </a>
+        <a href="demo-architecture.html" class="cross-nav-card">
+          <div class="icon">🏗️</div>
+          <div class="name">Architecture deep dive</div>
+          <div class="desc">Deployment + layered architectures with logos</div>
+          <div class="cta">Open demo →</div>
+        </a>
+        <a href="demo-journey.html" class="cross-nav-card current">
+          <div class="icon">🛣️</div>
+          <div class="name">Three-Year Journey</div>
+          <div class="desc">Phased roadmap with AI-accelerated Year 3</div>
+          <div class="cta">You're here</div>
+        </a>
+      </div>
+    </div>
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="index.html" class="btn btn-light">← Back to main showcase</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Lean Core &amp; Edge — Three-Year Journey · SAP Sapphire showcase · Anonymized client narrative · As of March 2026
+</footer>
+
+</body>
+</html>
