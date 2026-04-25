@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Three-Year Journey — Lean Core &amp; Edge</title>
+<title>Multi-Year Journey — Lean Core &amp; Edge</title>
 <link rel="stylesheet" href="showcase-styles.css" />
 <style>
 /* ============ Journey page specific styles ============ */
@@ -13,7 +13,7 @@
 }
 
 .journey-stage {
-  max-width: 1500px; margin: 0 auto;
+  max-width: 1600px; margin: 0 auto;
   display: grid;
   grid-template-columns: 130px 1fr 130px;
   gap: 24px;
@@ -89,10 +89,10 @@
 .journey-content::before { top: -8px; }
 .journey-content::after { bottom: -8px; }
 
-/* Phase header row */
+/* Phase header row — 4 phases */
 .phase-header-row {
   display: grid;
-  grid-template-columns: 200px repeat(3, 1fr);
+  grid-template-columns: 200px repeat(4, 1fr);
   gap: 0;
   margin-bottom: 16px;
   padding-left: 20px;
@@ -100,34 +100,42 @@
 .phase-header-row .lane-label-spacer { /* empty */ }
 .phase-header {
   text-align: center;
-  padding: 14px 16px;
-  margin: 0 6px;
-  border-radius: 18px;
+  padding: 12px 12px;
+  margin: 0 5px;
+  border-radius: 16px;
   position: relative;
   background: var(--surface);
   border: 2px solid;
 }
 .phase-header.phase-1 { border-color: #1e40af; }
 .phase-header.phase-2 { border-color: #0ea5e9; }
-.phase-header.phase-3 { border-color: #7c5cff; }
+.phase-header.phase-3 { border-color: #94a3b8; }
+.phase-header.phase-4 { border-color: #7c5cff; }
 .phase-header .ph-tag {
   display: inline-block;
-  font-size: 0.7rem; font-weight: 800;
+  font-size: 0.66rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: 0.1em;
-  padding: 2px 10px; border-radius: 999px;
+  padding: 2px 8px; border-radius: 999px;
   color: #fff;
   margin-bottom: 6px;
 }
 .phase-header.phase-1 .ph-tag { background: #1e40af; }
 .phase-header.phase-2 .ph-tag { background: #0ea5e9; }
-.phase-header.phase-3 .ph-tag { background: linear-gradient(135deg, #7c5cff, #00a6c0); }
+.phase-header.phase-3 .ph-tag { background: #64748b; }
+.phase-header.phase-4 .ph-tag { background: linear-gradient(135deg, #7c5cff, #00a6c0); }
 .phase-header .ph-name {
   font-weight: 700; color: var(--primary);
-  font-size: 0.95rem; line-height: 1.2;
+  font-size: 0.9rem; line-height: 1.2;
+}
+.phase-header .ph-dates {
+  font-size: 0.68rem; color: var(--text-faint);
+  margin-top: 2px;
+  font-weight: 600;
 }
 .phase-header .ph-sub {
-  font-size: 0.74rem; color: var(--text-muted);
+  font-size: 0.7rem; color: var(--text-muted);
   margin-top: 4px;
+  line-height: 1.3;
 }
 
 /* Swim lane */
@@ -164,8 +172,8 @@
 
 .lane-items {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
   padding: 0 16px;
 }
 
@@ -174,21 +182,23 @@
   padding: 8px;
   border-radius: 10px;
   background: rgba(255,255,255,0.5);
+  min-height: 40px;
 }
 .phase-cell.p1 { background: linear-gradient(180deg, rgba(30,64,175,0.04), transparent); }
 .phase-cell.p2 { background: linear-gradient(180deg, rgba(14,165,233,0.04), transparent); }
-.phase-cell.p3 { background: linear-gradient(180deg, rgba(124,92,255,0.04), transparent); }
+.phase-cell.p3 { background: linear-gradient(180deg, rgba(100,116,139,0.04), transparent); }
+.phase-cell.p4 { background: linear-gradient(180deg, rgba(124,92,255,0.06), rgba(0,166,192,0.02)); }
 
 .journey-item {
-  display: flex; gap: 8px; align-items: flex-start;
-  font-size: 0.78rem;
+  display: flex; gap: 7px; align-items: flex-start;
+  font-size: 0.74rem;
   color: var(--text);
   line-height: 1.35;
 }
 .journey-item .num {
-  width: 22px; height: 22px; border-radius: 50%;
+  width: 20px; height: 20px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; font-weight: 800; color: #fff;
+  font-size: 0.66rem; font-weight: 800; color: #fff;
   flex-shrink: 0;
   background: var(--primary);
   margin-top: 1px;
@@ -196,17 +206,15 @@
 .phase-cell.p1 .num { background: #1e40af; }
 .phase-cell.p2 .num { background: #0ea5e9; }
 .phase-cell.p3 .num { background: #94a3b8; }
+.phase-cell.p4 .num { background: #7c5cff; }
 .journey-item.ai .num {
   background: linear-gradient(135deg, #7c5cff, #00a6c0);
-  box-shadow: 0 0 0 3px rgba(124,92,255,0.18);
-  position: relative;
-}
-.journey-item.ai .text {
+  box-shadow: 0 0 0 2px rgba(124,92,255,0.18);
   position: relative;
 }
 .journey-item.ai .text::before {
   content: '✨ ';
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   margin-right: 1px;
 }
 .journey-item.ai {
@@ -218,24 +226,28 @@
 /* "We are here" indicator */
 .we-are-here {
   position: absolute;
-  top: -18px;
-  font-size: 0.74rem; font-weight: 800;
+  top: -16px; left: 50%; transform: translateX(-50%);
+  font-size: 0.7rem; font-weight: 800;
   color: var(--accent);
-  text-transform: uppercase; letter-spacing: 0.1em;
+  text-transform: uppercase; letter-spacing: 0.08em;
   display: flex; align-items: center; gap: 6px;
   white-space: nowrap;
   z-index: 5;
+  background: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--accent);
+  box-shadow: 0 4px 10px rgba(0,166,192,0.2);
 }
 .we-are-here::before {
   content: '★';
   display: inline-flex;
-  width: 22px; height: 22px;
+  width: 18px; height: 18px;
   align-items: center; justify-content: center;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #fff;
   border-radius: 50%;
-  font-size: 0.78rem;
-  box-shadow: 0 4px 10px rgba(0,166,192,0.4);
+  font-size: 0.7rem;
 }
 
 /* Bottom band */
@@ -258,7 +270,7 @@
 /* Legend */
 .journey-legend {
   margin-top: 28px;
-  display: flex; gap: 28px; flex-wrap: wrap; justify-content: center;
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
   padding: 18px 24px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -266,7 +278,7 @@
 }
 .legend-item {
   display: flex; align-items: center; gap: 8px;
-  font-size: 0.84rem; color: var(--text-muted);
+  font-size: 0.82rem; color: var(--text-muted);
   font-weight: 500;
 }
 .legend-dot {
@@ -276,9 +288,10 @@
 .legend-dot.l1 { background: #1e40af; }
 .legend-dot.l2 { background: #0ea5e9; }
 .legend-dot.l3 { background: #94a3b8; }
-.legend-dot.l4 { background: linear-gradient(135deg, #7c5cff, #00a6c0); box-shadow: 0 0 0 2px rgba(124,92,255,0.18); }
+.legend-dot.l4 { background: #7c5cff; }
+.legend-dot.l5 { background: linear-gradient(135deg, #7c5cff, #00a6c0); box-shadow: 0 0 0 2px rgba(124,92,255,0.18); }
 
-/* Highlight callout for AI in Year 3 */
+/* Highlight callout for AI in Year 4 */
 .ai-spotlight {
   margin-top: 32px;
   background: linear-gradient(135deg, rgba(124,92,255,0.08), rgba(0,166,192,0.05));
@@ -290,7 +303,7 @@
 .ai-spotlight h4 {
   color: var(--ai); margin: 0 0 8px;
   font-size: 1.05rem;
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
 }
 .ai-spotlight h4 .pill {
   background: var(--ai); color: #fff;
@@ -304,11 +317,18 @@
 }
 .ai-spotlight strong { color: var(--ai); }
 
+@media (max-width: 1280px) {
+  .lane-items { grid-template-columns: repeat(2, 1fr); }
+  .phase-header-row { grid-template-columns: 200px repeat(2, 1fr); }
+  .phase-header-row .phase-header:nth-child(4),
+  .phase-header-row .phase-header:nth-child(5) { display: none; }
+}
 @media (max-width: 1100px) {
   .journey-stage { grid-template-columns: 1fr; gap: 20px; }
   .endpoint { position: static; flex-direction: row; gap: 16px; justify-content: center; }
   .endpoint .ep-circle { width: 100px; height: 100px; font-size: 0.74rem; }
   .phase-header-row { grid-template-columns: 1fr; gap: 8px; padding-left: 0; }
+  .phase-header-row .phase-header { display: block !important; }
   .swim-lane { grid-template-columns: 1fr; }
   .lane-label-cell { padding: 8px 0; border-right: none; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
   .lane-items { grid-template-columns: 1fr; padding: 0; }
@@ -340,19 +360,19 @@
 <section class="demo-hero">
   <div class="demo-hero-inner">
     <div>
-      <span class="stack-tag"><span class="dot"></span>Foundations · Build · AI-accelerated innovation</span>
-      <h1>The <span class="grad">Three-Year Journey</span></h1>
-      <p class="tagline">From a 2% eCommerce starting point to a $1B+ AI-powered Digital Health business — the path we walked, lane by lane, phase by phase. We are now firmly into Year 3, with AI accelerating every workstream.</p>
+      <span class="stack-tag"><span class="dot"></span>Foundations · Build · Continuous innovation · AI at scale</span>
+      <h1>The <span class="grad">Multi-Year Journey</span></h1>
+      <p class="tagline">From a 2% eCommerce starting point in October 2022 to a $1B+ AI-powered Digital Health business in March 2026 — the path we walked, lane by lane, year by year. AI didn't arrive until 2025+; the early years were about building the foundation that made AI scale possible.</p>
       <div class="hero-actions">
         <a href="#journey" class="btn btn-primary">View the journey ↓</a>
-        <a href="#ai-spotlight" class="btn btn-ghost">AI in Year 3</a>
+        <a href="#ai-spotlight" class="btn btn-ghost">Why AI lives in Year 4</a>
       </div>
     </div>
     <div class="hero-stat-grid">
-      <div class="hero-stat"><div class="num">3 yr</div><div class="label">Oct 2022 → March 2026 transformation arc</div></div>
+      <div class="hero-stat"><div class="num">3.5 yr</div><div class="label">Oct 2022 → March 2026 transformation arc</div></div>
       <div class="hero-stat"><div class="num">6</div><div class="label">Workstreams orchestrated in parallel</div></div>
-      <div class="hero-stat"><div class="num">3</div><div class="label">Time phases · foundations → build → AI scale</div></div>
-      <div class="hero-stat"><div class="num">★</div><div class="label">We are here · Year 3 · AI acceleration</div></div>
+      <div class="hero-stat"><div class="num">4</div><div class="label">Time phases · foundations → AI at scale</div></div>
+      <div class="hero-stat"><div class="num">★</div><div class="label">We are here · Year 4 · AI at scale</div></div>
     </div>
   </div>
 </section>
@@ -362,8 +382,8 @@
   <div class="container">
     <div class="section-head" style="text-align: center; margin: 0 auto 36px; max-width: 880px;">
       <span class="eyebrow" style="display: inline-block;">The roadmap, lane by lane</span>
-      <h2>Six workstreams. Three phases. One coherent program.</h2>
-      <p>Each lane sequenced its own work in parallel — but governed by a shared change strategy and KPI tracking band running across the bottom of the program.</p>
+      <h2>Six workstreams. Four phases. One coherent program.</h2>
+      <p>Each lane sequenced its own work in parallel — but governed by a shared change strategy and KPI tracking band running across the bottom. The first three years built the platform; Year 4 is where AI moves from experiment to operating fabric.</p>
     </div>
 
     <div class="journey-stage">
@@ -383,18 +403,27 @@
           <div class="phase-header phase-1">
             <span class="ph-tag">Phase 1</span>
             <div class="ph-name">First 4 Months</div>
+            <div class="ph-dates">Oct 2022 – Jan 2023</div>
             <div class="ph-sub">Digital foundations</div>
           </div>
           <div class="phase-header phase-2">
             <span class="ph-tag">Phase 2</span>
             <div class="ph-name">Next 8 Months</div>
+            <div class="ph-dates">Feb 2023 – Sep 2023</div>
             <div class="ph-sub">Configure, build, test &amp; deploy</div>
           </div>
-          <div class="phase-header phase-3" style="position: relative;">
-            <span class="we-are-here" style="right: 16px;">We are here</span>
+          <div class="phase-header phase-3">
             <span class="ph-tag">Phase 3</span>
             <div class="ph-name">Year 2 &amp; 3</div>
-            <div class="ph-sub">Continuous innovation · AI acceleration</div>
+            <div class="ph-dates">Oct 2023 – Sep 2025</div>
+            <div class="ph-sub">Continuous innovation · early AI</div>
+          </div>
+          <div class="phase-header phase-4" style="position: relative;">
+            <span class="we-are-here">We are here</span>
+            <span class="ph-tag">Phase 4</span>
+            <div class="ph-name">Year 4</div>
+            <div class="ph-dates">Oct 2025 – present</div>
+            <div class="ph-sub">AI at scale · agentic acceleration</div>
           </div>
         </div>
 
@@ -416,12 +445,16 @@
               <div class="journey-item"><span class="num">5</span><span class="text">Headless CMS integration</span></div>
             </div>
             <div class="phase-cell p3">
-              <div class="journey-item"><span class="num">6</span><span class="text">A/B testing for experience</span></div>
-              <div class="journey-item ai"><span class="num">7</span><span class="text">GenAI-driven chatbots across customer support</span></div>
-              <div class="journey-item ai"><span class="num">8</span><span class="text">AI-powered personalization at surgeon-clinic level</span></div>
-              <div class="journey-item ai"><span class="num">9</span><span class="text">Conversational AI embedded across surgical workflows</span></div>
-              <div class="journey-item ai"><span class="num">10</span><span class="text">AI-driven journey orchestration · anticipating intent</span></div>
-              <div class="journey-item ai"><span class="num">11</span><span class="text">Generative content production for storefront</span></div>
+              <div class="journey-item"><span class="num">6</span><span class="text">Per-market UX research repeat</span></div>
+              <div class="journey-item"><span class="num">7</span><span class="text">A/B testing infrastructure</span></div>
+              <div class="journey-item ai"><span class="num">8</span><span class="text">First-gen GenAI chatbots (mid-2025)</span></div>
+            </div>
+            <div class="phase-cell p4">
+              <div class="journey-item ai"><span class="num">9</span><span class="text">AI-powered surgeon-clinic personalization</span></div>
+              <div class="journey-item ai"><span class="num">10</span><span class="text">Conversational AI across surgical workflows</span></div>
+              <div class="journey-item ai"><span class="num">11</span><span class="text">AI-driven journey orchestration · anticipating intent</span></div>
+              <div class="journey-item ai"><span class="num">12</span><span class="text">Generative content production for storefront</span></div>
+              <div class="journey-item ai"><span class="num">13</span><span class="text">Multimodal AI clinical-staff assistants</span></div>
             </div>
           </div>
         </div>
@@ -447,12 +480,15 @@
             </div>
             <div class="phase-cell p3">
               <div class="journey-item"><span class="num">8</span><span class="text">New market deployments &amp; zero-touch integrations</span></div>
-              <div class="journey-item ai"><span class="num">9</span><span class="text">Build automation &amp; GenAI-based development</span></div>
-              <div class="journey-item ai"><span class="num">10</span><span class="text">Automation test frameworks (AI-generated)</span></div>
-              <div class="journey-item ai"><span class="num">11</span><span class="text">AIOps for self-healing infrastructure</span></div>
-              <div class="journey-item ai"><span class="num">12</span><span class="text">GenAI-assisted code review &amp; PR auto-merge</span></div>
-              <div class="journey-item ai"><span class="num">13</span><span class="text">AI-driven performance auto-tuning</span></div>
-              <div class="journey-item ai"><span class="num">14</span><span class="text">Agentic deployment pipeline · human in the loop</span></div>
+              <div class="journey-item"><span class="num">9</span><span class="text">Build automation pipeline maturity</span></div>
+              <div class="journey-item"><span class="num">10</span><span class="text">Automation test frameworks deployment</span></div>
+            </div>
+            <div class="phase-cell p4">
+              <div class="journey-item ai"><span class="num">11</span><span class="text">GenAI-based development for web &amp; mobile</span></div>
+              <div class="journey-item ai"><span class="num">12</span><span class="text">AIOps for self-healing infrastructure</span></div>
+              <div class="journey-item ai"><span class="num">13</span><span class="text">GenAI-assisted code review &amp; PR auto-merge</span></div>
+              <div class="journey-item ai"><span class="num">14</span><span class="text">AI-driven performance auto-tuning</span></div>
+              <div class="journey-item ai"><span class="num">15</span><span class="text">Agentic deployment pipeline · human in the loop</span></div>
             </div>
           </div>
         </div>
@@ -477,11 +513,14 @@
             <div class="phase-cell p3">
               <div class="journey-item"><span class="num">6</span><span class="text">Persona-based insights dashboards</span></div>
               <div class="journey-item ai"><span class="num">7</span><span class="text">Sentiment &amp; tonal analytics insights</span></div>
-              <div class="journey-item ai"><span class="num">8</span><span class="text">Self-healing data constructs</span></div>
+              <div class="journey-item"><span class="num">8</span><span class="text">Self-healing data constructs (rules-based)</span></div>
+            </div>
+            <div class="phase-cell p4">
               <div class="journey-item ai"><span class="num">9</span><span class="text">Predictive surgery demand forecasting</span></div>
               <div class="journey-item ai"><span class="num">10</span><span class="text">GenAI semantic search across clinical data</span></div>
               <div class="journey-item ai"><span class="num">11</span><span class="text">Real-time AI anomaly detection · inventory + commerce</span></div>
               <div class="journey-item ai"><span class="num">12</span><span class="text">AI-generated executive performance summaries</span></div>
+              <div class="journey-item ai"><span class="num">13</span><span class="text">RAG-powered clinical knowledge retrieval</span></div>
             </div>
           </div>
         </div>
@@ -507,8 +546,11 @@
               <div class="journey-item"><span class="num">6</span><span class="text">Feature backlog build-out · 6–12 month outlook</span></div>
               <div class="journey-item"><span class="num">7</span><span class="text">Value-based prioritization framework</span></div>
               <div class="journey-item"><span class="num">8</span><span class="text">Continuous product innovation</span></div>
+            </div>
+            <div class="phase-cell p4">
               <div class="journey-item ai"><span class="num">9</span><span class="text">AI-powered feature ideation from user-behavior signals</span></div>
               <div class="journey-item ai"><span class="num">10</span><span class="text">AI-driven CRO experimentation &amp; auto-optimization</span></div>
+              <div class="journey-item ai"><span class="num">11</span><span class="text">Generative product-spec drafting</span></div>
             </div>
           </div>
         </div>
@@ -531,8 +573,12 @@
             </div>
             <div class="phase-cell p3">
               <div class="journey-item"><span class="num">5</span><span class="text">Efficiency improvements &amp; benefits realization</span></div>
-              <div class="journey-item ai"><span class="num">6</span><span class="text">AI-driven KPI insights &amp; predictive benefits tracking</span></div>
-              <div class="journey-item ai"><span class="num">7</span><span class="text">Agentic workflow automation for back-office</span></div>
+              <div class="journey-item"><span class="num">6</span><span class="text">Cross-market governance maturity</span></div>
+            </div>
+            <div class="phase-cell p4">
+              <div class="journey-item ai"><span class="num">7</span><span class="text">AI-driven KPI insights &amp; predictive benefits tracking</span></div>
+              <div class="journey-item ai"><span class="num">8</span><span class="text">Agentic workflow automation for back-office</span></div>
+              <div class="journey-item ai"><span class="num">9</span><span class="text">AI-augmented PMO · auto-status &amp; risk detection</span></div>
             </div>
           </div>
         </div>
@@ -555,8 +601,12 @@
             </div>
             <div class="phase-cell p3">
               <div class="journey-item"><span class="num">5</span><span class="text">Proactive change enablers</span></div>
-              <div class="journey-item ai"><span class="num">6</span><span class="text">AI-personalized training pathways</span></div>
-              <div class="journey-item ai"><span class="num">7</span><span class="text">AI-synthesized change feedback loops</span></div>
+              <div class="journey-item"><span class="num">6</span><span class="text">Per-market adoption playbooks</span></div>
+            </div>
+            <div class="phase-cell p4">
+              <div class="journey-item ai"><span class="num">7</span><span class="text">AI-personalized training pathways</span></div>
+              <div class="journey-item ai"><span class="num">8</span><span class="text">AI-synthesized change feedback loops</span></div>
+              <div class="journey-item ai"><span class="num">9</span><span class="text">GenAI-generated training content per role</span></div>
             </div>
           </div>
         </div>
@@ -571,24 +621,25 @@
       <!-- RIGHT ENDPOINT: VISION -->
       <div class="endpoint endpoint-vision">
         <div class="ep-circle">Vision</div>
-        <div class="endpoint-label">2027+ horizon</div>
+        <div class="endpoint-label">Year 5+ horizon</div>
       </div>
 
     </div>
 
     <!-- Legend -->
     <div class="journey-legend">
-      <div class="legend-item"><span class="legend-dot l1"></span>First 4 months · Digital foundations</div>
-      <div class="legend-item"><span class="legend-dot l2"></span>Next 8 months · Configure, build, test &amp; deploy</div>
-      <div class="legend-item"><span class="legend-dot l3"></span>Year 2 &amp; 3 · Continuous innovation &amp; growth</div>
-      <div class="legend-item"><span class="legend-dot l4"></span>✨ AI-accelerated workstream item (Year 3)</div>
+      <div class="legend-item"><span class="legend-dot l1"></span>Phase 1 · First 4 months · Digital foundations</div>
+      <div class="legend-item"><span class="legend-dot l2"></span>Phase 2 · Next 8 months · Build &amp; deploy</div>
+      <div class="legend-item"><span class="legend-dot l3"></span>Phase 3 · Year 2 &amp; 3 · Continuous innovation</div>
+      <div class="legend-item"><span class="legend-dot l4"></span>Phase 4 · Year 4 · AI at scale</div>
+      <div class="legend-item"><span class="legend-dot l5"></span>✨ AI-driven workstream item</div>
     </div>
 
     <!-- AI spotlight -->
     <div class="ai-spotlight" id="ai-spotlight">
-      <h4><span class="pill">Year 3 spotlight</span> AI is no longer a workstream — it's the operating fabric</h4>
+      <h4><span class="pill">Why Year 4</span> AI matured at exactly the right moment in this transformation</h4>
       <p>
-        Where the original roadmap had AI bolted onto a few cells, Year 3 of this transformation pushes AI <strong>into every lane</strong>. The customer experience runs on conversational AI and AI-driven journey orchestration. Platform engineering is accelerated by AIOps, GenAI-assisted code review, and an agentic deployment pipeline. Data &amp; insights moves from dashboards to predictive forecasting, semantic search and AI-generated executive summaries. Functionality evolves through AI-powered ideation and CRO. The operating model adopts agentic workflow automation. Even change management uses AI-personalized training. The result: <strong>~25 AI-driven items in Year 3 alone</strong> — versus a handful in the original baseline.
+        AI didn't arrive on a calendar — it became <strong>enterprise-ready</strong> over time. In Year 1 and Year 2 (2022–2024), AI was still nascent for clinical workflows: GenAI tooling was emerging, RAG patterns weren't production-mature, and agentic frameworks barely existed. Years 2 and 3 (Oct 2023 – Sep 2025) introduced the first-generation AI plays — basic chatbots, sentiment analytics, rules-based "self-healing" data constructs. The real shift happened in Year 4 (Oct 2025+) when GenAI tooling, MCP-style agent protocols, and AIOps matured simultaneously. That's why <strong>~25 of the AI-driven items live in Year 4</strong>: AI is no longer a workstream — it's the operating fabric. Predictive surgery forecasting, GenAI-assisted code review, agentic deployment pipelines, AI-personalized training, AI-augmented PMO — every lane gets an AI accelerant in Year 4 because, finally, the technology was trustworthy enough to deploy at clinical scale.
       </p>
     </div>
 
@@ -635,8 +686,8 @@
         </a>
         <a href="demo-journey.html" class="cross-nav-card current">
           <div class="icon">🛣️</div>
-          <div class="name">Three-Year Journey</div>
-          <div class="desc">Phased roadmap with AI-accelerated Year 3</div>
+          <div class="name">Multi-Year Journey</div>
+          <div class="desc">Phased roadmap with AI-accelerated Year 4</div>
           <div class="cta">You're here</div>
         </a>
       </div>
@@ -648,7 +699,7 @@
 </section>
 
 <footer>
-  Lean Core &amp; Edge — Three-Year Journey · SAP Sapphire showcase · Anonymized client narrative · As of March 2026
+  Lean Core &amp; Edge — Multi-Year Journey · SAP Sapphire showcase · Anonymized client narrative · As of March 2026
 </footer>
 
 </body>
