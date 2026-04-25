@@ -9,7 +9,8 @@ index.html                    # Main showcase (loads first on the site)
 demo-commerce.html            # Solution Demo 01 — Commerce Platform
 demo-inventory.html           # Solution Demo 02 — Surgical Inventory Platform
 demo-analytics.html           # Solution Demo 03 — Analytics & Decision Support
-showcase-styles.css           # Shared stylesheet used by all four pages
+demo-ams.html                 # Live AI-pipeline demo — submit a ticket, watch it run
+showcase-styles.css           # Shared stylesheet used by all five pages
 lean-core-edge-showcase.html  # Legacy redirect → index.html (safe to delete)
 README.md                     # This file
 ```

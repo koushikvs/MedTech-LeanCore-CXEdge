@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI in AMS — Live Pipeline Demo · Lean Core &amp; Edge</title>
+<link rel="stylesheet" href="showcase-styles.css" />
+<style>
+/* ============ AMS demo specific styles ============ */
+.ams-demo-stage {
+  background: linear-gradient(180deg, #061427 0%, #0a1f3a 100%);
+  color: #fff;
+  padding: 60px 32px 100px;
+  min-height: 80vh;
+}
+.ams-demo-grid {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.3fr;
+  gap: 32px; align-items: stretch;
+}
+
+/* Ticket panel (ServiceNow-style) */
+.ticket-card {
+  background: #fff; color: var(--text);
+  border-radius: var(--radius-xl); overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  display: flex; flex-direction: column;
+  min-height: 720px;
+}
+.ticket-card-head {
+  background: linear-gradient(135deg, #1a2c4a, #0e1f3a);
+  color: #fff;
+  padding: 16px 22px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ticket-card-head .left {
+  display: flex; align-items: center; gap: 12px;
+}
+.ticket-card-head .sn-mark {
+  width: 32px; height: 32px; border-radius: 6px;
+  background: #62D84E;
+  color: #0a2e0a; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem;
+}
+.ticket-card-head .sn-name { font-weight: 700; font-size: 1rem; }
+.ticket-card-head .sn-sub { font-size: 0.74rem; color: rgba(255,255,255,0.6); }
+.ticket-card-head .right {
+  font-size: 0.74rem; color: rgba(255,255,255,0.6);
+}
+
+.ticket-form-body {
+  padding: 22px;
+  flex: 1;
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+/* Sample selector pills */
+.sample-pills {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 12px; background: var(--surface-2);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+.sample-pills-label {
+  font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-faint);
+  font-weight: 700; width: 100%; margin-bottom: 4px;
+}
+.sample-pill {
+  flex: 1; min-width: 130px;
+  background: #fff; border: 1px solid var(--border);
+  padding: 8px 12px; border-radius: 8px;
+  cursor: pointer; transition: all 0.15s;
+  font-size: 0.78rem; color: var(--text);
+  font-weight: 500; line-height: 1.3;
+  font-family: inherit;
+  text-align: left;
+}
+.sample-pill:hover { border-color: var(--accent); background: var(--surface-2); }
+.sample-pill.active {
+  background: var(--primary); color: #fff;
+  border-color: var(--primary);
+}
+.sample-pill .app {
+  display: block; font-size: 0.66rem;
+  font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; opacity: 0.7;
+  margin-bottom: 2px;
+}
+
+/* Form inputs */
+.field-label {
+  font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-faint);
+  font-weight: 700; margin-bottom: 6px;
+}
+.text-input, .text-area {
+  width: 100%; border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 14px;
+  font-family: inherit; font-size: 0.92rem;
+  color: var(--text); background: #fff;
+  transition: all 0.15s;
+}
+.text-input:focus, .text-area:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,166,192,0.12);
+}
+.text-area { min-height: 90px; resize: vertical; line-height: 1.45; }
+
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.severity-row, .app-row {
+  display: flex; gap: 6px;
+}
+.sev-pill, .app-pill {
+  flex: 1; padding: 6px 10px;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 0.78rem;
+  cursor: pointer; transition: all 0.15s;
+  font-family: inherit; color: var(--text-muted);
+  text-align: center; font-weight: 500;
+}
+.sev-pill.active, .app-pill.active {
+  background: var(--primary); color: #fff;
+  border-color: var(--primary); font-weight: 600;
+}
+.sev-pill[data-sev="critical"].active { background: var(--danger); border-color: var(--danger); }
+.sev-pill[data-sev="high"].active { background: var(--warn); border-color: var(--warn); }
+
+.btn-submit-ticket {
+  margin-top: auto;
+  background: linear-gradient(135deg, var(--accent), #0fb5d6);
+  color: #fff; border: none;
+  padding: 14px 22px; border-radius: 999px;
+  font-weight: 700; font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(0,166,192,0.35);
+}
+.btn-submit-ticket:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,166,192,0.45); }
+.btn-submit-ticket:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Ticket created view */
+.ticket-status-bar {
+  background: linear-gradient(135deg, #fff7ed, #fffbeb);
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.ticket-status-bar.resolved {
+  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+  border-color: #bbf7d0;
+}
+.ticket-status-bar .id {
+  font-family: 'Menlo', monospace;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.86rem;
+}
+.ticket-status-bar .status {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--warn); color: #fff;
+}
+.ticket-status-bar.resolved .status { background: var(--success); }
+
+.ticket-detail {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 14px;
+  background: var(--surface-2);
+}
+.ticket-detail .h { font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+.ticket-detail .meta {
+  font-size: 0.78rem; color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.ticket-detail .meta span { margin-right: 14px; }
+.ticket-detail .desc {
+  font-size: 0.85rem; color: var(--text);
+  background: #fff; border: 1px solid var(--border);
+  padding: 10px 12px; border-radius: 6px;
+}
+
+/* Worknote (AI-added) */
+.worknote {
+  border: 1px solid var(--ai); border-left: 4px solid var(--ai);
+  border-radius: var(--radius-md);
+  padding: 16px; background: linear-gradient(135deg, #faf6ff, #fff);
+  margin-bottom: 12px;
+  animation: worknote-in 0.5s ease-out;
+}
+@keyframes worknote-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.worknote-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 12px;
+}
+.worknote-head .badge {
+  background: var(--ai); color: #fff;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.worknote-head .when { font-size: 0.74rem; color: var(--text-faint); }
+.worknote-head .by { color: var(--ai); font-weight: 700; font-size: 0.85rem; }
+.worknote-summary { font-size: 0.85rem; color: var(--text); margin-bottom: 12px; }
+.worknote-summary strong { color: var(--ai); }
+
+.solution {
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px;
+  margin-bottom: 8px;
+  display: grid; grid-template-columns: 1fr auto; gap: 12px;
+  align-items: center;
+}
+.solution:last-child { margin-bottom: 0; }
+.solution .sl-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+}
+.solution .sl-id {
+  font-family: 'Menlo', monospace;
+  font-size: 0.78rem; font-weight: 700;
+  color: var(--text);
+}
+.solution .sl-score {
+  font-size: 0.7rem; font-weight: 700;
+  background: var(--ai-soft); color: var(--ai);
+  padding: 2px 8px; border-radius: 4px;
+}
+.solution .sl-summary {
+  font-size: 0.82rem; color: var(--text-muted);
+  line-height: 1.4;
+}
+.solution .sl-fix {
+  font-size: 0.78rem; color: var(--text); margin-top: 4px;
+}
+.solution .sl-fix strong { color: var(--success); }
+.btn-apply {
+  background: var(--success); color: #fff;
+  border: none; padding: 8px 14px; border-radius: 6px;
+  font-size: 0.78rem; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.btn-apply:hover { background: #15815f; }
+.btn-apply.applied { background: var(--text-muted); }
+
+/* MTTR comparison */
+.mttr-compare {
+  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 12px;
+  animation: worknote-in 0.5s ease-out;
+}
+.mttr-compare h4 {
+  font-size: 0.82rem; color: var(--success);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.mttr-row {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 8px;
+}
+.mttr-row:last-child { margin-bottom: 0; }
+.mttr-row .lbl {
+  font-size: 0.78rem; color: var(--text-muted);
+  width: 130px; flex-shrink: 0;
+}
+.mttr-row .bar-wrap {
+  flex: 1; height: 14px;
+  background: rgba(0,0,0,0.05); border-radius: 8px;
+  position: relative;
+}
+.mttr-row .bar-fill {
+  height: 100%; border-radius: 8px;
+  transition: width 1.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+}
+.mttr-row.trad .bar-fill { background: var(--text-faint); width: 0%; }
+.mttr-row.ai .bar-fill { background: var(--success); width: 0%; }
+.mttr-row .val {
+  font-weight: 700; font-size: 0.82rem;
+  color: var(--text); width: 70px; text-align: right;
+  flex-shrink: 0;
+}
+
+/* Pipeline panel */
+.pipeline-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  display: flex; flex-direction: column;
+  min-height: 720px;
+}
+.pipeline-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.pipeline-head h3 {
+  color: #fff; font-size: 1.15rem; margin: 0;
+}
+.pipeline-head .pipeline-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.74rem; color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+.pipeline-head .pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  transition: background 0.3s;
+}
+.pipeline-head .pulse-dot.live {
+  background: var(--success);
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { box-shadow: 0 0 0 0 rgba(26,161,121,0.6); }
+  50% { box-shadow: 0 0 0 8px rgba(26,161,121,0); }
+}
+
+.pipeline-stage {
+  margin-bottom: 14px;
+  padding: 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  position: relative;
+  transition: all 0.4s ease;
+  opacity: 0.45;
+}
+.pipeline-stage.active {
+  opacity: 1;
+  background: rgba(0,166,192,0.06);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 8px 24px rgba(0,166,192,0.15);
+  transform: translateY(-1px);
+}
+.pipeline-stage.complete {
+  opacity: 1;
+  background: rgba(26,161,121,0.05);
+  border-color: rgba(26,161,121,0.4);
+}
+.pipeline-stage.complete::after {
+  content: '✓';
+  position: absolute; top: 14px; right: 16px;
+  background: var(--success);
+  color: #fff;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 700;
+  animation: check-in 0.3s ease-out;
+}
+@keyframes check-in {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.pipeline-stage-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 12px;
+}
+.stage-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.pipeline-stage.active .stage-num {
+  background: var(--accent); color: #fff;
+}
+.pipeline-stage.complete .stage-num {
+  background: var(--success); color: #fff;
+}
+.stage-name {
+  font-weight: 700; color: #fff;
+  font-size: 0.95rem; line-height: 1.2;
+}
+.stage-sub {
+  font-size: 0.72rem; color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+.stage-timing {
+  margin-left: auto;
+  font-size: 0.7rem; color: rgba(255,255,255,0.4);
+  font-family: 'Menlo', monospace;
+  padding-right: 30px;
+}
+.pipeline-stage.active .stage-timing {
+  color: var(--accent-2);
+}
+.pipeline-stage.complete .stage-timing {
+  color: rgba(26,161,121,0.8);
+}
+
+.stage-services {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.svc {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.74rem;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  transition: all 0.3s;
+  display: flex; align-items: center; gap: 6px;
+}
+.svc.ai-svc {
+  background: linear-gradient(135deg, rgba(124,92,255,0.15), rgba(0,166,192,0.1));
+  border-color: rgba(124,92,255,0.4);
+}
+.pipeline-stage.active .svc.processing {
+  animation: svc-pulse 0.9s ease-in-out infinite;
+  background: rgba(0,166,192,0.18);
+  border-color: var(--accent);
+}
+.pipeline-stage.active .svc.processing.ai-svc {
+  background: linear-gradient(135deg, rgba(124,92,255,0.3), rgba(0,166,192,0.2));
+  border-color: var(--ai);
+}
+@keyframes svc-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.json-preview {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: 'Menlo', 'Monaco', monospace;
+  font-size: 0.7rem;
+  color: rgba(174, 220, 230, 0.9);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, padding 0.3s;
+  padding-top: 0; padding-bottom: 0;
+}
+.pipeline-stage.active .json-preview,
+.pipeline-stage.complete .json-preview {
+  max-height: 200px;
+  padding-top: 10px; padding-bottom: 10px;
+}
+.json-preview .key { color: #aedce6; }
+.json-preview .str { color: #ffd966; }
+.json-preview .num { color: #6dd58c; }
+.json-preview .punct { color: rgba(255,255,255,0.5); }
+
+/* Connector between stages */
+.pipeline-connector {
+  height: 18px;
+  position: relative;
+  margin: -8px 0;
+}
+.pipeline-connector::before {
+  content: '';
+  position: absolute; left: 30px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent);
+}
+.pipeline-connector .data-dot {
+  position: absolute; left: 26px; top: -4px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  box-shadow: 0 0 12px var(--accent-2);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.pipeline-connector.flowing .data-dot {
+  opacity: 1;
+  animation: data-flow 0.8s ease-in-out;
+}
+@keyframes data-flow {
+  0% { top: -8px; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { top: 22px; opacity: 0; }
+}
+
+/* Reset / re-run controls */
+.demo-controls {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; gap: 10px; align-items: center;
+}
+.demo-controls .info {
+  flex: 1; font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+}
+.btn-reset {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 8px 14px; border-radius: 999px;
+  font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: all 0.15s;
+}
+.btn-reset:hover { background: rgba(255,255,255,0.12); }
+
+/* Aftermath section */
+.aftermath {
+  background: var(--surface);
+  padding: 80px 32px;
+}
+.aftermath-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 18px; max-width: 1280px; margin: 0 auto;
+}
+.aftermath-card {
+  background: linear-gradient(135deg, #fff, #f5f9fc);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border-top: 3px solid var(--accent);
+}
+.aftermath-card:nth-child(2) { border-top-color: var(--ai); }
+.aftermath-card:nth-child(3) { border-top-color: var(--highlight); }
+.aftermath-card:nth-child(4) { border-top-color: var(--success); }
+.aftermath-card .v {
+  font-size: 2rem; font-weight: 700;
+  color: var(--primary); line-height: 1;
+}
+.aftermath-card .l {
+  font-size: 0.78rem; color: var(--text-muted);
+  margin-top: 6px; font-weight: 500;
+}
+.aftermath-card .desc {
+  font-size: 0.85rem; color: var(--text-muted);
+  margin-top: 10px; line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+  .ams-demo-grid { grid-template-columns: 1fr; }
+  .ticket-card, .pipeline-card { min-height: auto; }
+  .aftermath-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .aftermath-grid { grid-template-columns: 1fr; }
+  .row-2 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">L|E</div>
+      <span>Lean Core &amp; Edge</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-back">← Back to showcase</a>
+      <a href="demo-commerce.html">Commerce</a>
+      <a href="demo-inventory.html">Surgical Inventory</a>
+      <a href="demo-analytics.html">Analytics</a>
+      <a href="demo-ams.html" class="nav-cta">AI in AMS</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="demo-hero">
+  <div class="demo-hero-inner">
+    <div>
+      <span class="stack-tag"><span class="dot"></span>ServiceNow · Foresight · AWS Lambda · Bedrock · OpenSearch · API Gateway</span>
+      <h1>AI in <span class="grad">AMS</span> — watch the pipeline run.</h1>
+      <p class="tagline">Submit a ServiceNow incident. Watch it flow through ingestion, processing, retrieval and response — and land back in the ticket as an AI-generated worknote with three candidate fixes for the developer to review.</p>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat"><div class="num">22</div><div class="label">EY resources supporting Digital Health AMS</div></div>
+      <div class="hero-stat"><div class="num">30%</div><div class="label">MTTR reduction across 4 mission-critical apps</div></div>
+      <div class="hero-stat"><div class="num">$1B</div><div class="label">Annual revenue supported by these apps</div></div>
+      <div class="hero-stat"><div class="num">24×7</div><div class="label">Coverage with proactive monitoring</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE DEMO -->
+<section class="ams-demo-stage">
+  <div class="ams-demo-grid">
+
+    <!-- Left: ServiceNow ticket form -->
+    <div class="ticket-card">
+      <div class="ticket-card-head">
+        <div class="left">
+          <div class="sn-mark">SN</div>
+          <div>
+            <div class="sn-name">ServiceNow · Incident Management</div>
+            <div class="sn-sub">Digital Health AMS · Production</div>
+          </div>
+        </div>
+        <div class="right">Logged in as: <strong>k.subramanian@ey.com</strong></div>
+      </div>
+
+      <!-- Form view (initial) -->
+      <div class="ticket-form-body" id="formView">
+
+        <div class="sample-pills" id="samplePills">
+          <span class="sample-pills-label">📋 Try a sample ticket:</span>
+          <button class="sample-pill active" data-sample="0">
+            <span class="app">Commerce Platform</span>
+            Checkout intermittently fails during peak load
+          </button>
+          <button class="sample-pill" data-sample="1">
+            <span class="app">Surgical Inventory</span>
+            RFID scan history not updating after bulk upload
+          </button>
+          <button class="sample-pill" data-sample="2">
+            <span class="app">Analytics &amp; Decision</span>
+            Conversational analytics returning stale revenue figures
+          </button>
+        </div>
+
+        <div>
+          <div class="field-label">Short description</div>
+          <input class="text-input" id="ticketTitle" />
+        </div>
+
+        <div>
+          <div class="field-label">Description</div>
+          <textarea class="text-area" id="ticketDesc"></textarea>
+        </div>
+
+        <div class="row-2">
+          <div>
+            <div class="field-label">Severity</div>
+            <div class="severity-row" id="sevRow">
+              <button class="sev-pill" data-sev="critical">Critical</button>
+              <button class="sev-pill active" data-sev="high">High</button>
+              <button class="sev-pill" data-sev="medium">Medium</button>
+              <button class="sev-pill" data-sev="low">Low</button>
+            </div>
+          </div>
+          <div>
+            <div class="field-label">Application</div>
+            <div class="app-row" id="appRow">
+              <button class="app-pill active" data-app="commerce">Commerce</button>
+              <button class="app-pill" data-app="inventory">Inventory</button>
+              <button class="app-pill" data-app="analytics">Analytics</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-submit-ticket" id="submitBtn">Submit ticket →</button>
+      </div>
+
+      <!-- Ticket-after view (hidden initially) -->
+      <div class="ticket-form-body" id="ticketView" style="display: none;">
+        <div class="ticket-status-bar" id="statusBar">
+          <span class="id" id="ticketId">INC-2026-04-318</span>
+          <span class="status" id="ticketStatus">Open · in progress</span>
+        </div>
+
+        <div class="ticket-detail">
+          <div class="h" id="ticketDetailTitle">Checkout intermittently fails during peak load</div>
+          <div class="meta">
+            <span>Severity: <strong id="ticketDetailSev">High</strong></span>
+            <span>App: <strong id="ticketDetailApp">Commerce</strong></span>
+            <span>Created: <strong>just now</strong></span>
+          </div>
+          <div class="desc" id="ticketDetailDesc"></div>
+        </div>
+
+        <div id="worknoteSlot"></div>
+        <div id="mttrSlot"></div>
+
+      </div>
+    </div>
+
+    <!-- Right: AI Pipeline -->
+    <div class="pipeline-card">
+      <div class="pipeline-head">
+        <h3>🤖 AI Resolution Pipeline</h3>
+        <div class="pipeline-status">
+          <span class="pulse-dot" id="pipelinePulse"></span>
+          <span id="pipelineStatusText">Idle · awaiting incident</span>
+        </div>
+      </div>
+
+      <!-- Stage 1: Ingestion -->
+      <div class="pipeline-stage" id="stage-1">
+        <div class="pipeline-stage-head">
+          <div class="stage-num">1</div>
+          <div>
+            <div class="stage-name">Ingestion Layer</div>
+            <div class="stage-sub">Real-time delta · validation · storage</div>
+          </div>
+          <div class="stage-timing" id="time-1">—</div>
+        </div>
+        <div class="stage-services">
+          <span class="svc" data-step="ingest-1">📨 ServiceNow event</span>
+          <span class="svc processing" data-step="ingest-2">🛰 Foresight · real-time delta</span>
+          <span class="svc processing" data-step="ingest-3">⚡ AWS Lambda · validate &amp; filter</span>
+          <span class="svc" data-step="ingest-4">📦 S3 · JSON store</span>
+        </div>
+        <div class="json-preview" id="json-1"></div>
+      </div>
+
+      <div class="pipeline-connector" id="conn-1"><div class="data-dot"></div></div>
+
+      <!-- Stage 2: Processing -->
+      <div class="pipeline-stage" id="stage-2">
+        <div class="pipeline-stage-head">
+          <div class="stage-num">2</div>
+          <div>
+            <div class="stage-name">Processing Layer</div>
+            <div class="stage-sub">Normalization · summarization · embedding</div>
+          </div>
+          <div class="stage-timing" id="time-2">—</div>
+        </div>
+        <div class="stage-services">
+          <span class="svc" data-step="proc-1">⚡ AWS Lambda · prep</span>
+          <span class="svc ai-svc processing" data-step="proc-2">🧠 Bedrock · Claude / Nova</span>
+          <span class="svc ai-svc processing" data-step="proc-3">🔢 Bedrock · Titan / Cohere embed</span>
+        </div>
+        <div class="json-preview" id="json-2"></div>
+      </div>
+
+      <div class="pipeline-connector" id="conn-2"><div class="data-dot"></div></div>
+
+      <!-- Stage 3: Retrieval -->
+      <div class="pipeline-stage" id="stage-3">
+        <div class="pipeline-stage-head">
+          <div class="stage-num">3</div>
+          <div>
+            <div class="stage-name">Retrieval Layer</div>
+            <div class="stage-sub">Vector search · ranking</div>
+          </div>
+          <div class="stage-timing" id="time-3">—</div>
+        </div>
+        <div class="stage-services">
+          <span class="svc ai-svc processing" data-step="ret-1">🔎 OpenSearch · Vector DB</span>
+          <span class="svc processing" data-step="ret-2">⚡ AWS Lambda · kNN + rank</span>
+          <span class="svc" data-step="ret-3">🚪 API Gateway</span>
+        </div>
+        <div class="json-preview" id="json-3"></div>
+      </div>
+
+      <div class="pipeline-connector" id="conn-3"><div class="data-dot"></div></div>
+
+      <!-- Stage 4: Response -->
+      <div class="pipeline-stage" id="stage-4">
+        <div class="pipeline-stage-head">
+          <div class="stage-num">4</div>
+          <div>
+            <div class="stage-name">UI Layer · Response</div>
+            <div class="stage-sub">Worknote posted to ticket</div>
+          </div>
+          <div class="stage-timing" id="time-4">—</div>
+        </div>
+        <div class="stage-services">
+          <span class="svc processing" data-step="res-1">🚪 API Gateway · async</span>
+          <span class="svc processing" data-step="res-2">📨 ServiceNow · post worknote</span>
+          <span class="svc" data-step="res-3">👨‍💻 Developer review</span>
+        </div>
+        <div class="json-preview" id="json-4"></div>
+      </div>
+
+      <div class="demo-controls">
+        <div class="info">
+          <strong>Human in the loop</strong> — AI suggests; engineers decide.
+        </div>
+        <button class="btn-reset" id="resetBtn">↻ Try another</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Aftermath stats -->
+<section class="aftermath">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why this matters</span>
+      <h2>The AI pipeline didn't replace the engineer. It made them faster.</h2>
+      <p>Each ticket now arrives pre-loaded with the most likely solutions ranked by similarity. The engineer reviews, picks, applies — and gets to the next ticket sooner.</p>
+    </div>
+
+    <div class="aftermath-grid">
+      <div class="aftermath-card">
+        <div class="v">30%</div>
+        <div class="l">MTTR reduction</div>
+        <div class="desc">Across the four mission-critical apps that support $1B in annual revenue.</div>
+      </div>
+      <div class="aftermath-card">
+        <div class="v">~12 min</div>
+        <div class="l">Average time-to-suggestion</div>
+        <div class="desc">From ticket submission to AI-suggested solutions appearing as a worknote.</div>
+      </div>
+      <div class="aftermath-card">
+        <div class="v">4M+</div>
+        <div class="l">Historical tickets in vector DB</div>
+        <div class="desc">Embeddings of resolved incidents, runbooks and post-mortems searchable by semantic similarity.</div>
+      </div>
+      <div class="aftermath-card">
+        <div class="v">2026</div>
+        <div class="l">Roadmap · Fixing Agent</div>
+        <div class="desc">An agentic step that drafts code fixes for recurring defects and queues them for developer review.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-nav -->
+<section class="cross-nav">
+  <div class="cross-nav-inner">
+    <h3>Continue the demo · or jump to another platform</h3>
+    <div class="cross-nav-grid">
+      <a href="demo-commerce.html" class="cross-nav-card">
+        <div class="icon">🛒</div>
+        <div class="name">Commerce Platform</div>
+        <div class="desc">B2B Digital Commerce on SAP Commerce Cloud</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-inventory.html" class="cross-nav-card">
+        <div class="icon">📦</div>
+        <div class="name">Surgical Inventory Platform</div>
+        <div class="desc">Real-time IOL inventory operations</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-analytics.html" class="cross-nav-card">
+        <div class="icon">📊</div>
+        <div class="name">Analytics &amp; Decision Support</div>
+        <div class="desc">AI-enabled clinical and commercial insights</div>
+        <div class="cta">Open demo →</div>
+      </a>
+    </div>
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="index.html" class="btn btn-light">← Back to main showcase</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Lean Core &amp; Edge — AI in AMS demo · SAP Sapphire showcase · Anonymized client narrative
+</footer>
+
+<script>
+// ============ SAMPLE TICKETS ============
+const SAMPLES = [
+  {
+    title: 'Checkout intermittently fails during peak load',
+    desc: 'Multiple users in NSC-North-Tower report intermittent 500 errors at the final checkout step between 14:00–15:00 ET. Error rate ~3% during peak, baseline ~0.1%. Affecting consignment orders specifically. Started ~22 Apr after the 7.4.1 deploy.',
+    sev: 'high',
+    app: 'commerce',
+    appLabel: 'Commerce',
+    summary: 'Intermittent checkout 500s during peak load · consignment-only · post 7.4.1 deploy',
+    keywords: ['checkout', 'peak-load', '500-error', 'consignment', 'race-condition'],
+    solutions: [
+      {
+        id: 'INC-2025-11-417',
+        score: '87% match',
+        summary: 'Cart timeout race condition during peak load — same user-facing symptom, Redis lock TTL too short for consignment serial-validation step.',
+        fix: 'Increase Redis lock TTL from 30s to 60s in cart-service.yaml. Verified in PR #2204. Rolled out without recurrence.'
+      },
+      {
+        id: 'INC-2025-09-203',
+        score: '74% match',
+        summary: 'SAP Commerce session timeout misalignment with checkout step duration — sessions expiring mid-flow.',
+        fix: 'Update session-config.xml to extend session timeout for /checkout/* routes from 600s to 1200s.'
+      },
+      {
+        id: 'INC-2025-07-188',
+        score: '62% match',
+        summary: 'Database connection pool exhaustion during checkout spikes — HikariCP saturating at 20 connections.',
+        fix: 'Increase HikariCP pool from 20 to 50, monitor via CloudWatch CHKT-DB-POOL alarm.'
+      }
+    ]
+  },
+  {
+    title: 'RFID scan history not updating after bulk upload',
+    desc: 'Operations team at NSC-North reports that bulk RFID scan events ingested via the inventory app are not appearing in the Scan History view, although the lenses themselves show as on-shelf. ~240 lens scan from Apr 21 missing. SAP S/4HANA reflects correct counts.',
+    sev: 'high',
+    app: 'inventory',
+    appLabel: 'Surgical Inventory',
+    summary: 'Bulk RFID scan events ingested but not displayed in Scan History · ~240 events missing · ECC counts correct',
+    keywords: ['rfid', 'scan-history', 'bulk-upload', 'eventing'],
+    solutions: [
+      {
+        id: 'INC-2025-12-602',
+        score: '91% match',
+        summary: 'Same symptom — bulk-scan events ingested into SAP S/4HANA but not propagated to the read-side Scan History view due to missing event-bridge subscription.',
+        fix: 'Re-register the scan-events EventBridge target on the read-model service. Replay missing events using the replay-tool from operations runbook §4.2.'
+      },
+      {
+        id: 'INC-2025-10-441',
+        score: '76% match',
+        summary: 'Bulk uploads exceeding 200 events trigger a Lambda timeout, leaving partial state in the read model.',
+        fix: 'Increase the scan-events-processor Lambda timeout from 60s to 180s and batch size from 200 to 500. Tested at 1,200-event payload.'
+      },
+      {
+        id: 'INC-2025-08-322',
+        score: '68% match',
+        summary: 'Read-model database write throttling under bulk insert — DynamoDB capacity throttled.',
+        fix: 'Switch scan-history-table to on-demand capacity or raise provisioned WCU to 200 with auto-scaling.'
+      }
+    ]
+  },
+  {
+    title: 'Conversational analytics returning stale revenue figures',
+    desc: 'Practice administrators in EU-North report that the "Ask Me Anything" assistant on the analytics dashboard is returning revenue numbers that are 24-48 hours stale, while the dashboard tiles themselves show current data. Started after the 22 Apr fee-definition update.',
+    sev: 'medium',
+    app: 'analytics',
+    appLabel: 'Analytics',
+    summary: 'Conversational AI returning 24-48h stale revenue · tile data is current · post fee-definition update',
+    keywords: ['conversational-ai', 'stale-data', 'revenue', 'cache'],
+    solutions: [
+      {
+        id: 'INC-2025-12-118',
+        score: '85% match',
+        summary: 'Same symptom — Bedrock prompt context cached against an older snapshot of the fee-definition table; tile widgets read from a different (live) source.',
+        fix: 'Bust the prompt-context cache key on fee-definition updates. Patch in pull-request #1842 — adds an event-driven cache invalidation hook.'
+      },
+      {
+        id: 'INC-2025-11-088',
+        score: '71% match',
+        summary: 'Snowflake materialized view refresh schedule misaligned with assistant query window.',
+        fix: 'Change refresh schedule on REVENUE_FACT_MV from 24h to 1h, or switch to incremental MV. Cost increase tracked in FinOps ticket FO-441.'
+      },
+      {
+        id: 'INC-2025-09-256',
+        score: '60% match',
+        summary: 'Stale token cache against older API revision — assistant calling deprecated revenue endpoint.',
+        fix: 'Roll the AI service-account API token, force re-discovery of v2 revenue endpoint, deprecate v1 path.'
+      }
+    ]
+  }
+];
+
+// ============ STATE ============
+let currentSampleIdx = 0;
+let isRunning = false;
+
+// ============ DOM HELPERS ============
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+function loadSample(idx) {
+  currentSampleIdx = idx;
+  const s = SAMPLES[idx];
+  $('#ticketTitle').value = s.title;
+  $('#ticketDesc').value = s.desc;
+  // severity pills
+  $$('#sevRow .sev-pill').forEach(p => p.classList.toggle('active', p.dataset.sev === s.sev));
+  // app pills
+  $$('#appRow .app-pill').forEach(p => p.classList.toggle('active', p.dataset.app === s.app));
+}
+
+// ============ JSON SYNTAX HIGHLIGHT ============
+function syntaxHighlight(json) {
+  if (typeof json !== 'string') json = JSON.stringify(json, null, 2);
+  return json
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (m) => {
+      let cls = 'num';
+      if (/^"/.test(m)) cls = /:$/.test(m) ? 'key' : 'str';
+      else if (/true|false|null/.test(m)) cls = 'num';
+      return `<span class="${cls}">${m}</span>`;
+    })
+    .replace(/([{}\[\],])/g, '<span class="punct">$1</span>');
+}
+
+// ============ PIPELINE ANIMATION ============
+function setStage(idx, state) {
+  const el = document.getElementById('stage-' + idx);
+  if (!el) return;
+  el.classList.remove('active', 'complete');
+  if (state) el.classList.add(state);
+}
+
+function setTime(idx, ms) {
+  const t = document.getElementById('time-' + idx);
+  if (t) t.textContent = ms ? `${ms} ms` : '—';
+}
+
+function flowConnector(idx) {
+  const c = document.getElementById('conn-' + idx);
+  if (!c) return;
+  c.classList.remove('flowing');
+  void c.offsetWidth; // restart animation
+  c.classList.add('flowing');
+}
+
+function setJson(idx, payload) {
+  const el = document.getElementById('json-' + idx);
+  if (!el) return;
+  el.innerHTML = syntaxHighlight(payload);
+}
+
+function resetPipeline() {
+  for (let i = 1; i <= 4; i++) {
+    setStage(i, null);
+    setTime(i, 0);
+    const j = document.getElementById('json-' + i);
+    if (j) j.innerHTML = '';
+    const c = document.getElementById('conn-' + i);
+    if (c) c.classList.remove('flowing');
+  }
+  $('#pipelinePulse').classList.remove('live');
+  $('#pipelineStatusText').textContent = 'Idle · awaiting incident';
+}
+
+async function runPipeline(sample, ticketId) {
+  isRunning = true;
+  $('#pipelinePulse').classList.add('live');
+  $('#pipelineStatusText').textContent = 'Live · processing incident';
+
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+  // -------- STAGE 1: Ingestion --------
+  setStage(1, 'active');
+  $('#pipelineStatusText').textContent = '⏳ Stage 1 · ingesting from ServiceNow';
+  setJson(1, {
+    event_type: 'incident.created',
+    ticket_id: ticketId,
+    source: 'ServiceNow',
+    severity: sample.sev,
+    application: sample.appLabel,
+    short_description: sample.title,
+    timestamp: new Date().toISOString(),
+    pod: 'AMS-DH-Prod'
+  });
+  await wait(1800);
+  setTime(1, 142);
+  setStage(1, 'complete');
+  flowConnector(1);
+  await wait(400);
+
+  // -------- STAGE 2: Processing --------
+  setStage(2, 'active');
+  $('#pipelineStatusText').textContent = '⏳ Stage 2 · normalizing &amp; embedding (Bedrock)';
+  setJson(2, {
+    ticket_id: ticketId,
+    summary: sample.summary,
+    keywords: sample.keywords,
+    embedding: '[0.124, -0.451, 0.892, 0.317, -0.205, 0.677, ...]',
+    embedding_dims: 1536,
+    model: 'titan-embed-text-v2'
+  });
+  await wait(2400);
+  setTime(2, 487);
+  setStage(2, 'complete');
+  flowConnector(2);
+  await wait(400);
+
+  // -------- STAGE 3: Retrieval --------
+  setStage(3, 'active');
+  $('#pipelineStatusText').textContent = '⏳ Stage 3 · vector search across 4M+ historical tickets';
+  setJson(3, {
+    query: 'kNN vector search',
+    index: 'ams-tickets-prod',
+    k: 12,
+    rerank: true,
+    top_matches: sample.solutions.map(s => ({
+      ticket_id: s.id,
+      similarity: s.score,
+      summary: s.summary.slice(0, 60) + '…'
+    }))
+  });
+  await wait(2000);
+  setTime(3, 318);
+  setStage(3, 'complete');
+  flowConnector(3);
+  await wait(400);
+
+  // -------- STAGE 4: Response --------
+  setStage(4, 'active');
+  $('#pipelineStatusText').textContent = '⏳ Stage 4 · posting worknote to ServiceNow';
+  setJson(4, {
+    ticket_id: ticketId,
+    action: 'worknote.add',
+    author: 'AI · Resolution Assistant',
+    payload: {
+      summary: 'AI-suggested resolutions based on similarity to historical tickets',
+      candidates: sample.solutions.map(s => s.id),
+      requires_human_review: true
+    }
+  });
+  await wait(1200);
+  setTime(4, 96);
+  setStage(4, 'complete');
+
+  $('#pipelineStatusText').textContent = '✓ Complete · worknote posted (1.04s end-to-end)';
+
+  // Render the worknote in the ticket panel
+  await wait(400);
+  renderWorknote(sample, ticketId);
+  isRunning = false;
+}
+
+// ============ TICKET VIEW ============
+function showTicketView(sample) {
+  // Generate a ticket id
+  const id = 'INC-2026-04-' + Math.floor(300 + Math.random() * 700);
+  $('#ticketId').textContent = id;
+  $('#ticketDetailTitle').textContent = sample.title;
+  $('#ticketDetailSev').textContent = sample.sev.charAt(0).toUpperCase() + sample.sev.slice(1);
+  $('#ticketDetailApp').textContent = sample.appLabel;
+  $('#ticketDetailDesc').textContent = sample.desc;
+  $('#worknoteSlot').innerHTML = '';
+  $('#mttrSlot').innerHTML = '';
+
+  // Reset status bar to "open"
+  $('#statusBar').classList.remove('resolved');
+  $('#ticketStatus').textContent = 'Open · AI processing…';
+
+  $('#formView').style.display = 'none';
+  $('#ticketView').style.display = 'flex';
+
+  return id;
+}
+
+function renderWorknote(sample, ticketId) {
+  const html = `
+    <div class="worknote">
+      <div class="worknote-head">
+        <span class="badge">AI · Worknote</span>
+        <span class="by">Resolution Assistant</span>
+        <span class="when">just now · ${ticketId}</span>
+      </div>
+      <div class="worknote-summary">
+        Based on the symptom signature, I found <strong>3 historical tickets</strong> with high similarity. Highest match (87–91%) usually resolves with the first suggested fix. Pick a candidate to apply.
+      </div>
+      ${sample.solutions.map((s, i) => `
+        <div class="solution">
+          <div>
+            <div class="sl-head">
+              <span class="sl-id">${s.id}</span>
+              <span class="sl-score">${s.score}</span>
+            </div>
+            <div class="sl-summary">${s.summary}</div>
+            <div class="sl-fix"><strong>Fix:</strong> ${s.fix}</div>
+          </div>
+          <button class="btn-apply" data-idx="${i}">Apply →</button>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  $('#worknoteSlot').innerHTML = html;
+
+  // Update status to "Awaiting human review"
+  $('#ticketStatus').textContent = 'Awaiting human review';
+
+  // Wire apply buttons
+  $$('.btn-apply').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = +e.target.dataset.idx;
+      applyFix(sample, ticketId, idx);
+    });
+  });
+}
+
+function applyFix(sample, ticketId, solutionIdx) {
+  const solution = sample.solutions[solutionIdx];
+  // Update buttons
+  $$('.btn-apply').forEach(b => {
+    if (+b.dataset.idx === solutionIdx) {
+      b.textContent = '✓ Applied';
+      b.classList.add('applied');
+    } else {
+      b.disabled = true;
+      b.style.opacity = '0.4';
+    }
+  });
+  // Update status bar
+  $('#statusBar').classList.add('resolved');
+  $('#ticketStatus').textContent = 'Resolved · ' + solution.id;
+
+  // Show MTTR comparison
+  $('#mttrSlot').innerHTML = `
+    <div class="mttr-compare">
+      <h4>📊 Time-to-resolution comparison</h4>
+      <div class="mttr-row trad">
+        <span class="lbl">Traditional</span>
+        <div class="bar-wrap"><div class="bar-fill"></div></div>
+        <span class="val">~4h 20m</span>
+      </div>
+      <div class="mttr-row ai">
+        <span class="lbl">AI-assisted</span>
+        <div class="bar-wrap"><div class="bar-fill"></div></div>
+        <span class="val">~12 min</span>
+      </div>
+      <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; line-height: 1.5;">
+        The AI didn't fix the bug — the engineer did. The pipeline cut search time so the engineer reached the right pattern faster, applied the validated fix, and moved on.
+      </div>
+    </div>
+  `;
+  // Animate bars
+  setTimeout(() => {
+    const trad = document.querySelector('.mttr-row.trad .bar-fill');
+    const ai = document.querySelector('.mttr-row.ai .bar-fill');
+    if (trad) trad.style.width = '100%';
+    if (ai) ai.style.width = '5%';
+  }, 50);
+}
+
+// ============ EVENT WIRING ============
+$$('#samplePills .sample-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    if (isRunning) return;
+    $$('#samplePills .sample-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    loadSample(+p.dataset.sample);
+  });
+});
+
+$$('#sevRow .sev-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    $$('#sevRow .sev-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+$$('#appRow .app-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    $$('#appRow .app-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+
+$('#submitBtn').addEventListener('click', async () => {
+  if (isRunning) return;
+  const sample = SAMPLES[currentSampleIdx];
+  // pick up any user edits
+  sample.title = $('#ticketTitle').value || sample.title;
+  sample.desc = $('#ticketDesc').value || sample.desc;
+  sample.sev = $('#sevRow .sev-pill.active')?.dataset.sev || sample.sev;
+  sample.app = $('#appRow .app-pill.active')?.dataset.app || sample.app;
+  // capitalize severity for display
+  const id = showTicketView(sample);
+  resetPipeline();
+  await runPipeline(sample, id);
+});
+
+$('#resetBtn').addEventListener('click', () => {
+  if (isRunning) return;
+  resetPipeline();
+  $('#formView').style.display = 'flex';
+  $('#ticketView').style.display = 'none';
+  loadSample(currentSampleIdx);
+});
+
+// ============ INIT ============
+loadSample(0);
+</script>
+
+</body>
+</html>
