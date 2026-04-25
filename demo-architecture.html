@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Architecture Deep Dive — Lean Core &amp; Edge</title>
+<link rel="stylesheet" href="showcase-styles.css" />
+<style>
+/* ============ Architecture page specific ============ */
+.arch-toc {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 32px;
+  position: sticky; top: 60px; z-index: 50;
+}
+.arch-toc-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+.arch-toc-card {
+  background: linear-gradient(135deg, #fff, var(--surface-2));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  text-decoration: none; color: inherit;
+  display: flex; align-items: center; gap: 14px;
+  transition: all 0.2s ease;
+  border-left: 3px solid var(--accent);
+}
+.arch-toc-card:nth-child(2) { border-left-color: var(--ai); }
+.arch-toc-card:hover {
+  transform: translateX(3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.arch-toc-num {
+  font-size: 1.6rem; font-weight: 700;
+  color: var(--accent); line-height: 1;
+}
+.arch-toc-card:nth-child(2) .arch-toc-num { color: var(--ai); }
+.arch-toc-text .lbl {
+  font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 700; color: var(--text-faint);
+}
+.arch-toc-text .name {
+  font-weight: 700; color: var(--primary); font-size: 1.02rem;
+}
+.arch-toc-text .desc {
+  font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;
+}
+
+.arch-section { padding: 80px 32px; }
+.arch-section.alt { background: var(--surface-2); }
+.arch-section .container { max-width: 1280px; }
+
+.arch-title-row {
+  display: flex; align-items: flex-start; gap: 18px;
+  margin-bottom: 28px;
+}
+.arch-num-badge {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(11,37,69,0.2);
+}
+.arch-section.alt .arch-num-badge {
+  background: linear-gradient(135deg, var(--ai), #5a3fdb);
+  box-shadow: 0 6px 16px rgba(124,92,255,0.3);
+}
+.arch-title-row h2 {
+  color: var(--primary); margin: 0 0 6px;
+  font-size: 1.8rem;
+}
+.arch-title-row p {
+  color: var(--text-muted); margin: 0;
+  font-size: 1rem; max-width: 800px;
+}
+
+/* Zones — used for the deployment architecture */
+.arch-zone {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 14px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.arch-zone.zone-vpc {
+  border: 2px dashed #FF9900;
+  background: linear-gradient(135deg, #fff, #fffbf3);
+  padding: 24px;
+}
+.arch-zone.zone-external {
+  background: linear-gradient(135deg, #fff, #f6f9ff);
+  border-left: 3px solid #1CA9F4;
+}
+.arch-zone.zone-identity {
+  background: linear-gradient(135deg, #fff, #f0f7fc);
+  border-left: 3px solid #007DC1;
+}
+.arch-zone.zone-edge {
+  background: linear-gradient(135deg, #fff, #faf5ff);
+  border-left: 3px solid #8C4FFF;
+}
+.arch-zone.zone-cicd {
+  background: linear-gradient(135deg, #fff, #f0f8ff);
+  border-left: 3px solid #2684FF;
+}
+.arch-zone.zone-iot {
+  background: linear-gradient(135deg, #fff, #f0fffc);
+  border-left: 3px solid #00A4A6;
+}
+.zone-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary); color: #fff;
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.arch-zone.zone-vpc .zone-label { background: #FF9900; color: #1a1208; }
+.arch-zone.zone-external .zone-label { background: #1CA9F4; }
+.arch-zone.zone-identity .zone-label { background: #007DC1; }
+.arch-zone.zone-edge .zone-label { background: #8C4FFF; }
+.arch-zone.zone-cicd .zone-label { background: #2684FF; }
+.arch-zone.zone-iot .zone-label { background: #00A4A6; }
+
+.arch-zone h3 {
+  color: var(--primary); font-size: 1.05rem;
+  margin: 0 0 4px;
+}
+.arch-zone .zone-sub {
+  font-size: 0.82rem; color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
+/* Service grid inside a zone */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+.svc-grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.svc-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+.svc-tile {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex; flex-direction: column; gap: 6px;
+  transition: all 0.15s ease;
+}
+.svc-tile:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.svc-tile-head {
+  display: flex; align-items: center; gap: 10px;
+}
+.svc-logo {
+  width: 32px; height: 32px;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+.svc-name {
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: var(--primary);
+  line-height: 1.2;
+}
+.svc-tag {
+  font-size: 0.62rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-top: 1px;
+}
+.svc-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Container tile (for the FE/BE container columns) */
+.cnt-tile {
+  background: linear-gradient(135deg, #fff, #f7faff);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+.cnt-tile h4 {
+  color: var(--primary); font-size: 0.95rem;
+  margin: 0 0 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.cnt-tile .cnt-stack {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.cnt-stack .pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #fff; border: 1px solid var(--border);
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Flow connector between zones */
+.arch-flow {
+  text-align: center;
+  color: var(--text-faint);
+  padding: 8px 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative;
+}
+.arch-flow::before, .arch-flow::after {
+  content: '';
+  display: inline-block;
+  width: 60px; height: 1px;
+  background: var(--border-strong);
+  vertical-align: middle;
+  margin: 0 12px;
+}
+.arch-flow .arrow {
+  display: inline-block;
+  margin: 0 4px;
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+/* Two-column layout for FE/BE side by side */
+.zone-2col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+
+/* CICD pipeline horizontal flow */
+.pipeline-row {
+  display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap;
+}
+.pipeline-row .svc-tile { flex: 1; min-width: 160px; }
+.pipeline-row .arr {
+  color: var(--text-faint); font-size: 1.4rem; font-weight: 700;
+}
+
+/* ============ LAYERED ARCHITECTURE ============ */
+.layered-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.layered-col {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.layered-col-head {
+  display: inline-block;
+  background: var(--primary); color: #fff;
+  padding: 4px 14px; border-radius: 6px;
+  font-size: 0.74rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 14px;
+}
+.layered-col.fe-col .layered-col-head { background: linear-gradient(135deg, #DD0031, #C20025); }
+.layered-col.sap-col .layered-col-head { background: linear-gradient(135deg, #1CA9F4, #0086C7); }
+
+/* Front-end sub blocks */
+.fe-block {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.fe-block:last-child { margin-bottom: 0; }
+.fe-block-head {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+}
+.fe-block-name {
+  font-weight: 700; color: var(--primary);
+  font-size: 0.92rem;
+}
+.fe-block-tag {
+  font-size: 0.66rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.fe-pills {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.fe-pill {
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.fe-pill.color-orange { background: #fff7ed; color: #b45309; border-color: #fed7aa; }
+.fe-pill.color-teal { background: #ecfeff; color: #0e7490; border-color: #a5f3fc; }
+.fe-pill.color-green { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+.fe-pill.color-blue { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+
+/* SAP CCV2 stack (right column of the layered diagram) */
+.sap-stack {
+  background: linear-gradient(135deg, #f6fbff, #fff);
+}
+.sap-layer {
+  background: #fff;
+  border: 1px solid #cce5f7;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.sap-layer-name {
+  font-weight: 700; color: #0078b4;
+  font-size: 0.85rem; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sap-cells {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.sap-cell {
+  background: #f0f8ff;
+  border: 1px solid #cce5f7;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.74rem; color: #1e3a5f;
+  font-weight: 500;
+}
+.sap-cell.platform { background: #e6f3ff; }
+.sap-cell.full { width: 100%; text-align: center; padding: 6px 12px; font-weight: 700; }
+
+/* BFF strip */
+.bff-strip {
+  background: linear-gradient(135deg, #1a2c4a, #0e1f3a);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 22px; margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+}
+.bff-strip h4 {
+  color: #fff; margin: 0 0 10px;
+  font-size: 1.05rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.bff-strip-tag {
+  background: rgba(255,255,255,0.15); color: #fff;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.bff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.bff-cell {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 12px; border-radius: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.bff-cell .bff-name {
+  font-weight: 600; font-size: 0.86rem;
+  line-height: 1.2;
+}
+.bff-cell .bff-sub {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+}
+
+/* ESB band */
+.esb-band {
+  background: linear-gradient(90deg, var(--accent), var(--ai), var(--accent));
+  color: #fff;
+  text-align: center;
+  padding: 14px 22px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  box-shadow: 0 8px 22px rgba(0,166,192,0.25);
+}
+
+/* Enterprise systems strip */
+.enterprise-strip {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+}
+.enterprise-strip h4 {
+  color: var(--primary); font-size: 0.95rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin: 0 0 14px;
+}
+.enterprise-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.enterprise-tile {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.enterprise-tile strong {
+  display: block;
+  color: var(--primary);
+  font-size: 0.84rem;
+  margin-bottom: 2px;
+}
+
+/* Takeaways */
+.arch-takeaways {
+  margin-top: 32px;
+  background: linear-gradient(135deg, #061427, #0a1f3a);
+  color: #fff;
+  border-radius: var(--radius-xl);
+  padding: 28px;
+}
+.arch-takeaways h3 {
+  color: #fff; margin: 0 0 16px;
+  font-size: 1.1rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.takeaways-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.takeaway {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+.takeaway .icon {
+  font-size: 1.4rem; margin-bottom: 8px;
+}
+.takeaway h4 {
+  color: #fff; font-size: 0.95rem; margin: 0 0 6px;
+}
+.takeaway p {
+  color: rgba(255,255,255,0.78); font-size: 0.84rem;
+  line-height: 1.5; margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .arch-toc-inner { grid-template-columns: 1fr; }
+  .layered-grid { grid-template-columns: 1fr; }
+  .zone-2col { grid-template-columns: 1fr; }
+  .enterprise-grid { grid-template-columns: 1fr 1fr; }
+  .bff-grid { grid-template-columns: 1fr; }
+  .takeaways-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .enterprise-grid { grid-template-columns: 1fr; }
+  .arch-section { padding: 60px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ Reusable SVG logo defs (loaded once, used many times) ============ -->
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+  <defs>
+    <symbol id="logo-aws" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#FF9900"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#1a1208">AWS</text>
+    </symbol>
+    <symbol id="logo-lambda" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#FF9900"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="#1a1208">λ</text>
+    </symbol>
+    <symbol id="logo-dynamo" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#4053D6"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="white">DDB</text>
+    </symbol>
+    <symbol id="logo-msk" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#231F20"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="white">MSK</text>
+    </symbol>
+    <symbol id="logo-cw" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#E7157B"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">CW</text>
+    </symbol>
+    <symbol id="logo-cf" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#8C4FFF"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">CF</text>
+    </symbol>
+    <symbol id="logo-cm" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#DD344C"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">CM</text>
+    </symbol>
+    <symbol id="logo-r53" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#8C4FFF"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">R53</text>
+    </symbol>
+    <symbol id="logo-alb" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#8C4FFF"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="white">ALB</text>
+    </symbol>
+    <symbol id="logo-fargate" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#FF9900"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="#1a1208">ECS</text>
+    </symbol>
+    <symbol id="logo-secrets" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#DD344C"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">SM</text>
+    </symbol>
+    <symbol id="logo-param" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#DD344C"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">PS</text>
+    </symbol>
+    <symbol id="logo-ecr" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#FF9900"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#1a1208">ECR</text>
+    </symbol>
+    <symbol id="logo-iotcore" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#00A4A6"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">IoT</text>
+    </symbol>
+    <symbol id="logo-okta" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#007DC1"/>
+      <circle cx="16" cy="16" r="7" fill="none" stroke="white" stroke-width="3"/>
+    </symbol>
+    <symbol id="logo-mulesoft" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#00A1DF"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">M</text>
+    </symbol>
+    <symbol id="logo-sap" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#003F76"/>
+      <text x="16" y="21" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#FDB913">SAP</text>
+    </symbol>
+    <symbol id="logo-hybris" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#1CA9F4"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">HY</text>
+    </symbol>
+    <symbol id="logo-angular" viewBox="0 0 32 32">
+      <path d="M16 3 L29 7 L27 23 L16 29 L5 23 L3 7 Z" fill="#DD0031"/>
+      <path d="M16 3 L16 29 L27 23 L29 7 Z" fill="#C3002F"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">A</text>
+    </symbol>
+    <symbol id="logo-docker" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#2496ED"/>
+      <rect x="6" y="14" width="4" height="4" fill="white"/>
+      <rect x="11" y="14" width="4" height="4" fill="white"/>
+      <rect x="16" y="14" width="4" height="4" fill="white"/>
+      <rect x="11" y="9" width="4" height="4" fill="white"/>
+      <rect x="16" y="9" width="4" height="4" fill="white"/>
+      <path d="M22 14 Q26 14 26 18 Q26 22 22 22 L8 22 Q5 22 5 19" fill="none" stroke="white" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="logo-nginx" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#009639"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">N</text>
+    </symbol>
+    <symbol id="logo-spring" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#6DB33F"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">S</text>
+    </symbol>
+    <symbol id="logo-java" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#ED8B00"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">J</text>
+    </symbol>
+    <symbol id="logo-bitbucket" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#2684FF"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">B</text>
+    </symbol>
+    <symbol id="logo-veracode" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#003E5C"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#FFB81C">VC</text>
+    </symbol>
+    <symbol id="logo-storybook" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#FF4785"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">S</text>
+    </symbol>
+    <symbol id="logo-azure" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#0078D4"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="white">Azure</text>
+    </symbol>
+    <symbol id="logo-k8s" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#326CE5"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white">K8</text>
+    </symbol>
+    <symbol id="logo-mqtt" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#660066"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="white">MQTT</text>
+    </symbol>
+    <symbol id="logo-cdn" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#8C4FFF"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="white">CDN</text>
+    </symbol>
+    <symbol id="logo-quantum" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#0F1A2B"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="#00C6B5">QM</text>
+    </symbol>
+    <symbol id="logo-ga" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#F9AB00"/>
+      <text x="16" y="22" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">G</text>
+    </symbol>
+    <symbol id="logo-cms" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="#1F1F1F"/>
+      <text x="16" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#7D5BBE">CS</text>
+    </symbol>
+    <symbol id="logo-user" viewBox="0 0 32 32">
+      <rect width="32" height="32" rx="6" fill="var(--primary)"/>
+      <circle cx="16" cy="13" r="4" fill="white"/>
+      <path d="M9 25 Q9 19 16 19 Q23 19 23 25" fill="white"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Top nav -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="index.html" class="brand">
+      <div class="brand-mark">L|E</div>
+      <span>Lean Core &amp; Edge</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-back">← Back to showcase</a>
+      <a href="demo-commerce.html">Commerce</a>
+      <a href="demo-inventory.html">Inventory</a>
+      <a href="demo-analytics.html">Analytics</a>
+      <a href="demo-ams.html">AI in AMS</a>
+      <a href="demo-architecture.html" class="nav-cta">Architecture</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="demo-hero">
+  <div class="demo-hero-inner">
+    <div>
+      <span class="stack-tag"><span class="dot"></span>SAP S/4HANA · SAP Commerce Cloud · AWS · Okta · MuleSoft · Angular</span>
+      <h1>Architecture <span class="grad">Deep Dive</span></h1>
+      <p class="tagline">Two views of how the platform actually fits together: the deployment &amp; runtime architecture (what runs where), and the layered software architecture (how the code is organized). Both built on the principle of <strong>decoupling digital front-end engagement layers from back-end systems</strong>.</p>
+      <div class="hero-actions">
+        <a href="#arch-deployment" class="btn btn-primary">Deployment view ↓</a>
+        <a href="#arch-layered" class="btn btn-ghost">Layered view ↓</a>
+      </div>
+    </div>
+    <div class="hero-stat-grid">
+      <div class="hero-stat"><div class="num">3</div><div class="label">Edge applications, lean SAP S/4HANA core</div></div>
+      <div class="hero-stat"><div class="num">34</div><div class="label">Markets in production · as of March 2026</div></div>
+      <div class="hero-stat"><div class="num">CCV2</div><div class="label">SAP Commerce Cloud 2211+</div></div>
+      <div class="hero-stat"><div class="num">100%</div><div class="label">Cloud-native · self-funded from digital savings</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOC -->
+<div class="arch-toc">
+  <div class="arch-toc-inner">
+    <a href="#arch-deployment" class="arch-toc-card">
+      <span class="arch-toc-num">01</span>
+      <div class="arch-toc-text">
+        <span class="lbl">Architecture · 1</span>
+        <div class="name">Deployment &amp; Runtime</div>
+        <div class="desc">What runs where: AWS VPC, identity, integration, IoT, CI/CD</div>
+      </div>
+    </a>
+    <a href="#arch-layered" class="arch-toc-card">
+      <span class="arch-toc-num">02</span>
+      <div class="arch-toc-text">
+        <span class="lbl">Architecture · 2</span>
+        <div class="name">Layered Software</div>
+        <div class="desc">Front End / BFF / SAP Commerce Cloud / Enterprise Service Bus</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ============ ARCHITECTURE 1: DEPLOYMENT & RUNTIME ============ -->
+<section class="arch-section" id="arch-deployment">
+  <div class="container">
+    <div class="arch-title-row">
+      <div class="arch-num-badge">1</div>
+      <div>
+        <h2>Deployment &amp; Runtime Architecture</h2>
+        <p>Decoupled front-end and back-end, both running in containers within the client AWS VPC. Identity via OKTA, integration via MuleSoft, SAP CCv2 as the core commerce engine, IoT ingestion via MQTT, and a Bitbucket → Veracode → ECR CI/CD pipeline.</p>
+      </div>
+    </div>
+
+    <!-- Zone: User entry -->
+    <div class="arch-zone zone-edge">
+      <span class="zone-label">User Entry · Edge</span>
+      <h3>Customer browser → DNS → CDN → ALB</h3>
+      <p class="zone-sub">All traffic enters through a CloudFront-fronted aliased domain. TLS termination at the edge, cert managed automatically.</p>
+      <div class="svc-grid">
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-user"/></svg>
+            <div><div class="svc-name">Customer / Clinical user</div><div class="svc-tag">Browser</div></div>
+          </div>
+          <p class="svc-desc">Hits <code style="font-family: monospace; font-size: 0.72rem;">digital.client-medtech.example</code></p>
+        </div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-r53"/></svg>
+            <div><div class="svc-name">Domain Name Service</div><div class="svc-tag">DNS</div></div>
+          </div>
+          <p class="svc-desc">Custom client domain · registration, DNS &amp; aliased record management.</p>
+        </div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-cm"/></svg>
+            <div><div class="svc-name">AWS Certificate Manager</div><div class="svc-tag">TLS · cert</div></div>
+          </div>
+          <p class="svc-desc">Provisions and renews TLS certs from AWS Public Root CA — no manual cert management.</p>
+        </div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-cf"/></svg>
+            <div><div class="svc-name">CloudFront Distribution</div><div class="svc-tag">CDN · edge</div></div>
+          </div>
+          <p class="svc-desc">Domain aliased CDN. Registered origins differentiate FE vs. BE behaviors via path.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-flow"><span class="arrow">↓</span> Routes to Front End or Back End ALB <span class="arrow">↓</span></div>
+
+    <!-- Zone: AWS VPC (the big one) -->
+    <div class="arch-zone zone-vpc">
+      <span class="zone-label">Client AWS VPC</span>
+      <h3>Application layer — Front End &amp; Back End containers</h3>
+      <p class="zone-sub">Decoupled FE and BE, both behind their own ALBs, deployed on Fargate ECS. The decoupling principle is the architectural cornerstone — front-end can iterate independently of the back-end and core systems.</p>
+
+      <!-- FE / BE containers side by side -->
+      <div class="zone-2col">
+        <div class="cnt-tile">
+          <h4><svg class="svc-logo"><use href="#logo-alb"/></svg> Front End ALB → Containers</h4>
+          <div class="cnt-stack">
+            <span class="pill"><svg class="svc-logo" style="width:18px;height:18px;"><use href="#logo-angular"/></svg>Angular</span>
+            <span class="pill"><svg class="svc-logo" style="width:18px;height:18px;"><use href="#logo-docker"/></svg>Docker</span>
+            <span class="pill"><svg class="svc-logo" style="width:18px;height:18px;"><use href="#logo-nginx"/></svg>Nginx</span>
+          </div>
+          <p class="svc-desc">Angular SPA served via Nginx, containerized. The FE container is the only thing the customer's browser actually loads. ECS logs flow to CloudWatch.</p>
+        </div>
+        <div class="cnt-tile">
+          <h4><svg class="svc-logo"><use href="#logo-alb"/></svg> Back End ALB → Containers</h4>
+          <div class="cnt-stack">
+            <span class="pill"><svg class="svc-logo" style="width:18px;height:18px;"><use href="#logo-spring"/></svg>Spring Boot</span>
+            <span class="pill"><svg class="svc-logo" style="width:18px;height:18px;"><use href="#logo-docker"/></svg>Docker</span>
+            <span class="pill"><svg class="svc-logo" style="width:18px;height:18px;"><use href="#logo-java"/></svg>Java</span>
+          </div>
+          <p class="svc-desc">Spring Boot REST API in Java, containerized. Calls into MuleSoft for SAP &amp; data-lake integration; reads/writes its own data tier.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <h4 style="font-size: 0.78rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin: 0 0 10px;">⚙ Supporting AWS services</h4>
+        <div class="svc-grid">
+          <div class="svc-tile">
+            <div class="svc-tile-head">
+              <svg class="svc-logo"><use href="#logo-fargate"/></svg>
+              <div><div class="svc-name">Fargate ECS</div><div class="svc-tag">Compute</div></div>
+            </div>
+            <p class="svc-desc">Launch type for both FE &amp; BE containers — serverless, no node management.</p>
+          </div>
+          <div class="svc-tile">
+            <div class="svc-tile-head">
+              <svg class="svc-logo"><use href="#logo-dynamo"/></svg>
+              <div><div class="svc-name">DynamoDB</div><div class="svc-tag">App data</div></div>
+            </div>
+            <p class="svc-desc">Last-scan, interim status, physician records, patient context, et al.</p>
+          </div>
+          <div class="svc-tile">
+            <div class="svc-tile-head">
+              <svg class="svc-logo"><use href="#logo-msk"/></svg>
+              <div><div class="svc-name">AWS MSK · Kafka</div><div class="svc-tag">Async events</div></div>
+            </div>
+            <p class="svc-desc">Async events from IoT devices and other systems flow through MSK topics.</p>
+          </div>
+          <div class="svc-tile">
+            <div class="svc-tile-head">
+              <svg class="svc-logo"><use href="#logo-cw"/></svg>
+              <div><div class="svc-name">CloudWatch</div><div class="svc-tag">Observability</div></div>
+            </div>
+            <p class="svc-desc">FE &amp; BE ECS logging, metrics, alarms — single pane of glass for operations.</p>
+          </div>
+          <div class="svc-tile">
+            <div class="svc-tile-head">
+              <svg class="svc-logo"><use href="#logo-param"/></svg>
+              <div><div class="svc-name">Parameter Store</div><div class="svc-tag">Config</div></div>
+            </div>
+            <p class="svc-desc">Non-sensitive config: URLs, feature flags, environment-specific endpoints.</p>
+          </div>
+          <div class="svc-tile">
+            <div class="svc-tile-head">
+              <svg class="svc-logo"><use href="#logo-secrets"/></svg>
+              <div><div class="svc-name">Secrets Manager</div><div class="svc-tag">Credentials</div></div>
+            </div>
+            <p class="svc-desc">Sensitive config: DB credentials, API keys, OAuth secrets — rotated automatically.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-flow"><span class="arrow">↓</span> Identity, integration &amp; SAP <span class="arrow">↓</span></div>
+
+    <!-- Zone: Identity -->
+    <div class="arch-zone zone-identity">
+      <span class="zone-label">Identity Layer</span>
+      <h3>Okta CIAM/WIAM — JWT auth across edge applications</h3>
+      <p class="zone-sub">A shared identity layer powers self-registration, role-based access and JWT-validated API calls. BE containers introspect tokens against Okta on every privileged call.</p>
+      <div class="svc-grid">
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-okta"/></svg>
+            <div><div class="svc-name">Okta</div><div class="svc-tag">CIAM / WIAM</div></div>
+          </div>
+          <p class="svc-desc">Customer Identity (CIAM) for clinical users + Workforce Identity (WIAM) for internal admins. JWT introspection on protected APIs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone: Integration -->
+    <div class="arch-zone zone-external">
+      <span class="zone-label">Integration · SAP &amp; Data</span>
+      <h3>MuleSoft API Gateway — bridging the edge to SAP S/4HANA &amp; Data Lake</h3>
+      <p class="zone-sub">Every call from the BE containers to SAP or to the data lake flows through MuleSoft — a single integration layer that protects the SAP core from edge volatility.</p>
+      <div class="svc-grid">
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-mulesoft"/></svg>
+            <div><div class="svc-name">MuleSoft API Gateway</div><div class="svc-tag">Integration</div></div>
+          </div>
+          <p class="svc-desc">Connectors for SAP, Okta, AWS. Single point of governance for cross-system traffic.</p>
+        </div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-sap"/></svg>
+            <div><div class="svc-name">SAP Commerce Cloud · CCV2</div><div class="svc-tag">Microsoft Azure · 2211+</div></div>
+          </div>
+          <p class="svc-desc">SAP Commerce Cloud running on Microsoft Azure, fronted by Cloud Portal &amp; SAP-managed build automation.</p>
+        </div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-hybris"/></svg>
+            <div><div class="svc-name">SAP Hybris</div><div class="svc-tag">Commerce platform</div></div>
+          </div>
+          <p class="svc-desc">Underlying Hybris commerce platform — storefronts, OCC APIs and admin tooling.</p>
+        </div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-aws"/></svg>
+            <div><div class="svc-name">Internal Foresight API · Data Lake</div><div class="svc-tag">Analytics</div></div>
+          </div>
+          <p class="svc-desc">Foresight API for SAP + AWS-hosted data lake powers the analytics &amp; decision-support workloads.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone: CI/CD -->
+    <div class="arch-zone zone-cicd">
+      <span class="zone-label">CI/CD Pipeline</span>
+      <h3>Bitbucket → Veracode → ECR — the same pipeline for FE and BE</h3>
+      <p class="zone-sub">Every commit goes through a security-scan gate before image promotion. Continuous Delivery deploys to Fargate ECS from ECR.</p>
+      <div class="pipeline-row">
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-bitbucket"/></svg>
+            <div><div class="svc-name">Bitbucket Repo</div><div class="svc-tag">FE &amp; BE source</div></div>
+          </div>
+          <p class="svc-desc">Source of truth for FE and BE codebases.</p>
+        </div>
+        <div class="arr">→</div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-veracode"/></svg>
+            <div><div class="svc-name">Veracode</div><div class="svc-tag">SAST · Security gate</div></div>
+          </div>
+          <p class="svc-desc">Static analysis on every PR. Failing scans block promotion.</p>
+        </div>
+        <div class="arr">→</div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-ecr"/></svg>
+            <div><div class="svc-name">AWS ECR</div><div class="svc-tag">Container registry</div></div>
+          </div>
+          <p class="svc-desc">Built images live here. Tagged immutably; deployed by CD pipeline to Fargate.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone: IoT -->
+    <div class="arch-zone zone-iot">
+      <span class="zone-label">IoT Integration</span>
+      <h3>IoT cloud → MQTT → AWS IoT Core → MSK</h3>
+      <p class="zone-sub">Telemetry from clinical IoT devices flows through MQTT to AWS IoT Core, then onto Kafka via MSK for downstream consumers (analytics, inventory, care-team alerts).</p>
+      <div class="pipeline-row">
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-iotcore"/></svg>
+            <div><div class="svc-name">IoT Cloud Provider</div><div class="svc-tag">Device fleet</div></div>
+          </div>
+          <p class="svc-desc">Per-device certificates issued by DigiCert; mTLS to provider cloud.</p>
+        </div>
+        <div class="arr">→</div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-mqtt"/></svg>
+            <div><div class="svc-name">MQTT</div><div class="svc-tag">Pub/sub protocol</div></div>
+          </div>
+          <p class="svc-desc">Lightweight messaging from devices over secure connection.</p>
+        </div>
+        <div class="arr">→</div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-iotcore"/></svg>
+            <div><div class="svc-name">AWS IoT Core</div><div class="svc-tag">Device → Cloud</div></div>
+          </div>
+          <p class="svc-desc">Device registry &amp; ingestion gateway. Bridges to MSK.</p>
+        </div>
+        <div class="arr">→</div>
+        <div class="svc-tile">
+          <div class="svc-tile-head">
+            <svg class="svc-logo"><use href="#logo-msk"/></svg>
+            <div><div class="svc-name">AWS MSK</div><div class="svc-tag">Async events bus</div></div>
+          </div>
+          <p class="svc-desc">Kafka topics fan out to inventory, analytics &amp; clinical alerting consumers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Takeaways -->
+    <div class="arch-takeaways">
+      <h3>Why this shape</h3>
+      <div class="takeaways-grid">
+        <div class="takeaway">
+          <div class="icon">🛡️</div>
+          <h4>Lean Core protected</h4>
+          <p>SAP S/4HANA &amp; CCV2 are reached only through MuleSoft. The edge cannot bypass governance — and the core is shielded from edge volatility.</p>
+        </div>
+        <div class="takeaway">
+          <div class="icon">⚡</div>
+          <h4>Edge moves at edge speed</h4>
+          <p>FE and BE deploy independently via Bitbucket → Veracode → ECR → Fargate. Two-week speed-to-market wasn't an accident — it was an architectural choice.</p>
+        </div>
+        <div class="takeaway">
+          <div class="icon">🔐</div>
+          <h4>Identity &amp; secrets centralized</h4>
+          <p>Okta is the single auth surface. Secrets Manager rotates credentials. Veracode gates code. Each control lives in one place — easier to audit, easier to harden.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE 2: LAYERED SOFTWARE ============ -->
+<section class="arch-section alt" id="arch-layered">
+  <div class="container">
+    <div class="arch-title-row">
+      <div class="arch-num-badge">2</div>
+      <div>
+        <h2>Layered Software Architecture</h2>
+        <p>How the code is organized — front-end design system &amp; component libraries, BFFs for integration, SAP Commerce Cloud as the platform, ESB and enterprise systems behind it.</p>
+      </div>
+    </div>
+
+    <!-- FRONT END | SAP STACK side-by-side -->
+    <div class="layered-grid">
+
+      <!-- FRONT END column -->
+      <div class="layered-col fe-col">
+        <span class="layered-col-head">Front End</span>
+
+        <!-- Design system -->
+        <div class="fe-block">
+          <div class="fe-block-head">
+            <svg class="svc-logo" style="width: 26px; height: 26px;"><use href="#logo-storybook"/></svg>
+            <div>
+              <div class="fe-block-name">Design System</div>
+              <div class="fe-block-tag">Storybook + libraries</div>
+            </div>
+          </div>
+          <div class="fe-pills">
+            <span class="fe-pill color-orange">Libraries</span>
+            <span class="fe-pill color-teal">Design system</span>
+            <span class="fe-pill color-teal">Simple components</span>
+            <span class="fe-pill color-teal">Theming</span>
+            <span class="fe-pill color-green">Atoms</span>
+            <span class="fe-pill color-green">Molecules</span>
+            <span class="fe-pill color-green">Organisms</span>
+          </div>
+        </div>
+
+        <!-- Website static -->
+        <div class="fe-block">
+          <div class="fe-block-head">
+            <svg class="svc-logo" style="width: 26px; height: 26px;"><use href="#logo-angular"/></svg>
+            <svg class="svc-logo" style="width: 26px; height: 26px;"><use href="#logo-cms"/></svg>
+            <div>
+              <div class="fe-block-name">Website (static content)</div>
+              <div class="fe-block-tag">Angular + headless CMS</div>
+            </div>
+          </div>
+          <div class="fe-pills">
+            <span class="fe-pill color-orange">Shared logic libraries</span>
+            <span class="fe-pill color-teal">Smart components</span>
+            <span class="fe-pill color-green">Banner</span>
+            <span class="fe-pill color-green">Footer</span>
+            <span class="fe-pill color-green">User info</span>
+            <span class="fe-pill color-green">Other…</span>
+          </div>
+        </div>
+
+        <!-- eCommerce dynamic -->
+        <div class="fe-block">
+          <div class="fe-block-head">
+            <svg class="svc-logo" style="width: 26px; height: 26px;"><use href="#logo-angular"/></svg>
+            <svg class="svc-logo" style="width: 26px; height: 26px;"><use href="#logo-cms"/></svg>
+            <div>
+              <div class="fe-block-name">eCommerce (Dynamic)</div>
+              <div class="fe-block-tag">Angular + headless CMS</div>
+            </div>
+          </div>
+          <div class="fe-pills">
+            <span class="fe-pill color-orange">Domain libraries</span>
+            <span class="fe-pill color-teal">Smart components</span>
+            <span class="fe-pill color-green">Public site</span>
+            <span class="fe-pill color-green">Editor view</span>
+            <span class="fe-pill color-green">Product catalog</span>
+            <span class="fe-pill color-green">Other…</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SAP COMMERCE CLOUD column -->
+      <div class="layered-col sap-col sap-stack">
+        <span class="layered-col-head">SAP Commerce Cloud (CCV2 — 2211+)</span>
+
+        <!-- SAP commerce application -->
+        <div class="sap-layer">
+          <div class="sap-layer-name">
+            <svg class="svc-logo" style="width: 22px; height: 22px;"><use href="#logo-sap"/></svg>
+            SAP commerce application
+          </div>
+          <div class="sap-cells">
+            <span class="sap-cell">Customization</span>
+            <span class="sap-cell">Storefronts (accelerators)</span>
+            <span class="sap-cell">Data Model &amp; APIs</span>
+            <span class="sap-cell">Administration</span>
+            <span class="sap-cell">Integration extensions</span>
+            <span class="sap-cell">Business logic</span>
+          </div>
+        </div>
+
+        <!-- Platform services -->
+        <div class="sap-layer">
+          <div class="sap-layer-name">⚙ Platform services</div>
+          <div class="sap-cells">
+            <span class="sap-cell platform full">Application server</span>
+            <span class="sap-cell platform full">Persistence layer</span>
+          </div>
+        </div>
+
+        <!-- Microsoft Azure / Kubernetes -->
+        <div class="sap-layer">
+          <div class="sap-layer-name">
+            <svg class="svc-logo" style="width: 22px; height: 22px;"><use href="#logo-azure"/></svg>
+            <svg class="svc-logo" style="width: 22px; height: 22px;"><use href="#logo-k8s"/></svg>
+            Microsoft Azure | Kubernetes
+          </div>
+        </div>
+
+        <!-- Build Automation -->
+        <div class="sap-layer">
+          <div class="sap-layer-name">🛠 Build Automation</div>
+          <div class="sap-cells">
+            <span class="sap-cell">Code repository</span>
+            <span class="sap-cell">Build manifest</span>
+            <span class="sap-cell">SAP artifacts</span>
+            <span class="sap-cell">Base docker img</span>
+          </div>
+        </div>
+
+        <!-- Cloud Portal -->
+        <div class="sap-layer">
+          <div class="sap-layer-name">☁ Cloud Portal</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BFF strip -->
+    <div class="bff-strip">
+      <h4>
+        <span class="bff-strip-tag">Middle layer</span>
+        Backend for Front-Ends (BFFs) — integration &amp; orchestration
+      </h4>
+      <div class="bff-grid">
+        <div class="bff-cell">
+          <svg class="svc-logo"><use href="#logo-mulesoft"/></svg>
+          <div>
+            <div class="bff-name">Third-party integrations</div>
+            <div class="bff-sub">Maps, geo, address validation &amp; partner APIs</div>
+          </div>
+        </div>
+        <div class="bff-cell">
+          <svg class="svc-logo"><use href="#logo-quantum"/></svg>
+          <div>
+            <div class="bff-name">Analytics</div>
+            <div class="bff-sub">Quantum Metric · Google Analytics</div>
+          </div>
+        </div>
+        <div class="bff-cell">
+          <svg class="svc-logo"><use href="#logo-cms"/></svg>
+          <div>
+            <div class="bff-name">Content Management System</div>
+            <div class="bff-sub">Headless CMS for static and dynamic content</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ESB band -->
+    <div class="esb-band">═══ Enterprise Service Bus ═══ governed integration across all systems</div>
+
+    <!-- Enterprise Systems -->
+    <div class="enterprise-strip">
+      <h4>🏢 Enterprise Systems</h4>
+      <div class="enterprise-grid">
+        <div class="enterprise-tile">
+          <strong>Enterprise Resource Mgmt</strong>SAP S/4HANA core — finance, supply, master data
+        </div>
+        <div class="enterprise-tile">
+          <strong>Supply Chain &amp; Logistics</strong>Fulfillment, warehouse &amp; distribution
+        </div>
+        <div class="enterprise-tile">
+          <strong>Configure, Price, Quote</strong>CPQ for complex surgical product packs
+        </div>
+        <div class="enterprise-tile">
+          <strong>Customer Service &amp; Support</strong>Service Cloud + Knowledge base
+        </div>
+        <div class="enterprise-tile">
+          <strong>EHR / EMR</strong>Patient data integration (HL7 / FHIR)
+        </div>
+        <div class="enterprise-tile">
+          <strong>External Provider</strong>Surgical-facility data exchange
+        </div>
+        <div class="enterprise-tile">
+          <strong>Payment Gateway</strong>Tokenized commerce payments
+        </div>
+        <div class="enterprise-tile">
+          <strong>Credit Checks</strong>Customer onboarding &amp; eligibility
+        </div>
+      </div>
+    </div>
+
+    <!-- Takeaways -->
+    <div class="arch-takeaways">
+      <h3>Why this shape</h3>
+      <div class="takeaways-grid">
+        <div class="takeaway">
+          <div class="icon">🧱</div>
+          <h4>Front-end is composable</h4>
+          <p>Storybook design system + atomic components mean every market and every app share the same primitives. New experiences come together fast — and look consistent.</p>
+        </div>
+        <div class="takeaway">
+          <div class="icon">🪢</div>
+          <h4>BFF absorbs complexity</h4>
+          <p>Each consumer-facing experience gets a tailored backend that orchestrates downstream calls. Front-ends stay thin; integration logic stays in one disciplined layer.</p>
+        </div>
+        <div class="takeaway">
+          <div class="icon">🏛️</div>
+          <h4>Core stays clean</h4>
+          <p>SAP CCV2 + S/4HANA + the broader enterprise systems sit behind the ESB. They're invoked, not modified — exactly the Lean Core principle in code.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-nav -->
+<section class="cross-nav">
+  <div class="cross-nav-inner">
+    <h3>Continue the demo · or jump to another platform</h3>
+    <div class="cross-nav-grid">
+      <a href="demo-commerce.html" class="cross-nav-card">
+        <div class="icon">🛒</div>
+        <div class="name">Commerce Platform</div>
+        <div class="desc">B2B Digital Commerce on SAP Commerce Cloud</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-inventory.html" class="cross-nav-card">
+        <div class="icon">📦</div>
+        <div class="name">Surgical Inventory Platform</div>
+        <div class="desc">Real-time IOL inventory operations</div>
+        <div class="cta">Open demo →</div>
+      </a>
+      <a href="demo-analytics.html" class="cross-nav-card">
+        <div class="icon">📊</div>
+        <div class="name">Analytics &amp; Decision Support</div>
+        <div class="desc">AI-enabled clinical and commercial insights</div>
+        <div class="cta">Open demo →</div>
+      </a>
+    </div>
+    <div style="margin-top: 24px;">
+      <div class="cross-nav-grid" style="grid-template-columns: 1fr 1fr;">
+        <a href="demo-ams.html" class="cross-nav-card">
+          <div class="icon">🤖</div>
+          <div class="name">AI in AMS</div>
+          <div class="desc">Live pipeline demo — ServiceNow → Bedrock → worknote</div>
+          <div class="cta">Open demo →</div>
+        </a>
+        <a href="demo-architecture.html" class="cross-nav-card current">
+          <div class="icon">🏗️</div>
+          <div class="name">Architecture deep dive</div>
+          <div class="desc">Deployment + layered architectures with logos</div>
+          <div class="cta">You're here</div>
+        </a>
+      </div>
+    </div>
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="index.html" class="btn btn-light">← Back to main showcase</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Lean Core &amp; Edge — Architecture deep dive · SAP Sapphire showcase · Anonymized client narrative · As of March 2026
+</footer>
+
+</body>
+</html>
